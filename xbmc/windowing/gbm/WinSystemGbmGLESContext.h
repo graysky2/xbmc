@@ -39,6 +39,7 @@ public:
   void PresentRender(bool rendered, bool videoLayer) override;
 protected:
   void SetVSyncImpl(bool enable) override {}
+  std::unique_ptr<CVideoSync> GetVideoSync(void *clock) override;
   void PresentRenderImpl(bool rendered) override {};
   bool CreateContext() override;
 };

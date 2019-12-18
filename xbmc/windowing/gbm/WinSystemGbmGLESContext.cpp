@@ -28,6 +28,7 @@
 #include "utils/XTimeUtils.h"
 #include "utils/log.h"
 #include "windowing/WindowSystemFactory.h"
+#include "VideoSyncGbm.h"
 
 #include <gbm.h>
 
@@ -144,7 +145,7 @@ void CWinSystemGbmGLESContext::PresentRender(bool rendered, bool videoLayer)
   }
   else
   {
-    KODI::TIME::Sleep(10);
+    KODI::TIME::Sleep(1);
   }
 }
 
@@ -159,4 +160,10 @@ bool CWinSystemGbmGLESContext::CreateContext()
     return false;
   }
   return true;
+}
+
+std::unique_ptr<CVideoSync> CWinSystemGbmGLESContext::GetVideoSync(void *clock)
+{
+  std::unique_ptr<CVideoSync> pVSync(new CVideoSyncGbm(clock));
+  return pVSync;
 }
