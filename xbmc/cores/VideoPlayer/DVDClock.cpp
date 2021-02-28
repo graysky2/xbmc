@@ -202,7 +202,7 @@ double CDVDClock::ErrorAdjust(double error, const char* log)
 
   Discontinuity(clock+adjustment, absolute);
 
-  CLog::Log(LOGDEBUG, "CDVDClock::ErrorAdjust - %s - error:%f, adjusted:%f",
+  CLog::Log(LOGINFO, "CDVDClock::ErrorAdjust - %s - error:%f, adjusted:%f",
                       log, error, adjustment);
   return adjustment;
 }
