@@ -47,6 +47,20 @@ void CVideoLayerBridgeDRMPRIME::Disable()
     m_DRM->AddProperty(connector, "Colorspace", value);
   }
 
+  std::tie(result, value) = connector->GetPropertyValue("hdmi color formats", "Default");
+  if (result)
+  {
+    CLog::Log(LOGDEBUG, "CVideoLayerBridgeDRMPRIME::{} - setting connector hdmi color formats to Default", __FUNCTION__);
+    m_DRM->AddProperty(connector, "hdmi color formats", value);
+  }
+
+  result = m_DRM->AddProperty(connector, "max bpc", 8);
+  if (!result)
+  {
+    CLog::Log(LOGDEBUG, "CVideoLayerBridgeDRMPRIME::{} - failed to reset max bpc", __FUNCTION__);
+  }
+
+
   // disable HDR metadata
   if (connector->SupportsProperty("HDR_OUTPUT_METADATA"))
   {
@@ -185,12 +199,35 @@ void CVideoLayerBridgeDRMPRIME::Configure(CVideoBufferDRMPRIME* buffer)
 
   auto connector = m_DRM->GetConnector();
 
-  std::tie(result, value) =  connector->GetPropertyValue("Colorspace", GetColorimetry(picture));
+  int bpc = 8;
+  bool ycc = false;
+  std::string color_format = "Default";
+
+  if (picture.colorBits > 8)
+  {
+    bpc = 12;
+    ycc = true;
+    color_format = "YCrCb422";
+  }
+
+  std::tie(result, value) =  connector->GetPropertyValue("Colorspace", GetColorimetry(picture, ycc));
   if (result)
   {
     CLog::Log(LOGDEBUG, "CVideoLayerBridgeDRMPRIME::{} - setting connector colorspace to {}", __FUNCTION__,
-              GetColorimetry(picture));
+              GetColorimetry(picture, ycc));
     m_DRM->AddProperty(connector, "Colorspace", value);
+    m_DRM->SetActive(true);
+  }
+
+  result = m_DRM->AddProperty(connector, "max bpc", bpc);
+  CLog::Log(LOGDEBUG, "CVideoLayerBridgeDRMPRIME::{} - setting max bpc to {} ({})", __FUNCTION__,
+            bpc, result);
+  std::tie(result, value) =  connector->GetPropertyValue("hdmi color formats", color_format);
+  if (result)
+  {
+    CLog::Log(LOGDEBUG, "CVideoLayerBridgeDRMPRIME::{} - setting connector hdmi color formats to {}",
+              __FUNCTION__, color_format);
+    m_DRM->AddProperty(connector, "hdmi color formats", value);
     m_DRM->SetActive(true);
   }
 
