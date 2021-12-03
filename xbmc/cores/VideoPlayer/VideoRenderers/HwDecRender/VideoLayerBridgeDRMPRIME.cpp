@@ -167,6 +167,13 @@ void CVideoLayerBridgeDRMPRIME::Configure(CVideoBufferDRMPRIME* buffer)
       plane->GetPropertyEnumValue("COLOR_RANGE", GetColorRange(picture));
   if (colorRange)
     m_DRM->AddProperty(plane, "COLOR_RANGE", colorRange.value());
+
+  // set max bpc to allow the drm driver to choose a deep colour mode
+  int bpc = buffer->GetPicture().colorBits > 8 ? 12 : 8;
+  auto connector = m_DRM->GetConnector();
+  bool result = m_DRM->AddProperty(connector, "max bpc", bpc);
+  CLog::Log(LOGDEBUG, "CVideoLayerBridgeDRMPRIME::{} - setting max bpc to {} ({})", __FUNCTION__,
+            bpc, result);
 }
 
 void CVideoLayerBridgeDRMPRIME::SetVideoPlane(CVideoBufferDRMPRIME* buffer, const CRect& destRect)
