@@ -1,5 +1,5 @@
 diff --git a/configure b/configure
-index 732de59292..1a149564b6 100755
+index a0eed36abfe3..518f03212fea 100755
 --- a/configure
 +++ b/configure
 @@ -201,6 +201,7 @@ External library support:
@@ -150,7 +150,7 @@ index 732de59292..1a149564b6 100755
  check_headers direct.h
  check_headers dirent.h
  check_headers dxgidebug.h
-@@ -7271,6 +7301,10 @@ enabled rkmpp             && { require_pkg_config rkmpp rockchip_mpp  rockchip/r
+@@ -7275,6 +7305,10 @@ enabled rkmpp             && { require_pkg_config rkmpp rockchip_mpp  rockchip/r
                                 { enabled libdrm ||
                                   die "ERROR: rkmpp requires --enable-libdrm"; }
                               }
@@ -161,7 +161,7 @@ index 732de59292..1a149564b6 100755
  enabled vapoursynth       && require_headers "vapoursynth/VSScript4.h vapoursynth/VapourSynth4.h"
  
  enabled openssl            && {
-@@ -7281,6 +7315,9 @@ enabled openssl            && {
+@@ -7285,6 +7319,9 @@ enabled openssl            && {
      }
  }
  
@@ -171,7 +171,7 @@ index 732de59292..1a149564b6 100755
  
  if enabled gcrypt; then
      GCRYPT_CONFIG="${cross_prefix}libgcrypt-config"
-@@ -7367,6 +7404,10 @@ if enabled v4l2_m2m; then
+@@ -7371,6 +7408,10 @@ if enabled v4l2_m2m; then
      check_cc vp9_v4l2_m2m linux/videodev2.h "int i = V4L2_PIX_FMT_VP9;"
  fi
  
@@ -182,7 +182,7 @@ index 732de59292..1a149564b6 100755
  check_headers sys/videoio.h
  test_code cc sys/videoio.h "struct v4l2_frmsizeenum vfse; vfse.discrete.width = 0;" && enable_sanitized struct_v4l2_frmivalenum_discrete
  
-@@ -7912,6 +7953,9 @@ enabled threads || warn \
+@@ -7916,6 +7957,9 @@ enabled threads || warn \
      "that the libraries from this build MUST NOT be used in a multi-threaded"\
      "environment."
  
@@ -193,7 +193,7 @@ index 732de59292..1a149564b6 100755
  haiku)
      disable memalign
 diff --git a/fftools/ffmpeg.h b/fftools/ffmpeg.h
-index 53f71bc080..07fd36bc93 100644
+index 53f71bc0800f..07fd36bc933b 100644
 --- a/fftools/ffmpeg.h
 +++ b/fftools/ffmpeg.h
 @@ -721,6 +721,8 @@ extern enum VideoSyncMethod video_sync_method;
@@ -206,7 +206,7 @@ index 53f71bc080..07fd36bc93 100644
  extern int do_pkt_dump;
  extern int copy_ts;
 diff --git a/fftools/ffmpeg_dec.c b/fftools/ffmpeg_dec.c
-index 1d7158f995..d7a3b337a1 100644
+index 1d7158f99579..d7a3b337a18c 100644
 --- a/fftools/ffmpeg_dec.c
 +++ b/fftools/ffmpeg_dec.c
 @@ -392,7 +392,7 @@ static int video_frame_process(DecoderPriv *dp, AVFrame *frame,
@@ -237,7 +237,7 @@ index 1d7158f995..d7a3b337a1 100644
                      continue;
                  if (config->pix_fmt == *p)
 diff --git a/fftools/ffmpeg_filter.c b/fftools/ffmpeg_filter.c
-index bf5e53efa9..4d11add6ff 100644
+index bf5e53efa96b..4d11add6ff3d 100644
 --- a/fftools/ffmpeg_filter.c
 +++ b/fftools/ffmpeg_filter.c
 @@ -2874,8 +2874,8 @@ static int send_frame(FilterGraph *fg, FilterGraphThread *fgt,
@@ -262,7 +262,7 @@ index bf5e53efa9..4d11add6ff 100644
          ret = ifilter_parameters_from_frame(ifilter, frame);
          if (ret < 0)
 diff --git a/fftools/ffmpeg_hw.c b/fftools/ffmpeg_hw.c
-index 5d4c06c28e..f39bd29b6e 100644
+index 5d4c06c28e85..f39bd29b6e4a 100644
 --- a/fftools/ffmpeg_hw.c
 +++ b/fftools/ffmpeg_hw.c
 @@ -73,6 +73,8 @@ static char *hw_device_default_name(enum AVHWDeviceType type)
@@ -275,7 +275,7 @@ index 5d4c06c28e..f39bd29b6e 100644
      name = av_malloc(index_pos + 4);
      if (!name)
 diff --git a/fftools/ffmpeg_opt.c b/fftools/ffmpeg_opt.c
-index d714a1523a..13b8aa5576 100644
+index d714a1523a17..13b8aa557686 100644
 --- a/fftools/ffmpeg_opt.c
 +++ b/fftools/ffmpeg_opt.c
 @@ -62,6 +62,7 @@ enum VideoSyncMethod video_sync_method = VSYNC_AUTO;
@@ -301,7 +301,7 @@ index d714a1523a..13b8aa5576 100644
      { "stdin",                  OPT_TYPE_BOOL, OPT_EXPERT,
          { &stdin_interaction },
 diff --git a/libavcodec/Makefile b/libavcodec/Makefile
-index fb22541f8d..6c10aec6bd 100644
+index fb22541f8de0..6c10aec6bdc3 100644
 --- a/libavcodec/Makefile
 +++ b/libavcodec/Makefile
 @@ -182,7 +182,10 @@ OBJS-$(CONFIG_VIDEODSP)                += videodsp.o
@@ -327,7 +327,7 @@ index fb22541f8d..6c10aec6bd 100644
  OBJS-$(CONFIG_HEVC_VULKAN_HWACCEL)        += vulkan_decode.o vulkan_hevc.o
 diff --git a/libavcodec/hevc-ctrls-v1.h b/libavcodec/hevc-ctrls-v1.h
 new file mode 100644
-index 0000000000..72cbba0953
+index 000000000000..72cbba0953dc
 --- /dev/null
 +++ b/libavcodec/hevc-ctrls-v1.h
 @@ -0,0 +1,229 @@
@@ -562,7 +562,7 @@ index 0000000000..72cbba0953
 +#endif
 diff --git a/libavcodec/hevc-ctrls-v2.h b/libavcodec/hevc-ctrls-v2.h
 new file mode 100644
-index 0000000000..7cbbbf055f
+index 000000000000..7cbbbf055f47
 --- /dev/null
 +++ b/libavcodec/hevc-ctrls-v2.h
 @@ -0,0 +1,257 @@
@@ -825,7 +825,7 @@ index 0000000000..7cbbbf055f
 +#endif
 diff --git a/libavcodec/hevc-ctrls-v3.h b/libavcodec/hevc-ctrls-v3.h
 new file mode 100644
-index 0000000000..4e35bd583d
+index 000000000000..4e35bd583d58
 --- /dev/null
 +++ b/libavcodec/hevc-ctrls-v3.h
 @@ -0,0 +1,255 @@
@@ -1086,7 +1086,7 @@ index 0000000000..4e35bd583d
 +#endif
 diff --git a/libavcodec/hevc-ctrls-v4.h b/libavcodec/hevc-ctrls-v4.h
 new file mode 100644
-index 0000000000..c02fdbe5a8
+index 000000000000..c02fdbe5a8e9
 --- /dev/null
 +++ b/libavcodec/hevc-ctrls-v4.h
 @@ -0,0 +1,524 @@
@@ -1615,7 +1615,7 @@ index 0000000000..c02fdbe5a8
 +
 +#endif
 diff --git a/libavcodec/hevc/hevcdec.c b/libavcodec/hevc/hevcdec.c
-index f44bda8a92..dc75f88b51 100644
+index 8a845f54f369..a625d3ab882b 100644
 --- a/libavcodec/hevc/hevcdec.c
 +++ b/libavcodec/hevc/hevcdec.c
 @@ -351,6 +351,19 @@ static void export_stream_params(HEVCContext *s, const HEVCSPS *sps)
@@ -1747,7 +1747,7 @@ index f44bda8a92..dc75f88b51 100644
                                 HWACCEL_VAAPI(hevc),
  #endif
 diff --git a/libavcodec/hevc/parser.c b/libavcodec/hevc/parser.c
-index 16b40e2b10..cf9830648a 100644
+index 16b40e2b10db..cf9830648a78 100644
 --- a/libavcodec/hevc/parser.c
 +++ b/libavcodec/hevc/parser.c
 @@ -93,6 +93,19 @@ static int hevc_parse_slice_header(AVCodecParserContext *s, H2645NAL *nal,
@@ -1771,7 +1771,7 @@ index 16b40e2b10..cf9830648a 100644
          num = sps->vps->vps_num_units_in_tick;
          den = sps->vps->vps_time_scale;
 diff --git a/libavcodec/hevc/refs.c b/libavcodec/hevc/refs.c
-index ab2e075af0..342e7a6de9 100644
+index 15f37bfcd8aa..cdeb2709c5f8 100644
 --- a/libavcodec/hevc/refs.c
 +++ b/libavcodec/hevc/refs.c
 @@ -167,16 +167,19 @@ static HEVCFrame *alloc_frame(HEVCContext *s, HEVCLayerContext *l)
@@ -1804,7 +1804,7 @@ index ab2e075af0..342e7a6de9 100644
  
          if (s->sei.picture_timing.picture_struct == AV_PICTURE_STRUCTURE_TOP_FIELD)
              frame->f->flags |= AV_FRAME_FLAG_TOP_FIELD_FIRST;
-@@ -327,14 +330,17 @@ static int init_slice_rpl(HEVCContext *s)
+@@ -328,14 +331,17 @@ static int init_slice_rpl(HEVCContext *s)
      int ctb_count    = frame->ctb_count;
      int ctb_addr_ts  = s->pps->ctb_addr_rs_to_ts[s->sh.slice_segment_addr];
      int i;
@@ -1826,7 +1826,7 @@ index ab2e075af0..342e7a6de9 100644
      return 0;
  }
 diff --git a/libavcodec/hwaccel_internal.h b/libavcodec/hwaccel_internal.h
-index 7224406815..bc7a81eeb1 100644
+index 7224406815ab..bc7a81eeb1ef 100644
 --- a/libavcodec/hwaccel_internal.h
 +++ b/libavcodec/hwaccel_internal.h
 @@ -163,6 +163,17 @@ typedef struct FFHWAccel {
@@ -1848,7 +1848,7 @@ index 7224406815..bc7a81eeb1 100644
  
  static inline const FFHWAccel *ffhwaccel(const AVHWAccel *codec)
 diff --git a/libavcodec/hwaccels.h b/libavcodec/hwaccels.h
-index 4b205d386e..bd69ebe2e2 100644
+index 4b205d386edd..bd69ebe2e201 100644
 --- a/libavcodec/hwaccels.h
 +++ b/libavcodec/hwaccels.h
 @@ -45,6 +45,7 @@ extern const struct FFHWAccel ff_hevc_d3d11va2_hwaccel;
@@ -1860,7 +1860,7 @@ index 4b205d386e..bd69ebe2e2 100644
  extern const struct FFHWAccel ff_hevc_vdpau_hwaccel;
  extern const struct FFHWAccel ff_hevc_videotoolbox_hwaccel;
 diff --git a/libavcodec/hwconfig.h b/libavcodec/hwconfig.h
-index ee29ca631d..a7cb81aa04 100644
+index ee29ca631df0..a7cb81aa044f 100644
 --- a/libavcodec/hwconfig.h
 +++ b/libavcodec/hwconfig.h
 @@ -67,6 +67,8 @@ void ff_hwaccel_uninit(AVCodecContext *avctx);
@@ -1873,7 +1873,7 @@ index ee29ca631d..a7cb81aa04 100644
      HW_CONFIG_HWACCEL(1, 1, 1, VAAPI,        VAAPI,        ff_ ## codec ## _vaapi_hwaccel)
  #define HWACCEL_VDPAU(codec) \
 diff --git a/libavcodec/mmaldec.c b/libavcodec/mmaldec.c
-index e42591110f..70cc0ecabc 100644
+index e42591110fec..70cc0ecabcb9 100644
 --- a/libavcodec/mmaldec.c
 +++ b/libavcodec/mmaldec.c
 @@ -24,6 +24,9 @@
@@ -1895,7 +1895,7 @@ index e42591110f..70cc0ecabc 100644
  
  #include "avcodec.h"
 diff --git a/libavcodec/raw_pix_fmt_tags.h b/libavcodec/raw_pix_fmt_tags.h
-index bdde060cf7..a1621b7319 100644
+index bdde060cf72c..a1621b7319a5 100644
 --- a/libavcodec/raw_pix_fmt_tags.h
 +++ b/libavcodec/raw_pix_fmt_tags.h
 @@ -310,6 +310,12 @@ static const PixelFormatTag raw_pix_fmt_tags[] = {
@@ -1912,7 +1912,7 @@ index bdde060cf7..a1621b7319 100644
  };
  
 diff --git a/libavcodec/rawenc.c b/libavcodec/rawenc.c
-index 8c577006d9..b215577b75 100644
+index 8c577006d922..b215577b7548 100644
 --- a/libavcodec/rawenc.c
 +++ b/libavcodec/rawenc.c
 @@ -24,6 +24,7 @@
@@ -2072,7 +2072,7 @@ index 8c577006d9..b215577b75 100644
  
  const FFCodec ff_rawvideo_encoder = {
 diff --git a/libavcodec/v4l2_buffers.c b/libavcodec/v4l2_buffers.c
-index 7f597a424a..feb12f4419 100644
+index 7f597a424aa9..feb12f4419f4 100644
 --- a/libavcodec/v4l2_buffers.c
 +++ b/libavcodec/v4l2_buffers.c
 @@ -21,6 +21,7 @@
@@ -3268,7 +3268,7 @@ index 7f597a424a..feb12f4419 100644
      return 0;
  }
 diff --git a/libavcodec/v4l2_buffers.h b/libavcodec/v4l2_buffers.h
-index e35b161309..444ad94b14 100644
+index e35b16130944..444ad94b145e 100644
 --- a/libavcodec/v4l2_buffers.h
 +++ b/libavcodec/v4l2_buffers.h
 @@ -28,31 +28,47 @@
@@ -3380,7 +3380,7 @@ index e35b161309..444ad94b14 100644
  
  #endif // AVCODEC_V4L2_BUFFERS_H
 diff --git a/libavcodec/v4l2_context.c b/libavcodec/v4l2_context.c
-index be1df3785b..76da5a1504 100644
+index be1df3785b28..76da5a15041b 100644
 --- a/libavcodec/v4l2_context.c
 +++ b/libavcodec/v4l2_context.c
 @@ -28,11 +28,14 @@
@@ -4792,7 +4792,7 @@ index be1df3785b..76da5a1504 100644
      return ret;
  }
 diff --git a/libavcodec/v4l2_context.h b/libavcodec/v4l2_context.h
-index fdd5cf5284..99201ca254 100644
+index fdd5cf5284d6..99201ca254a9 100644
 --- a/libavcodec/v4l2_context.h
 +++ b/libavcodec/v4l2_context.h
 @@ -32,6 +32,8 @@
@@ -4958,7 +4958,7 @@ index fdd5cf5284..99201ca254 100644
 +
  #endif // AVCODEC_V4L2_CONTEXT_H
 diff --git a/libavcodec/v4l2_fmt.c b/libavcodec/v4l2_fmt.c
-index 6df47e3f5a..c820a1d522 100644
+index 6df47e3f5a3c..c820a1d5227b 100644
 --- a/libavcodec/v4l2_fmt.c
 +++ b/libavcodec/v4l2_fmt.c
 @@ -42,6 +42,14 @@ static const struct fmt_conversion {
@@ -4977,7 +4977,7 @@ index 6df47e3f5a..c820a1d522 100644
      { AV_FMT(YUV420P),     AV_CODEC(RAWVIDEO),    V4L2_FMT(YUV420) },
      { AV_FMT(YUYV422),     AV_CODEC(RAWVIDEO),    V4L2_FMT(YUYV) },
 diff --git a/libavcodec/v4l2_m2m.c b/libavcodec/v4l2_m2m.c
-index 8f633e2aeb..706cf959cf 100644
+index 8f633e2aeb77..706cf959cf02 100644
 --- a/libavcodec/v4l2_m2m.c
 +++ b/libavcodec/v4l2_m2m.c
 @@ -36,6 +36,15 @@
@@ -5145,7 +5145,7 @@ index 8f633e2aeb..706cf959cf 100644
      priv->context->frame = av_frame_alloc();
      if (!priv->context->frame) {
 diff --git a/libavcodec/v4l2_m2m.h b/libavcodec/v4l2_m2m.h
-index 4ba33dc335..36f61ee2a9 100644
+index 4ba33dc33593..b958a0ac3461 100644
 --- a/libavcodec/v4l2_m2m.h
 +++ b/libavcodec/v4l2_m2m.h
 @@ -30,6 +30,7 @@
@@ -5203,7 +5203,7 @@ index 4ba33dc335..36f61ee2a9 100644
      AVPacket buf_pkt;
  
      /* Reference to a frame. Only used during encoding */
-@@ -66,6 +95,36 @@ typedef struct V4L2m2mContext {
+@@ -66,6 +95,37 @@ typedef struct V4L2m2mContext {
  
      /* reference back to V4L2m2mPriv */
      void *priv;
@@ -5233,6 +5233,7 @@ index 4ba33dc335..36f61ee2a9 100644
 +
 +#define FF_V4L2_QUIRK_REINIT_ALWAYS             1
 +#define FF_V4L2_QUIRK_ENUM_FRAMESIZES_BROKEN    2
++#define FF_V4L2_QUIRK_8192_MACRO_MAX            4   // Size limited to 8192 macroblocks
 +    /* Quirks */
 +    unsigned int quirks;
 +
@@ -5240,7 +5241,7 @@ index 4ba33dc335..36f61ee2a9 100644
  } V4L2m2mContext;
  
  typedef struct V4L2m2mPriv {
-@@ -75,6 +134,8 @@ typedef struct V4L2m2mPriv {
+@@ -75,6 +135,8 @@ typedef struct V4L2m2mPriv {
  
      int num_output_buffers;
      int num_capture_buffers;
@@ -5249,7 +5250,7 @@ index 4ba33dc335..36f61ee2a9 100644
  } V4L2m2mPriv;
  
  /**
-@@ -128,4 +189,26 @@ int ff_v4l2_m2m_codec_reinit(V4L2m2mContext *ctx);
+@@ -128,4 +190,26 @@ int ff_v4l2_m2m_codec_reinit(V4L2m2mContext *ctx);
   */
  int ff_v4l2_m2m_codec_full_reinit(V4L2m2mContext *ctx);
  
@@ -5277,7 +5278,7 @@ index 4ba33dc335..36f61ee2a9 100644
 +
  #endif /* AVCODEC_V4L2_M2M_H */
 diff --git a/libavcodec/v4l2_m2m_dec.c b/libavcodec/v4l2_m2m_dec.c
-index ba1fe769e0..c7b73812d0 100644
+index ba1fe769e0fe..5e8dafe8e4b2 100644
 --- a/libavcodec/v4l2_m2m_dec.c
 +++ b/libavcodec/v4l2_m2m_dec.c
 @@ -21,8 +21,15 @@
@@ -5376,13 +5377,13 @@ index ba1fe769e0..c7b73812d0 100644
 +    for (i = 0; i != 8; ++i) {
 +        *s++ = ' ';
 +        s = len > i + offset ? hex2(s, *m++) : dash2(s);
-+    }
+     }
 +    *s++ = ' ';
 +    *s++ = ':';
 +    for (; i != 16; ++i) {
 +        *s++ = ' ';
 +        s = len > i + offset ? hex2(s, *m++) : dash2(s);
-     }
++    }
 +    *s++ = 0;
 +}
  
@@ -5624,7 +5625,7 @@ index ba1fe769e0..c7b73812d0 100644
      return 0;
  }
  
-@@ -133,50 +344,821 @@ static int v4l2_prepare_decoder(V4L2m2mContext *s)
+@@ -133,51 +344,887 @@ static int v4l2_prepare_decoder(V4L2m2mContext *s)
      return 0;
  }
  
@@ -5836,28 +5837,28 @@ index ba1fe769e0..c7b73812d0 100644
 -                return ret;
 +            av_log(avctx, AV_LOG_ERROR, "Failed to get coded packet: err=%d\n", ret);
 +            return ret;
-+        }
-+    }
-+
-+    if (s->draining) {
-+        if (s->buf_pkt.size) {
-+            av_log(avctx, AV_LOG_WARNING, "Unexpected input whilst draining\n");
-+            av_packet_unref(&s->buf_pkt);
          }
-+        return NQ_DRAINING;
      }
  
 -    if (s->draining)
 -        goto dequeue;
++    if (s->draining) {
++        if (s->buf_pkt.size) {
++            av_log(avctx, AV_LOG_WARNING, "Unexpected input whilst draining\n");
++            av_packet_unref(&s->buf_pkt);
++        }
++        return NQ_DRAINING;
++    }
++
 +    if (!s->buf_pkt.size)
 +        return NQ_NONE;
++
++    if ((ret = check_output_streamon(avctx, s)) != 0)
++        return ret;
  
 -    ret = ff_v4l2_context_enqueue_packet(output, &s->buf_pkt);
 -    if (ret < 0 && ret != AVERROR(EAGAIN))
 -        goto fail;
-+    if ((ret = check_output_streamon(avctx, s)) != 0)
-+        return ret;
-+
 +    if (s->extdata_sent)
 +        ret = ff_v4l2_context_enqueue_packet(&s->output, &s->buf_pkt, NULL, 0);
 +    else
@@ -5883,6 +5884,15 @@ index ba1fe769e0..c7b73812d0 100644
 -            goto fail;
 +            av_log(avctx, AV_LOG_ERROR, "Packet enqueue failure: err=%d\n", ret);
 +            return ret;
++        }
++    }
++
++    // Start if we haven't
++    {
++        const int ret2 = v4l2_try_start(avctx);
++        if (ret2) {
++            av_log(avctx, AV_LOG_DEBUG, "Start failure: err=%d\n", ret2);
++            ret = (ret2 == AVERROR(ENOMEM)) ? ret2 : NQ_DEAD;
          }
      }
  
@@ -5890,18 +5900,9 @@ index ba1fe769e0..c7b73812d0 100644
 -    return ff_v4l2_context_dequeue_frame(capture, frame, -1);
 -fail:
 -    av_packet_unref(&s->buf_pkt);
-+    // Start if we haven't
-+    {
-+        const int ret2 = v4l2_try_start(avctx);
-+        if (ret2) {
-+            av_log(avctx, AV_LOG_DEBUG, "Start failure: err=%d\n", ret2);
-+            ret = (ret2 == AVERROR(ENOMEM)) ? ret2 : NQ_DEAD;
-+        }
-+    }
-+
-+    return ret;
-+}
-+
+     return ret;
+ }
+ 
 +static int qbuf_wait(AVCodecContext * const avctx, V4L2Context * const ctx)
 +{
 +    int rv = 0;
@@ -6058,8 +6059,8 @@ index ba1fe769e0..c7b73812d0 100644
 +    ret = v4l2_receive_frame2(avctx, frame);
 +    done = us_time();
 +    av_log(avctx, AV_LOG_TRACE, ">>> %s: rx time=%" PRId64 ", rv=%d\n", __func__, done - now, ret);
-     return ret;
- }
++    return ret;
++}
 +#endif
 +
 +static uint32_t
@@ -6194,6 +6195,68 @@ index ba1fe769e0..c7b73812d0 100644
 +        av_log(avctx, AV_LOG_TRACE, "%s: Size %dx%d or fcc %s empty\n", __func__, w, h, av_fourcc2str(fcc));
 +        return 0;
 +    }
++
++    if ((s->quirks & FF_V4L2_QUIRK_8192_MACRO_MAX) != 0 &&
++        ((w + 15) >> 4) * ((h + 15) >> 4) > 8192)
++    {
++        av_log(avctx, AV_LOG_DEBUG, "%s: %d x %d > 8192 macroblocks (quirk)\n", __func__, w, h);
++        return AVERROR(-EINVAL);
++    }
++
++    // Test with TRY_FMT
++    {
++        struct v4l2_format fmt = {
++            .type = s->capture.format.type,
++        };
++        int rv;
++
++        if (V4L2_TYPE_IS_MULTIPLANAR(s->capture.format.type))
++        {
++            fmt.fmt.pix.width = w;
++            fmt.fmt.pix.height = h;
++            fmt.fmt.pix.pixelformat = fcc;
++        }
++        else
++        {
++            fmt.fmt.pix_mp.width = w;
++            fmt.fmt.pix_mp.height = h;
++            fmt.fmt.pix_mp.pixelformat = fcc;
++        }
++
++        while ((rv = ioctl(s->fd, VIDIOC_TRY_FMT, &fmt)) != 0 && errno == EINTR)
++            /* Loop */;
++
++        if (rv != 0) {
++            rv = AVERROR(errno);
++            if (rv != AVERROR(ENOTTY)) {
++                av_log(avctx, AV_LOG_WARNING, "%s: Try FMT failed\n", __func__);
++                return rv;
++            }
++            av_log(avctx, AV_LOG_DEBUG, "%s: Try FMT not supported\n", __func__);
++            // Just continue hopefully
++        }
++        else if (V4L2_TYPE_IS_MULTIPLANAR(s->capture.format.type))
++        {
++            av_log(avctx, AV_LOG_TRACE, "%s: requested %s %dx%d TRY_FMT %s %dx%d\n", __func__,
++                   av_fourcc2str(fcc), w, h,
++                   av_fourcc2str(fmt.fmt.pix.pixelformat), fmt.fmt.pix.width, fmt.fmt.pix.height);
++            if (fmt.fmt.pix.width < w || fmt.fmt.pix.height < h || fmt.fmt.pix.pixelformat != fcc) {
++                av_log(avctx, AV_LOG_DEBUG, "%s: TRY_FMT returned incompatible size\n", __func__);
++                return AVERROR(EINVAL);
++            }
++        }
++        else
++        {
++            av_log(avctx, AV_LOG_TRACE, "%s: requested %s %dx%d TRY_FMT %s %dx%d\n", __func__,
++                   av_fourcc2str(fcc), w, h,
++                   av_fourcc2str(fmt.fmt.pix_mp.pixelformat), fmt.fmt.pix_mp.width, fmt.fmt.pix_mp.height);
++            if (fmt.fmt.pix_mp.width < w || fmt.fmt.pix_mp.height < h || fmt.fmt.pix_mp.pixelformat != fcc) {
++                av_log(avctx, AV_LOG_DEBUG, "%s: TRY_FMT returned incompatible size\n", __func__);
++                return AVERROR(EINVAL);
++            }
++        }
++    }
++
 +    if ((s->quirks & FF_V4L2_QUIRK_ENUM_FRAMESIZES_BROKEN) != 0) {
 +        av_log(avctx, AV_LOG_TRACE, "%s: Skipped (quirk): Size %dx%d, fcc %s\n", __func__, w, h, av_fourcc2str(fcc));
 +        return 0;
@@ -6279,6 +6342,9 @@ index ba1fe769e0..c7b73812d0 100644
 +    // size in the first place.
 +    if (strcmp(cap.driver, "meson-vdec") == 0)
 +        s->quirks |= FF_V4L2_QUIRK_REINIT_ALWAYS | FF_V4L2_QUIRK_ENUM_FRAMESIZES_BROKEN;
++    // RPI has a max 8192 macroblock limit but no way of signaling it
++    if (strcmp(cap.driver, "bcm2835-codec") == 0)
++        s->quirks |= FF_V4L2_QUIRK_8192_MACRO_MAX;
 +
 +    av_log(avctx, AV_LOG_DEBUG, "Driver '%s': Quirks=%#x\n", cap.driver, s->quirks);
 +    return 0;
@@ -6470,10 +6536,11 @@ index ba1fe769e0..c7b73812d0 100644
 +    av_free(fmts);
 +    return rv;
 +}
- 
++
  static av_cold int v4l2_decode_init(AVCodecContext *avctx)
  {
-@@ -185,10 +1167,17 @@ static av_cold int v4l2_decode_init(AVCodecContext *avctx)
+     V4L2Context *capture, *output;
+@@ -185,10 +1232,17 @@ static av_cold int v4l2_decode_init(AVCodecContext *avctx)
      V4L2m2mPriv *priv = avctx->priv_data;
      int ret;
  
@@ -6491,7 +6558,7 @@ index ba1fe769e0..c7b73812d0 100644
      capture = &s->capture;
      output = &s->output;
  
-@@ -196,14 +1185,45 @@ static av_cold int v4l2_decode_init(AVCodecContext *avctx)
+@@ -196,14 +1250,45 @@ static av_cold int v4l2_decode_init(AVCodecContext *avctx)
       * by the v4l2 driver; this event will trigger a full pipeline reconfig and
       * the proper values will be retrieved from the kernel driver.
       */
@@ -6539,7 +6606,7 @@ index ba1fe769e0..c7b73812d0 100644
  
      s->avctx = avctx;
      ret = ff_v4l2_m2m_codec_init(priv);
-@@ -212,12 +1232,90 @@ static av_cold int v4l2_decode_init(AVCodecContext *avctx)
+@@ -212,12 +1297,90 @@ static av_cold int v4l2_decode_init(AVCodecContext *avctx)
          return ret;
      }
  
@@ -6632,7 +6699,7 @@ index ba1fe769e0..c7b73812d0 100644
  }
  
  #define OFFSET(x) offsetof(V4L2m2mPriv, x)
-@@ -227,9 +1325,16 @@ static const AVOption options[] = {
+@@ -227,9 +1390,16 @@ static const AVOption options[] = {
      V4L_M2M_DEFAULT_OPTS,
      { "num_capture_buffers", "Number of buffers in the capture context",
          OFFSET(num_capture_buffers), AV_OPT_TYPE_INT, {.i64 = 20}, 2, INT_MAX, FLAGS },
@@ -6649,7 +6716,7 @@ index ba1fe769e0..c7b73812d0 100644
  #define M2MDEC_CLASS(NAME) \
      static const AVClass v4l2_m2m_ ## NAME ## _dec_class = { \
          .class_name = #NAME "_v4l2m2m_decoder", \
-@@ -250,11 +1355,17 @@ static const AVOption options[] = {
+@@ -250,11 +1420,17 @@ static const AVOption options[] = {
          .init           = v4l2_decode_init, \
          FF_CODEC_RECEIVE_FRAME_CB(v4l2_receive_frame), \
          .close          = v4l2_decode_close, \
@@ -6668,7 +6735,7 @@ index ba1fe769e0..c7b73812d0 100644
  
  M2MDEC(h264,  "H.264", AV_CODEC_ID_H264,       "h264_mp4toannexb");
 diff --git a/libavcodec/v4l2_m2m_enc.c b/libavcodec/v4l2_m2m_enc.c
-index 93703ccc63..e902d37f2d 100644
+index 93703ccc63f4..e902d37f2d36 100644
 --- a/libavcodec/v4l2_m2m_enc.c
 +++ b/libavcodec/v4l2_m2m_enc.c
 @@ -21,13 +21,17 @@
@@ -7143,7 +7210,7 @@ index 93703ccc63..e902d37f2d 100644
      V4L_M2M_CAPTURE_OPTS,
 diff --git a/libavcodec/v4l2_req_decode_q.c b/libavcodec/v4l2_req_decode_q.c
 new file mode 100644
-index 0000000000..93c56ba13f
+index 000000000000..93c56ba13f85
 --- /dev/null
 +++ b/libavcodec/v4l2_req_decode_q.c
 @@ -0,0 +1,108 @@
@@ -7257,7 +7324,7 @@ index 0000000000..93c56ba13f
 +
 diff --git a/libavcodec/v4l2_req_decode_q.h b/libavcodec/v4l2_req_decode_q.h
 new file mode 100644
-index 0000000000..0ff8bbe882
+index 000000000000..0ff8bbe88207
 --- /dev/null
 +++ b/libavcodec/v4l2_req_decode_q.h
 @@ -0,0 +1,51 @@
@@ -7314,7 +7381,7 @@ index 0000000000..0ff8bbe882
 +
 diff --git a/libavcodec/v4l2_req_devscan.c b/libavcodec/v4l2_req_devscan.c
 new file mode 100644
-index 0000000000..0416f3d4d1
+index 000000000000..0416f3d4d104
 --- /dev/null
 +++ b/libavcodec/v4l2_req_devscan.c
 @@ -0,0 +1,474 @@
@@ -7794,7 +7861,7 @@ index 0000000000..0416f3d4d1
 +
 diff --git a/libavcodec/v4l2_req_devscan.h b/libavcodec/v4l2_req_devscan.h
 new file mode 100644
-index 0000000000..49b5bb44b2
+index 000000000000..49b5bb44b2d7
 --- /dev/null
 +++ b/libavcodec/v4l2_req_devscan.h
 @@ -0,0 +1,47 @@
@@ -7847,7 +7914,7 @@ index 0000000000..49b5bb44b2
 +#endif
 diff --git a/libavcodec/v4l2_req_dmabufs.c b/libavcodec/v4l2_req_dmabufs.c
 new file mode 100644
-index 0000000000..e157d4d557
+index 000000000000..e157d4d55749
 --- /dev/null
 +++ b/libavcodec/v4l2_req_dmabufs.c
 @@ -0,0 +1,433 @@
@@ -8286,7 +8353,7 @@ index 0000000000..e157d4d557
 +
 diff --git a/libavcodec/v4l2_req_dmabufs.h b/libavcodec/v4l2_req_dmabufs.h
 new file mode 100644
-index 0000000000..9226ab2498
+index 000000000000..9226ab2498a5
 --- /dev/null
 +++ b/libavcodec/v4l2_req_dmabufs.h
 @@ -0,0 +1,69 @@
@@ -8361,7 +8428,7 @@ index 0000000000..9226ab2498
 +#endif
 diff --git a/libavcodec/v4l2_req_hevc_v1.c b/libavcodec/v4l2_req_hevc_v1.c
 new file mode 100644
-index 0000000000..4d908dac12
+index 000000000000..4d908dac126e
 --- /dev/null
 +++ b/libavcodec/v4l2_req_hevc_v1.c
 @@ -0,0 +1,27 @@
@@ -8394,7 +8461,7 @@ index 0000000000..4d908dac12
 +
 diff --git a/libavcodec/v4l2_req_hevc_v2.c b/libavcodec/v4l2_req_hevc_v2.c
 new file mode 100644
-index 0000000000..1874e20a5d
+index 000000000000..1874e20a5d8d
 --- /dev/null
 +++ b/libavcodec/v4l2_req_hevc_v2.c
 @@ -0,0 +1,27 @@
@@ -8427,7 +8494,7 @@ index 0000000000..1874e20a5d
 +
 diff --git a/libavcodec/v4l2_req_hevc_v3.c b/libavcodec/v4l2_req_hevc_v3.c
 new file mode 100644
-index 0000000000..1c5a84bea8
+index 000000000000..1c5a84bea8d1
 --- /dev/null
 +++ b/libavcodec/v4l2_req_hevc_v3.c
 @@ -0,0 +1,27 @@
@@ -8460,7 +8527,7 @@ index 0000000000..1c5a84bea8
 +
 diff --git a/libavcodec/v4l2_req_hevc_v4.c b/libavcodec/v4l2_req_hevc_v4.c
 new file mode 100644
-index 0000000000..472df7cb0e
+index 000000000000..472df7cb0e39
 --- /dev/null
 +++ b/libavcodec/v4l2_req_hevc_v4.c
 @@ -0,0 +1,27 @@
@@ -8493,7 +8560,7 @@ index 0000000000..472df7cb0e
 +
 diff --git a/libavcodec/v4l2_req_hevc_vx.c b/libavcodec/v4l2_req_hevc_vx.c
 new file mode 100644
-index 0000000000..a32560eb91
+index 000000000000..a32560eb91b2
 --- /dev/null
 +++ b/libavcodec/v4l2_req_hevc_vx.c
 @@ -0,0 +1,1479 @@
@@ -9978,7 +10045,7 @@ index 0000000000..a32560eb91
 +
 diff --git a/libavcodec/v4l2_req_media.c b/libavcodec/v4l2_req_media.c
 new file mode 100644
-index 0000000000..3feb55ab11
+index 000000000000..3feb55ab1120
 --- /dev/null
 +++ b/libavcodec/v4l2_req_media.c
 @@ -0,0 +1,1835 @@
@@ -11819,7 +11886,7 @@ index 0000000000..3feb55ab11
 +
 diff --git a/libavcodec/v4l2_req_media.h b/libavcodec/v4l2_req_media.h
 new file mode 100644
-index 0000000000..4c3a61960e
+index 000000000000..4c3a61960e6a
 --- /dev/null
 +++ b/libavcodec/v4l2_req_media.h
 @@ -0,0 +1,179 @@
@@ -12004,7 +12071,7 @@ index 0000000000..4c3a61960e
 +#endif
 diff --git a/libavcodec/v4l2_req_pollqueue.c b/libavcodec/v4l2_req_pollqueue.c
 new file mode 100644
-index 0000000000..4b4984e5b0
+index 000000000000..4b4984e5b064
 --- /dev/null
 +++ b/libavcodec/v4l2_req_pollqueue.c
 @@ -0,0 +1,385 @@
@@ -12395,7 +12462,7 @@ index 0000000000..4b4984e5b0
 +
 diff --git a/libavcodec/v4l2_req_pollqueue.h b/libavcodec/v4l2_req_pollqueue.h
 new file mode 100644
-index 0000000000..9634f33d48
+index 000000000000..9634f33d48fd
 --- /dev/null
 +++ b/libavcodec/v4l2_req_pollqueue.h
 @@ -0,0 +1,42 @@
@@ -12443,7 +12510,7 @@ index 0000000000..9634f33d48
 +#endif /* AVCODEC_V4L2_REQ_POLLQUEUE_H_ */
 diff --git a/libavcodec/v4l2_req_utils.h b/libavcodec/v4l2_req_utils.h
 new file mode 100644
-index 0000000000..a6160c5e1c
+index 000000000000..a6160c5e1c3b
 --- /dev/null
 +++ b/libavcodec/v4l2_req_utils.h
 @@ -0,0 +1,51 @@
@@ -12500,7 +12567,7 @@ index 0000000000..a6160c5e1c
 +#endif
 diff --git a/libavcodec/v4l2_request_hevc.c b/libavcodec/v4l2_request_hevc.c
 new file mode 100644
-index 0000000000..78c5c166ca
+index 000000000000..78c5c166ca1d
 --- /dev/null
 +++ b/libavcodec/v4l2_request_hevc.c
 @@ -0,0 +1,437 @@
@@ -12943,7 +13010,7 @@ index 0000000000..78c5c166ca
 +};
 diff --git a/libavcodec/v4l2_request_hevc.h b/libavcodec/v4l2_request_hevc.h
 new file mode 100644
-index 0000000000..0af935266b
+index 000000000000..0af935266b68
 --- /dev/null
 +++ b/libavcodec/v4l2_request_hevc.h
 @@ -0,0 +1,164 @@
@@ -13113,7 +13180,7 @@ index 0000000000..0af935266b
 +#endif
 diff --git a/libavcodec/weak_link.c b/libavcodec/weak_link.c
 new file mode 100644
-index 0000000000..71f6cc3567
+index 000000000000..71f6cc356720
 --- /dev/null
 +++ b/libavcodec/weak_link.c
 @@ -0,0 +1,127 @@
@@ -13246,7 +13313,7 @@ index 0000000000..71f6cc3567
 +
 diff --git a/libavcodec/weak_link.h b/libavcodec/weak_link.h
 new file mode 100644
-index 0000000000..5c66b29f9b
+index 000000000000..5c66b29f9b61
 --- /dev/null
 +++ b/libavcodec/weak_link.h
 @@ -0,0 +1,46 @@
@@ -13297,7 +13364,7 @@ index 0000000000..5c66b29f9b
 +
 +#endif
 diff --git a/libavdevice/Makefile b/libavdevice/Makefile
-index a226368d16..c331a7099d 100644
+index a226368d164f..c331a7099d29 100644
 --- a/libavdevice/Makefile
 +++ b/libavdevice/Makefile
 @@ -45,6 +45,8 @@ OBJS-$(CONFIG_SNDIO_OUTDEV)              += sndio_enc.o sndio.o
@@ -13310,7 +13377,7 @@ index a226368d16..c331a7099d 100644
  OBJS-$(CONFIG_XV_OUTDEV)                 += xv.o
  
 diff --git a/libavdevice/alldevices.c b/libavdevice/alldevices.c
-index 573595f416..d76aef3b08 100644
+index 573595f4160b..d76aef3b08d8 100644
 --- a/libavdevice/alldevices.c
 +++ b/libavdevice/alldevices.c
 @@ -53,6 +53,8 @@ extern const FFOutputFormat ff_sndio_muxer;
@@ -13324,7 +13391,7 @@ index 573595f416..d76aef3b08 100644
  
 diff --git a/libavdevice/drm_vout.c b/libavdevice/drm_vout.c
 new file mode 100644
-index 0000000000..6d11e98d75
+index 000000000000..6d11e98d7521
 --- /dev/null
 +++ b/libavdevice/drm_vout.c
 @@ -0,0 +1,684 @@
@@ -14014,7 +14081,7 @@ index 0000000000..6d11e98d75
 +
 diff --git a/libavdevice/egl_vout.c b/libavdevice/egl_vout.c
 new file mode 100644
-index 0000000000..0c8c629852
+index 000000000000..0c8c629852fb
 --- /dev/null
 +++ b/libavdevice/egl_vout.c
 @@ -0,0 +1,784 @@
@@ -14803,7 +14870,7 @@ index 0000000000..0c8c629852
 +};
 +
 diff --git a/libavfilter/Makefile b/libavfilter/Makefile
-index 07fb4c3d6c..21e879cf17 100644
+index 07fb4c3d6c4e..21e879cf1700 100644
 --- a/libavfilter/Makefile
 +++ b/libavfilter/Makefile
 @@ -278,6 +278,7 @@ OBJS-$(CONFIG_DEFLATE_FILTER)                += vf_neighbor.o
@@ -14823,7 +14890,7 @@ index 07fb4c3d6c..21e879cf17 100644
  OBJS-$(CONFIG_UNSHARP_OPENCL_FILTER)         += vf_unsharp_opencl.o opencl.o \
                                                  opencl/unsharp.o
 diff --git a/libavfilter/allfilters.c b/libavfilter/allfilters.c
-index cca4ce0288..057843d5d4 100644
+index cca4ce028810..057843d5d437 100644
 --- a/libavfilter/allfilters.c
 +++ b/libavfilter/allfilters.c
 @@ -252,6 +252,7 @@ extern const FFFilter ff_vf_dedot;
@@ -14851,7 +14918,7 @@ index cca4ce0288..057843d5d4 100644
  extern const FFFilter ff_vf_unsharp_opencl;
  extern const FFFilter ff_vf_untile;
 diff --git a/libavfilter/buffersink.c b/libavfilter/buffersink.c
-index 50a7da2756..5fb73cb49d 100644
+index 50a7da275678..5fb73cb49d25 100644
 --- a/libavfilter/buffersink.c
 +++ b/libavfilter/buffersink.c
 @@ -84,6 +84,11 @@ typedef struct BufferSinkContext {
@@ -14914,7 +14981,7 @@ index 50a7da2756..5fb73cb49d 100644
  };
  
 diff --git a/libavfilter/buffersink.h b/libavfilter/buffersink.h
-index a8435eea8f..2ec88b9dad 100644
+index a8435eea8f27..2ec88b9dad54 100644
 --- a/libavfilter/buffersink.h
 +++ b/libavfilter/buffersink.h
 @@ -163,6 +163,9 @@ int av_buffersink_get_frame(AVFilterContext *ctx, AVFrame *frame);
@@ -14928,7 +14995,7 @@ index a8435eea8f..2ec88b9dad 100644
   * @}
   */
 diff --git a/libavfilter/buffersrc.c b/libavfilter/buffersrc.c
-index 7e86d6ffd3..0a4d66499f 100644
+index 7e86d6ffd3ca..0a4d66499f01 100644
 --- a/libavfilter/buffersrc.c
 +++ b/libavfilter/buffersrc.c
 @@ -222,7 +222,7 @@ int attribute_align_arg av_buffersrc_add_frame_flags(AVFilterContext *ctx, AVFra
@@ -14941,7 +15008,7 @@ index 7e86d6ffd3..0a4d66499f 100644
                                       frame->color_range, frame->pts);
              break;
 diff --git a/libavfilter/vf_bwdif.c b/libavfilter/vf_bwdif.c
-index d49f3f66d6..dc955eb8eb 100644
+index d49f3f66d6e7..dc955eb8eb94 100644
 --- a/libavfilter/vf_bwdif.c
 +++ b/libavfilter/vf_bwdif.c
 @@ -115,19 +115,28 @@ static void filter(AVFilterContext *ctx, AVFrame *dstpic,
@@ -14986,7 +15053,7 @@ index d49f3f66d6..dc955eb8eb 100644
      AV_PIX_FMT_GBRAP, AV_PIX_FMT_GBRAP16,
 diff --git a/libavfilter/vf_deinterlace_v4l2m2m.c b/libavfilter/vf_deinterlace_v4l2m2m.c
 new file mode 100644
-index 0000000000..38ead43f49
+index 000000000000..38ead43f49ea
 --- /dev/null
 +++ b/libavfilter/vf_deinterlace_v4l2m2m.c
 @@ -0,0 +1,2102 @@
@@ -17094,7 +17161,7 @@ index 0000000000..38ead43f49
 +
 diff --git a/libavfilter/vf_unsand.c b/libavfilter/vf_unsand.c
 new file mode 100644
-index 0000000000..9f0aca5358
+index 000000000000..9f0aca535871
 --- /dev/null
 +++ b/libavfilter/vf_unsand.c
 @@ -0,0 +1,227 @@
@@ -17326,7 +17393,7 @@ index 0000000000..9f0aca5358
 +};
 +
 diff --git a/libavformat/Makefile b/libavformat/Makefile
-index ab5551a735..bc0aa098a6 100644
+index ab5551a73578..bc0aa098a624 100644
 --- a/libavformat/Makefile
 +++ b/libavformat/Makefile
 @@ -175,6 +175,7 @@ OBJS-$(CONFIG_CODEC2_MUXER)              += codec2.o rawenc.o
@@ -17338,7 +17405,7 @@ index ab5551a735..bc0aa098a6 100644
  OBJS-$(CONFIG_DATA_DEMUXER)              += rawdec.o
  OBJS-$(CONFIG_DATA_MUXER)                += rawenc.o
 diff --git a/libavformat/allformats.c b/libavformat/allformats.c
-index e39eab8e85..ffdce29962 100644
+index e39eab8e85d7..ffdce299625c 100644
 --- a/libavformat/allformats.c
 +++ b/libavformat/allformats.c
 @@ -127,6 +127,7 @@ extern const FFOutputFormat ff_codec2_muxer;
@@ -17351,7 +17418,7 @@ index e39eab8e85..ffdce29962 100644
  extern const FFOutputFormat ff_dash_muxer;
 diff --git a/libavformat/conformenc.c b/libavformat/conformenc.c
 new file mode 100644
-index 0000000000..99243f4622
+index 000000000000..99243f4622f5
 --- /dev/null
 +++ b/libavformat/conformenc.c
 @@ -0,0 +1,491 @@
@@ -17847,7 +17914,7 @@ index 0000000000..99243f4622
 +};
 +
 diff --git a/libavformat/matroskaenc.c b/libavformat/matroskaenc.c
-index 8142d9125e..f25936de93 100644
+index 8142d9125e3f..f25936de93d8 100644
 --- a/libavformat/matroskaenc.c
 +++ b/libavformat/matroskaenc.c
 @@ -85,6 +85,10 @@
@@ -17919,7 +17986,7 @@ index 8142d9125e..f25936de93 100644
          case AV_CODEC_ID_VVC:
              if (((par->codec_id == AV_CODEC_ID_H264 && par->extradata_size > 0) ||
 diff --git a/libavformat/movenc.c b/libavformat/movenc.c
-index 585a018e35..ce170f5401 100644
+index efd6329d70fb..de9b1d97936b 100644
 --- a/libavformat/movenc.c
 +++ b/libavformat/movenc.c
 @@ -7114,6 +7114,7 @@ static int mov_write_single_packet(AVFormatContext *s, AVPacket *pkt)
@@ -17931,7 +17998,7 @@ index 585a018e35..ce170f5401 100644
          size_t side_size;
          uint8_t *side = av_packet_get_side_data(pkt, AV_PKT_DATA_NEW_EXTRADATA, &side_size);
 diff --git a/libavformat/rtpenc.c b/libavformat/rtpenc.c
-index 795229aca3..bcebe9f76d 100644
+index 795229aca35f..bcebe9f76d0e 100644
 --- a/libavformat/rtpenc.c
 +++ b/libavformat/rtpenc.c
 @@ -19,6 +19,7 @@
@@ -17969,7 +18036,7 @@ index 795229aca3..bcebe9f76d 100644
          ff_rtp_send_h261(s1, pkt->data, size);
          break;
 diff --git a/libavutil/Makefile b/libavutil/Makefile
-index ee77e51c08..9ac7e33d67 100644
+index ee77e51c0806..9ac7e33d6769 100644
 --- a/libavutil/Makefile
 +++ b/libavutil/Makefile
 @@ -81,6 +81,7 @@ HEADERS = adler32.h                                                     \
@@ -17997,7 +18064,7 @@ index ee77e51c08..9ac7e33d67 100644
  SKIPHEADERS-$(CONFIG_VIDEOTOOLBOX)     += hwcontext_videotoolbox.h
  SKIPHEADERS-$(CONFIG_VDPAU)            += hwcontext_vdpau.h
 diff --git a/libavutil/aarch64/Makefile b/libavutil/aarch64/Makefile
-index 992e95e4df..5f2303fc1d 100644
+index 992e95e4df09..5f2303fc1d11 100644
 --- a/libavutil/aarch64/Makefile
 +++ b/libavutil/aarch64/Makefile
 @@ -6,3 +6,5 @@ NEON-OBJS += aarch64/float_dsp_neon.o                                 \
@@ -18008,7 +18075,7 @@ index 992e95e4df..5f2303fc1d 100644
 +
 diff --git a/libavutil/aarch64/rpi_sand_neon.S b/libavutil/aarch64/rpi_sand_neon.S
 new file mode 100644
-index 0000000000..3a6bc3de74
+index 000000000000..3a6bc3de74e5
 --- /dev/null
 +++ b/libavutil/aarch64/rpi_sand_neon.S
 @@ -0,0 +1,672 @@
@@ -18686,7 +18753,7 @@ index 0000000000..3a6bc3de74
 +
 diff --git a/libavutil/aarch64/rpi_sand_neon.h b/libavutil/aarch64/rpi_sand_neon.h
 new file mode 100644
-index 0000000000..e0e94f6aa1
+index 000000000000..e0e94f6aa1a2
 --- /dev/null
 +++ b/libavutil/aarch64/rpi_sand_neon.h
 @@ -0,0 +1,61 @@
@@ -18752,7 +18819,7 @@ index 0000000000..e0e94f6aa1
 +
 +#endif /* AVCODEC_SAND_NEON_H */
 diff --git a/libavutil/arm/Makefile b/libavutil/arm/Makefile
-index 5da44b0542..b74b7c4e2f 100644
+index 5da44b05427a..b74b7c4e2f25 100644
 --- a/libavutil/arm/Makefile
 +++ b/libavutil/arm/Makefile
 @@ -6,3 +6,4 @@ VFP-OBJS += arm/float_dsp_init_vfp.o                                    \
@@ -18762,7 +18829,7 @@ index 5da44b0542..b74b7c4e2f 100644
 +             arm/rpi_sand_neon.o                                        \
 diff --git a/libavutil/arm/rpi_sand_neon.S b/libavutil/arm/rpi_sand_neon.S
 new file mode 100644
-index 0000000000..60e697f681
+index 000000000000..60e697f6819b
 --- /dev/null
 +++ b/libavutil/arm/rpi_sand_neon.S
 @@ -0,0 +1,925 @@
@@ -19693,7 +19760,7 @@ index 0000000000..60e697f681
 +
 diff --git a/libavutil/arm/rpi_sand_neon.h b/libavutil/arm/rpi_sand_neon.h
 new file mode 100644
-index 0000000000..d8126676ee
+index 000000000000..d8126676ee0c
 --- /dev/null
 +++ b/libavutil/arm/rpi_sand_neon.h
 @@ -0,0 +1,110 @@
@@ -19808,7 +19875,7 @@ index 0000000000..d8126676ee
 +#endif // AVUTIL_ARM_SAND_NEON_H
 +
 diff --git a/libavutil/frame.c b/libavutil/frame.c
-index 8f3fda2371..e24f78373c 100644
+index 8f3fda237124..e24f78373cc1 100644
 --- a/libavutil/frame.c
 +++ b/libavutil/frame.c
 @@ -16,6 +16,8 @@
@@ -19844,7 +19911,7 @@ index 8f3fda2371..e24f78373c 100644
      if (!desc)
          return AVERROR_BUG;
 diff --git a/libavutil/frame.h b/libavutil/frame.h
-index d440cfba2e..e1e21acced 100644
+index d440cfba2e36..e1e21acceda2 100644
 --- a/libavutil/frame.h
 +++ b/libavutil/frame.h
 @@ -1012,6 +1012,16 @@ int av_frame_apply_cropping(AVFrame *frame, int flags);
@@ -19865,7 +19932,7 @@ index d440cfba2e..e1e21acced 100644
   * @return side data descriptor corresponding to a given side data type, NULL
   *         when not available.
 diff --git a/libavutil/hwcontext_drm.c b/libavutil/hwcontext_drm.c
-index 0847db09a0..dac9befae9 100644
+index 0847db09a08b..dac9befae98f 100644
 --- a/libavutil/hwcontext_drm.c
 +++ b/libavutil/hwcontext_drm.c
 @@ -21,6 +21,7 @@
@@ -20075,7 +20142,7 @@ index 0847db09a0..dac9befae9 100644
  
      err = drm_map_frame(hwfc, dst, src, flags);
 diff --git a/libavutil/hwcontext_vulkan.c b/libavutil/hwcontext_vulkan.c
-index 4e078eb527..0c53494e93 100644
+index 4e078eb527ed..0c53494e93c4 100644
 --- a/libavutil/hwcontext_vulkan.c
 +++ b/libavutil/hwcontext_vulkan.c
 @@ -72,6 +72,14 @@
@@ -20094,7 +20161,7 @@ index 4e078eb527..0c53494e93 100644
      VkPhysicalDeviceFeatures2 device;
  
 diff --git a/libavutil/pixdesc.c b/libavutil/pixdesc.c
-index f0be20d749..2ec9cfa302 100644
+index f0be20d749b8..2ec9cfa30277 100644
 --- a/libavutil/pixdesc.c
 +++ b/libavutil/pixdesc.c
 @@ -3267,6 +3267,50 @@ static const AVPixFmtDescriptor av_pix_fmt_descriptors[AV_PIX_FMT_NB] = {
@@ -20149,7 +20216,7 @@ index f0be20d749..2ec9cfa302 100644
  
  static const char * const color_range_names[] = {
 diff --git a/libavutil/pixfmt.h b/libavutil/pixfmt.h
-index 823ea8edab..7562f92383 100644
+index 823ea8edabe2..7562f9238308 100644
 --- a/libavutil/pixfmt.h
 +++ b/libavutil/pixfmt.h
 @@ -498,6 +498,14 @@ enum AVPixelFormat {
@@ -20169,7 +20236,7 @@ index 823ea8edab..7562f92383 100644
  };
 diff --git a/libavutil/rpi_sand_fn_pw.c b/libavutil/rpi_sand_fn_pw.c
 new file mode 100644
-index 0000000000..0d5d203dc3
+index 000000000000..0d5d203dc3cd
 --- /dev/null
 +++ b/libavutil/rpi_sand_fn_pw.c
 @@ -0,0 +1,227 @@
@@ -20402,7 +20469,7 @@ index 0000000000..0d5d203dc3
 +
 diff --git a/libavutil/rpi_sand_fns.c b/libavutil/rpi_sand_fns.c
 new file mode 100644
-index 0000000000..5d3ea4db1e
+index 000000000000..5d3ea4db1e33
 --- /dev/null
 +++ b/libavutil/rpi_sand_fns.c
 @@ -0,0 +1,449 @@
@@ -20857,7 +20924,7 @@ index 0000000000..5d3ea4db1e
 +}
 diff --git a/libavutil/rpi_sand_fns.h b/libavutil/rpi_sand_fns.h
 new file mode 100644
-index 0000000000..c4031fcb69
+index 000000000000..c4031fcb690d
 --- /dev/null
 +++ b/libavutil/rpi_sand_fns.h
 @@ -0,0 +1,157 @@
@@ -21019,7 +21086,7 @@ index 0000000000..c4031fcb69
 +#endif
 +
 diff --git a/libswscale/aarch64/rgb2rgb.c b/libswscale/aarch64/rgb2rgb.c
-index f474228298..420a96a800 100644
+index f474228298e9..420a96a80045 100644
 --- a/libswscale/aarch64/rgb2rgb.c
 +++ b/libswscale/aarch64/rgb2rgb.c
 @@ -66,6 +66,12 @@ void ff_shuffle_bytes_3102_neon(const uint8_t *src, uint8_t *dst, int src_size);
@@ -21044,7 +21111,7 @@ index f474228298..420a96a800 100644
      }
  }
 diff --git a/libswscale/aarch64/rgb2rgb_neon.S b/libswscale/aarch64/rgb2rgb_neon.S
-index f6d625f11f..acafc8f2d9 100644
+index f6d625f11f14..acafc8f2d9a8 100644
 --- a/libswscale/aarch64/rgb2rgb_neon.S
 +++ b/libswscale/aarch64/rgb2rgb_neon.S
 @@ -687,3 +687,359 @@ interleaved_yuv_to_planar uyvy, yuv422
@@ -21408,7 +21475,7 @@ index f6d625f11f..acafc8f2d9 100644
 +        ret
 +endfunc
 diff --git a/libswscale/rgb2rgb.c b/libswscale/rgb2rgb.c
-index 00e785f0c8..a73fd08e3e 100644
+index 00e785f0c844..a73fd08e3edf 100644
 --- a/libswscale/rgb2rgb.c
 +++ b/libswscale/rgb2rgb.c
 @@ -87,6 +87,31 @@ void (*ff_rgb24toyv12)(const uint8_t *src, uint8_t *ydst,
@@ -21444,7 +21511,7 @@ index 00e785f0c8..a73fd08e3e 100644
                   int srcStride, int dstStride);
  void (*interleaveBytes)(const uint8_t *src1, const uint8_t *src2, uint8_t *dst,
 diff --git a/libswscale/rgb2rgb.h b/libswscale/rgb2rgb.h
-index 0d0f7c3a28..dc4d2b763c 100644
+index 0d0f7c3a28e7..dc4d2b763c1e 100644
 --- a/libswscale/rgb2rgb.h
 +++ b/libswscale/rgb2rgb.h
 @@ -92,6 +92,9 @@ void   x2rgb10tobgr64_bswap(const uint8_t *src, uint8_t *dst, int src_size);
@@ -21485,7 +21552,7 @@ index 0d0f7c3a28..dc4d2b763c 100644
                          int srcStride, int dstStride);
  
 diff --git a/libswscale/rgb2rgb_template.c b/libswscale/rgb2rgb_template.c
-index 47a1bb8368..64aefc2b40 100644
+index 47a1bb8368f7..64aefc2b40b4 100644
 --- a/libswscale/rgb2rgb_template.c
 +++ b/libswscale/rgb2rgb_template.c
 @@ -643,13 +643,20 @@ static inline void uyvytoyv12_c(const uint8_t *src, uint8_t *ydst,
@@ -21761,7 +21828,7 @@ index 47a1bb8368..64aefc2b40 100644
      deinterleaveBytes  = deinterleaveBytes_c;
      vu9_to_vu12        = vu9_to_vu12_c;
 diff --git a/libswscale/swscale_unscaled.c b/libswscale/swscale_unscaled.c
-index 2c791e89fe..00e6dbec92 100644
+index 2c791e89fece..00e6dbec9246 100644
 --- a/libswscale/swscale_unscaled.c
 +++ b/libswscale/swscale_unscaled.c
 @@ -2063,9 +2063,94 @@ static int bgr24ToYv12Wrapper(SwsInternal *c, const uint8_t *const src[],
@@ -21906,7 +21973,7 @@ index 2c791e89fe..00e6dbec92 100644
      if (isAYUV(srcFormat) && isAYUV(dstFormat) && findRgbConvFn(c))
 diff --git a/pi-util/BUILD.txt b/pi-util/BUILD.txt
 new file mode 100644
-index 0000000000..2b62d660c0
+index 000000000000..2b62d660c0d1
 --- /dev/null
 +++ b/pi-util/BUILD.txt
 @@ -0,0 +1,67 @@
@@ -21979,7 +22046,7 @@ index 0000000000..2b62d660c0
 +
 diff --git a/pi-util/NOTES.txt b/pi-util/NOTES.txt
 new file mode 100644
-index 0000000000..fcce72226a
+index 000000000000..fcce72226a32
 --- /dev/null
 +++ b/pi-util/NOTES.txt
 @@ -0,0 +1,69 @@
@@ -22054,7 +22121,7 @@ index 0000000000..fcce72226a
 +
 diff --git a/pi-util/TESTMESA.txt b/pi-util/TESTMESA.txt
 new file mode 100644
-index 0000000000..92bc13a3df
+index 000000000000..92bc13a3dfa1
 --- /dev/null
 +++ b/pi-util/TESTMESA.txt
 @@ -0,0 +1,82 @@
@@ -22142,7 +22209,7 @@ index 0000000000..92bc13a3df
 +
 diff --git a/pi-util/clean_usr_libs.sh b/pi-util/clean_usr_libs.sh
 new file mode 100755
-index 0000000000..01bd6a6a22
+index 000000000000..01bd6a6a2254
 --- /dev/null
 +++ b/pi-util/clean_usr_libs.sh
 @@ -0,0 +1,42 @@
@@ -22190,7 +22257,7 @@ index 0000000000..01bd6a6a22
 +
 diff --git a/pi-util/conf_arm64_native.sh b/pi-util/conf_arm64_native.sh
 new file mode 100644
-index 0000000000..9e3bbfa190
+index 000000000000..9e3bbfa1908a
 --- /dev/null
 +++ b/pi-util/conf_arm64_native.sh
 @@ -0,0 +1,45 @@
@@ -22241,7 +22308,7 @@ index 0000000000..9e3bbfa190
 +# -Wa,-ahls
 diff --git a/pi-util/conf_h265.2016.csv b/pi-util/conf_h265.2016.csv
 new file mode 100644
-index 0000000000..177f1c8111
+index 000000000000..177f1c8111fd
 --- /dev/null
 +++ b/pi-util/conf_h265.2016.csv
 @@ -0,0 +1,195 @@
@@ -22442,7 +22509,7 @@ index 0000000000..177f1c8111
 +1,local/intra_pred_21_laps,intra_pred_21_laps.265,intra_pred_21_laps.md5,8
 diff --git a/pi-util/conf_h265.2016_HEVC_v1.csv b/pi-util/conf_h265.2016_HEVC_v1.csv
 new file mode 100644
-index 0000000000..6082641271
+index 000000000000..60826412715c
 --- /dev/null
 +++ b/pi-util/conf_h265.2016_HEVC_v1.csv
 @@ -0,0 +1,147 @@
@@ -22595,7 +22662,7 @@ index 0000000000..6082641271
 +1,WPP_F_ericsson_MAIN_2,WPP_F_ericsson_MAIN_2.bit,WPP_F_ericsson_MAIN_2_yuv.md5
 diff --git a/pi-util/conf_h265.csv b/pi-util/conf_h265.csv
 new file mode 100644
-index 0000000000..fc14f2a3c2
+index 000000000000..fc14f2a3c2bb
 --- /dev/null
 +++ b/pi-util/conf_h265.csv
 @@ -0,0 +1,144 @@
@@ -22745,7 +22812,7 @@ index 0000000000..fc14f2a3c2
 +1,WPP_F_ericsson_MAIN_2,WPP_F_ericsson_MAIN_2.bit,WPP_F_ericsson_MAIN_2_yuv.md5
 diff --git a/pi-util/conf_native.sh b/pi-util/conf_native.sh
 new file mode 100755
-index 0000000000..0dbaa53e97
+index 000000000000..0dbaa53e97e0
 --- /dev/null
 +++ b/pi-util/conf_native.sh
 @@ -0,0 +1,135 @@
@@ -22886,7 +22953,7 @@ index 0000000000..0dbaa53e97
 +# -Wa,-ahls
 diff --git a/pi-util/ffconf.py b/pi-util/ffconf.py
 new file mode 100755
-index 0000000000..f3d220847c
+index 000000000000..f3d220847ca0
 --- /dev/null
 +++ b/pi-util/ffconf.py
 @@ -0,0 +1,269 @@
@@ -23161,7 +23228,7 @@ index 0000000000..f3d220847c
 +
 diff --git a/pi-util/ffperf.py b/pi-util/ffperf.py
 new file mode 100755
-index 0000000000..767efe2de2
+index 000000000000..767efe2de2fa
 --- /dev/null
 +++ b/pi-util/ffperf.py
 @@ -0,0 +1,140 @@
@@ -23307,7 +23374,7 @@ index 0000000000..767efe2de2
 +
 diff --git a/pi-util/genpatch.sh b/pi-util/genpatch.sh
 new file mode 100755
-index 0000000000..0948a68a7a
+index 000000000000..0948a68a7ad7
 --- /dev/null
 +++ b/pi-util/genpatch.sh
 @@ -0,0 +1,35 @@
@@ -23348,7 +23415,7 @@ index 0000000000..0948a68a7a
 +git diff n$VERSION -- > $PATCHFILE
 diff --git a/pi-util/make_array.py b/pi-util/make_array.py
 new file mode 100755
-index 0000000000..67b22d2d51
+index 000000000000..67b22d2d517f
 --- /dev/null
 +++ b/pi-util/make_array.py
 @@ -0,0 +1,23 @@
@@ -23377,7 +23444,7 @@ index 0000000000..67b22d2d51
 +
 diff --git a/pi-util/mkinst.sh b/pi-util/mkinst.sh
 new file mode 100755
-index 0000000000..271a39e846
+index 000000000000..271a39e8460a
 --- /dev/null
 +++ b/pi-util/mkinst.sh
 @@ -0,0 +1,5 @@
@@ -23388,7 +23455,7 @@ index 0000000000..271a39e846
 +cp -r install/* ../vlc/sysroot/raspian_stretch_pi1-sysroot/usr
 diff --git a/pi-util/patkodi.sh b/pi-util/patkodi.sh
 new file mode 100644
-index 0000000000..dcd05a606e
+index 000000000000..dcd05a606e85
 --- /dev/null
 +++ b/pi-util/patkodi.sh
 @@ -0,0 +1,9 @@
@@ -23403,7 +23470,7 @@ index 0000000000..dcd05a606e
 +
 diff --git a/pi-util/perfcmp.py b/pi-util/perfcmp.py
 new file mode 100755
-index 0000000000..e44cfa0c3c
+index 000000000000..e44cfa0c3c4d
 --- /dev/null
 +++ b/pi-util/perfcmp.py
 @@ -0,0 +1,101 @@
@@ -23510,7 +23577,7 @@ index 0000000000..e44cfa0c3c
 +
 diff --git a/pi-util/qem.sh b/pi-util/qem.sh
 new file mode 100755
-index 0000000000..a4dbb6eacd
+index 000000000000..a4dbb6eacd18
 --- /dev/null
 +++ b/pi-util/qem.sh
 @@ -0,0 +1,9 @@
@@ -23525,7 +23592,7 @@ index 0000000000..a4dbb6eacd
 +
 diff --git a/pi-util/testfilt.py b/pi-util/testfilt.py
 new file mode 100755
-index 0000000000..b322dac0c2
+index 000000000000..b322dac0c22d
 --- /dev/null
 +++ b/pi-util/testfilt.py
 @@ -0,0 +1,83 @@
@@ -23614,7 +23681,7 @@ index 0000000000..b322dac0c2
 +            [valid_regex(r'Output stream #0:0 \(video\): 900 frames encoded; 900 packets muxed')])
 diff --git a/pi-util/v3dusage.py b/pi-util/v3dusage.py
 new file mode 100755
-index 0000000000..5935a11ca5
+index 000000000000..5935a11ca553
 --- /dev/null
 +++ b/pi-util/v3dusage.py
 @@ -0,0 +1,128 @@
@@ -23747,7 +23814,7 @@ index 0000000000..5935a11ca5
 +    do_logparse(args.logfile)
 +
 diff --git a/tests/checkasm/Makefile b/tests/checkasm/Makefile
-index d65f48f97b..ad3c0de110 100644
+index d65f48f97b19..ad3c0de110f5 100644
 --- a/tests/checkasm/Makefile
 +++ b/tests/checkasm/Makefile
 @@ -79,8 +79,9 @@ AVUTILOBJS                              += av_tx.o
@@ -23762,7 +23829,7 @@ index d65f48f97b..ad3c0de110 100644
  CHECKASMOBJS-$(ARCH_AARCH64)            += aarch64/checkasm.o
  CHECKASMOBJS-$(HAVE_ARMV5TE_EXTERNAL)   += arm/checkasm.o
 diff --git a/tests/checkasm/checkasm.c b/tests/checkasm/checkasm.c
-index 968961c03c..7e315455ca 100644
+index 968961c03cd1..7e315455ca34 100644
 --- a/tests/checkasm/checkasm.c
 +++ b/tests/checkasm/checkasm.c
 @@ -314,6 +314,9 @@ static const struct {
@@ -23776,7 +23843,7 @@ index 968961c03c..7e315455ca 100644
      { NULL }
  };
 diff --git a/tests/checkasm/checkasm.h b/tests/checkasm/checkasm.h
-index 6e59c6ebf0..a1179377d9 100644
+index 6e59c6ebf008..a1179377d98d 100644
 --- a/tests/checkasm/checkasm.h
 +++ b/tests/checkasm/checkasm.h
 @@ -123,6 +123,7 @@ void checkasm_check_mpegvideoencdsp(void);
@@ -23789,7 +23856,7 @@ index 6e59c6ebf0..a1179377d9 100644
  void checkasm_check_rv40dsp(void);
 diff --git a/tests/checkasm/rpi_sand.c b/tests/checkasm/rpi_sand.c
 new file mode 100644
-index 0000000000..dd9c1350bc
+index 000000000000..dd9c1350bc2a
 --- /dev/null
 +++ b/tests/checkasm/rpi_sand.c
 @@ -0,0 +1,122 @@
@@ -23916,7 +23983,7 @@ index 0000000000..dd9c1350bc
 +}
 +
 diff --git a/tests/fate/checkasm.mak b/tests/fate/checkasm.mak
-index 366afa0373..69756f27ce 100644
+index 366afa037345..69756f27cee5 100644
 --- a/tests/fate/checkasm.mak
 +++ b/tests/fate/checkasm.mak
 @@ -39,6 +39,7 @@ FATE_CHECKASM = fate-checkasm-aacencdsp                                 \
@@ -23928,7 +23995,7 @@ index 366afa0373..69756f27ce 100644
                  fate-checkasm-rv34dsp                                   \
                  fate-checkasm-rv40dsp                                   \
 diff --git a/tests/fate/filter-video.mak b/tests/fate/filter-video.mak
-index 2b41574df2..5f6c421c59 100644
+index 2b41574df260..5f6c421c5958 100644
 --- a/tests/fate/filter-video.mak
 +++ b/tests/fate/filter-video.mak
 @@ -452,9 +452,9 @@ fate-filter-fps-down-eof-pass: CMD = framecrc -lavfi testsrc2=r=7:d=3.5,fps=3:eo
@@ -23945,7 +24012,7 @@ index 2b41574df2..5f6c421c59 100644
  FATE_FILTER_SAMPLES-$(call FILTERFRAMECRC, TESTSRC2 FSYNC) += fate-filter-fsync-up fate-filter-fsync-down
  fate-filter-fsync-up: tests/data/maps/fsync-up
 diff --git a/tests/ref/fate/imgutils b/tests/ref/fate/imgutils
-index ccd1522ef2..024d90b7d1 100644
+index ccd1522ef2a5..024d90b7d187 100644
 --- a/tests/ref/fate/imgutils
 +++ b/tests/ref/fate/imgutils
 @@ -306,6 +306,9 @@ gbrp10msbbe     planes: 3, linesizes: 128 128 128   0, plane_sizes:  6144  6144
@@ -23966,7 +24033,7 @@ index ccd1522ef2..024d90b7d1 100644
 +sand64_10       total_size:   9216,  black_unknown_crc: 0xee47624d,  black_tv_crc: 0xee47624d,  black_pc_crc: 0x7c6afe45
 +sand64_16       total_size:   9216,  black_unknown_crc: 0xfff85b60,  black_tv_crc: 0xfff85b60,  black_pc_crc: 0xc03cff93
 diff --git a/tests/ref/fate/source b/tests/ref/fate/source
-index 54af72c008..4e0ff24376 100644
+index 54af72c00878..4e0ff24376ee 100644
 --- a/tests/ref/fate/source
 +++ b/tests/ref/fate/source
 @@ -1,5 +1,8 @@
@@ -23989,7 +24056,7 @@ index 54af72c008..4e0ff24376 100644
  Use of av_clip() where av_clip_uintp2() could be used:
  Use of av_clip() where av_clip_intp2() could be used:
 diff --git a/tests/ref/fate/sws-pixdesc-query b/tests/ref/fate/sws-pixdesc-query
-index a062088d54..cc86427bbb 100644
+index a062088d54cd..cc86427bbb2a 100644
 --- a/tests/ref/fate/sws-pixdesc-query
 +++ b/tests/ref/fate/sws-pixdesc-query
 @@ -31,6 +31,7 @@ is16BPS:
