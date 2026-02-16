@@ -21,6 +21,7 @@
 import groovy.util.Node
 import groovy.text.SimpleTemplateEngine
 import groovy.xml.XmlUtil
+import groovy.xml.XmlParser
 
 import Helper
 

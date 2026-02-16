@@ -26,6 +26,8 @@
  * and I don't want to try to trace down problems that would be inevitable
  * with such a refactor.
  */
+import groovy.xml.XmlParser
+
 public class SwigTypeParser
 {
    /**

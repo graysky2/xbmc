@@ -19,7 +19,8 @@
  */
 
 import groovy.xml.XmlUtil
-import org.apache.commons.lang.StringEscapeUtils
+import groovy.xml.XmlParser
+import org.apache.commons.lang3.StringEscapeUtils
 
 import groovy.text.SimpleTemplateEngine
 import groovy.text.SimpleTemplateEngine
@@ -730,7 +731,7 @@ public class Helper
 
    public static String unescape(Node insertSection) { return unescape(insertSection.@code) }
 
-   public static String unescape(String insertSection) { return StringEscapeUtils.unescapeHtml(insertSection) }
+   public static String unescape(String insertSection) { return StringEscapeUtils.unescapeHtml4(insertSection) }
 
    public static boolean isDirector(Node method)
    {
