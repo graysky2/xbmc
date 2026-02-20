@@ -81,6 +81,7 @@ macro(buildFFMPEG)
   set(PATCH_COMMAND ${CMAKE_COMMAND} -E copy
                     ${CMAKE_SOURCE_DIR}/tools/depends/target/ffmpeg/CMakeLists.txt
                     <SOURCE_DIR> &&
+                    echo "########################################## patch ffmpeg ##############################" &&
                     patch -p1 < ${CMAKE_SOURCE_DIR}/tools/depends/target/ffmpeg/0001-rpi-Add-hevc-acceleration.patch &&
                     echo "########################################## patched ffmpeg ##############################"
                     )
