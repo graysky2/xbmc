@@ -157,16 +157,15 @@ if(CMAKE_GENERATOR STREQUAL Ninja)
 endif()
 
 if(NOT DISABLE_FFMPEG_SOURCE_PLUGINS)
-  set(sourceplugin_patch PATCH_COMMAND /bin/sh -c "patch -p1 -i <SOURCE_DIR>/001-ffmpeg-all-libpostproc-plugin.patch && patch -p1 -i <SOURCE_DIR>/002-ffmpeg-libavutil-common-h-cpp11-constant-macros.patch")
+  set(sourceplugin_patch "patch -p1 -i <SOURCE_DIR>/001-ffmpeg-all-libpostproc-plugin.patch && patch -p1 -i <SOURCE_DIR>/002-ffmpeg-libavutil-common-h-cpp11-constant-macros.patch")
 else()
-  set(sourceplugin_patch PATCH_COMMAND patch -p1 -i <SOURCE_DIR>/002-ffmpeg-libavutil-common-h-cpp11-constant-macros.patch)
+  set(sourceplugin_patch "patch -p1 -i <SOURCE_DIR>/002-ffmpeg-libavutil-common-h-cpp11-constant-macros.patch")
 endif()
 
 include(ExternalProject)
 externalproject_add(ffmpeg
                     SOURCE_DIR ${CMAKE_SOURCE_DIR}
-                    ${sourceplugin_patch}
-                    PATCH_COMMAND /bin/sh -c "patch -p1 -i <SOURCE_DIR>/0001-rpi-Add-hevc-acceleration.patch"
+		    PATCH_COMMAND /bin/sh -c "${sourceplugin_patch} && patch -p1 -i <SOURCE_DIR>/0001-rpi-Add-hevc-acceleration.patch"
                     CONFIGURE_COMMAND ${pkgconf} ${pkgconf_path} <SOURCE_DIR>/configure
                       --prefix=${CMAKE_INSTALL_PREFIX}
                       --extra-version="kodi-${FFMPEG_VER}"
