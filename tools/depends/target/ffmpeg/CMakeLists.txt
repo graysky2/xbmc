@@ -45,6 +45,10 @@ list(APPEND ffmpeg_conf --disable-doc
   list(APPEND ffmpeg_conf --enable-sand --enable-v4l2-request --enable-libdrm --enable-libudev --disable-hwaccel=h264_v4l2request --disable-hwaccel=mpeg2_v4l2request --disable-hwaccel=vp8_v4l2request)
 
 if(CMAKE_C_FLAGS)
+  string(REPLACE "-gsplit-dwarf" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+endif()
+
+if(CMAKE_C_FLAGS)
   list(APPEND ffmpeg_conf --extra-cflags=${CMAKE_C_FLAGS})
 endif()
 
@@ -62,6 +66,10 @@ endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL Release)
   list(APPEND ffmpeg_conf --disable-debug)
+else()
+  list(APPEND ffmpeg_conf --enable-debug=3
+	  --disable-stripping
+	  --disable-optimizations)
 endif()
 
 if(CORE_SYSTEM_NAME STREQUAL linux OR CORE_SYSTEM_NAME STREQUAL freebsd)
