@@ -765,17 +765,33 @@ bool CDVDVideoCodecDRMPRIME::FilterOpen(const std::string& filters, bool test)
   par->color_space = m_pCodecContext->colorspace;
 #endif
 
-  if (pix_fmt == AV_PIX_FMT_DRM_PRIME)
+  if (pix_fmt == AV_PIX_FMT_DRM_PRIME && !m_pFrame->hw_frames_ctx)
   {
-    if (av_hwdevice_ctx_create(&m_hw_device_ref, AV_HWDEVICE_TYPE_DRM, NULL, NULL, 0) < 0) {
-        CLog::Log(LOGERROR, "Failed to create DRM device");
-        return false;
+    if (av_hwdevice_ctx_create(&m_hw_device_ref, AV_HWDEVICE_TYPE_DRM, NULL, NULL, 0) < 0)
+    {
+      CLog::Log(LOGERROR, "CDVDVideoCodecDRMPRIME::FilterOpen - failed to create DRM device");
+      return false;
     }
     m_hw_frames_ref = av_hwframe_ctx_alloc(m_hw_device_ref);
-    if (!m_hw_frames_ref) {
-      CLog::Log(LOGERROR, "Failed to allocate hwframe context");
-        av_buffer_unref(&m_hw_device_ref);
-        return false;
+    if (!m_hw_frames_ref)
+    {
+      CLog::Log(LOGERROR, "CDVDVideoCodecDRMPRIME::FilterOpen - failed to allocate hwframe context");
+      av_buffer_unref(&m_hw_device_ref);
+      return false;
+    }
+
+    auto* frames_ctx = reinterpret_cast<AVHWFramesContext*>(m_hw_frames_ref->data);
+    frames_ctx->format = AV_PIX_FMT_DRM_PRIME;
+    frames_ctx->sw_format = static_cast<AVPixelFormat>(m_pFrame->format);
+    frames_ctx->width = m_pCodecContext->width;
+    frames_ctx->height = m_pCodecContext->height;
+
+    if (av_hwframe_ctx_init(m_hw_frames_ref) < 0)
+    {
+      CLog::Log(LOGERROR, "CDVDVideoCodecDRMPRIME::FilterOpen - failed to init hwframe context");
+      av_buffer_unref(&m_hw_frames_ref);
+      av_buffer_unref(&m_hw_device_ref);
+      return false;
     }
     par->hw_frames_ctx = av_buffer_ref(m_hw_frames_ref);
   }
