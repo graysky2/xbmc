@@ -205,18 +205,27 @@ void CDRMAtomic::FlipPage(struct gbm_bo* bo, bool rendered, bool videoLayer, boo
 
 bool CDRMAtomic::InitDrm()
 {
-  if (!CDRMUtils::OpenDrm(true))
+  if (!CDRMUtils::OpenDrm(true) && !CDRMUtils::OpenDrm(false))
+  {
+    m_atomicSupport = AtomicSupport::UNKNOWN;
     return false;
+  }
 
   auto ret = drmSetClientCap(m_fd, DRM_CLIENT_CAP_ATOMIC, 1);
   if (ret)
   {
     CLog::LogF(LOGERROR, "no atomic modesetting support: {}", strerror(errno));
+    m_atomicSupport = AtomicSupport::UNSUPPORTED;
     return false;
   }
 
-  m_atomicRequestQueue.emplace_back(std::make_unique<CDRMAtomicRequest>());
-  m_req = m_atomicRequestQueue.back().get();
+  m_atomicSupport = AtomicSupport::SUPPORTED;
+
+  if (m_atomicRequestQueue.empty())
+  {
+    m_atomicRequestQueue.emplace_back(std::make_unique<CDRMAtomicRequest>());
+    m_req = m_atomicRequestQueue.back().get();
+  }
 
   if (!CDRMUtils::InitDrm())
     return false;

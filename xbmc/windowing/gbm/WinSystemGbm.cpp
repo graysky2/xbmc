@@ -31,6 +31,7 @@
 
 #include <mutex>
 #include <string.h>
+#include <thread>
 
 #ifndef HAVE_HDR_OUTPUT_METADATA
 // HDR structs is copied from linux include/linux/hdmi.h
@@ -133,7 +134,32 @@ bool CWinSystemGbm::InitWindowSystem()
 
   m_DRM = std::make_shared<CDRMAtomic>();
 
-  if (!m_DRM->InitDrm())
+  constexpr int atomicRetries = 10;
+  constexpr auto atomicRetryDelay = 250ms;
+
+  bool atomicInitialised = m_DRM->InitDrm();
+
+  if (!atomicInitialised)
+  {
+    auto atomic = std::static_pointer_cast<CDRMAtomic>(m_DRM);
+    for (int attempt = 0; attempt < atomicRetries &&
+             atomic->GetAtomicSupport() == CDRMAtomic::AtomicSupport::SUPPORTED;
+         ++attempt)
+    {
+      CLog::Log(LOGWARNING,
+                "CWinSystemGbm::{} - Atomic DRM device is capable but not yet ready, "
+                "retrying ({}/{})",
+                __FUNCTION__, attempt + 1, atomicRetries);
+      std::this_thread::sleep_for(atomicRetryDelay);
+      if (m_DRM->InitDrm())
+      {
+        atomicInitialised = true;
+        break;
+      }
+    }
+  }
+
+  if (!atomicInitialised)
   {
     CLog::Log(LOGERROR, "CWinSystemGbm::{} - failed to initialize Atomic DRM", __FUNCTION__);
     m_DRM.reset();
