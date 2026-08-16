@@ -6451,7 +6451,7 @@ msgstr ""
 
 #: addons/skin.estuary/xml/DialogButtonMenu.xml
 msgctxt "#13012"
-msgid "Exit"
+msgid "Restart GUI"
 msgstr ""
 
 #: addons/skin.estuary/xml/DialogButtonMenu.xml
