@@ -1,8 +1,115 @@
+diff --git a/Changelog b/Changelog
+index c85c2f9255d3..b1dca9351630 100644
+--- a/Changelog
++++ b/Changelog
+@@ -1,95 +1,6 @@
+ Entries are sorted chronologically from oldest to youngest within each release,
+ releases are sorted from youngest to oldest.
+ 
+-version 9.0.1:
+- Bump for 9.0.1
+- avcodec/lcldec: clear what the multithread chunks leave undecoded
+- avformat/mlv: end the LJ92 packet where its data ends
+- avformat/mpegts: reject a max_packet_size below one TS payload
+- avformat/mpegts: keep the PES payload within max_packet_size
+- avfilter/spectrumsynth: negotiate one pixel format for both inputs
+- avfilter/afir: bound the crossfades by the samples of the input frame
+- Update for 9.0.1
+- avformat/webp_anim_dec: use ffio_read_size for ICCP and EXIF chunk
+- avformat/webp_anim_dec: use ffio_read_size for ICCP and EXIF chunks
+- avformat/rtpenc_av1: do not narrow the OBU size to (long)
+- avformat/rtpenc_av1: Check num_lebs
+- avformat/rtpenc_av1: bound OBU size in the keyframe search loop
+- avformat/gopher: Fix CRLF injection
+- avformat/rtpenc_vc2hq: reject data units larger than the RTP payload buffer
+- avformat/dashdec: reject a negative fragment index
+- avformat/hevc: reject hvcC NAL arrays that overflow the 16-bit count
+- avformat/mpegenc: reject stream counts that overflow the system header
+- avformat/mpegenc: pass buffer size into put_system_header()
+- avformat/librist: honor the caller buffer size in librist_read
+- avformat/scd: reject zero-channel tracks
+- avcodec/dolby_e: Add error recovery when parse_mantissas run out of bits
+- avfilter/af_pan: check the id of named input channels before use
+- swscale: avoid overflow in fast bilinear edge handling
+- avformat/shared: Use correct printf specifier
+- Revert "lavfi/bwdif: fix heap-buffer-overflow with small height videos"
+- avfilter/vf_bwdif: fix line boundary checks for >8 bits content
+- avformat/rawutils: reject raw RGB frames that do not fit an AVPacket
+- avcodec/nvenc: write AV1 timecode metadata in AV1 syntax
+- avcodec/utils: add ff_alloc_timecode_metadata_av1()
+- avcodec/utils: factor the timecode fields out of ff_alloc_timecode_sei
+- vulkan_encode_av1: set primary_ref_frame to a reference name, not a slot
+- avformat/mov: reject a trun sample count the input cannot hold
+- RELEASE_NOTES: Based on the version from 8.0
+- avformat/mp3enc: fix underflow of the LAME encoder delay
+- avformat/os_support: fix return value of win32_rename
+- vulkan_encode: fix leak and swallowed errors in init_base_units()
+- avfilter/dnn: fix async teardown race condition in all backends
+- avcodec/tiff: reject inflate output shorter than the strip
+- avformat/dashdec: check NULL pointer before use str_end_offset
+- avformat/dashdec: check NULL pointer of av_strtok value before use it
+- avfilter/vf_scale_cuda: fix non-scaling format conversion
+- fftools/opt_common: fix format string bug in print_program_info
+- avformat/dashdec: fix integer truncation in calc_max_seg_no()
+- swscale/x86: fix SIGILL in u8 SCALE on SSE4-only CPUs
+- avdevice/android_camera: fix OOB read in metadata parsing
+- avformat/dashdec: don't stop at the first input EOF
+- avformat/iamf_parse: check that num_sub_mixes and num_audio_elements in Mix Presentations are not zero
+- avformat/iamf_parse: bound the output mix gain duration by the audio elements
+- avcodec/cbs_h266: size vps_direct_ref_layer_flag for the full layer range
+- avcodec/vulkan/ffv1_dec_setup: act on the slice header rejection
+- avcodec/ffv1dec: reject a remap that produces zero entries
+- avcodec/ffv1dec: mark the slice damaged when its remap fails
+- avcodec/vulkan/ffv1_dec_setup: bound the fltmap write
+- avcodec/vulkan/ffv1_dec_setup: test mul_count as unsigned
+- avcodec/vulkan/ffv1_dec_setup: reject a remap that produces zero entries
+- avcodec/pgssubdec: always give an output rect a palette
+- scale_d3d11: Fix hw_frame_ctx reference leak
+- avcodec/cfhd: reject transform-2 output wider than the plane
+- avformat/rtsp: clear authentication on cross-origin redirects
+- avcodec/dovi_rpuenc: normalize vdr_dm_metadata_present to 0/1
+- avcodec/dovi_rpuenc: validate vdr_rpu_id from the input metadata
+- avcodec/bsf/dovi_rpu: handle update_rpu() returning no RPU
+- avcodec/dovi_rpudec: bound num_x/y_partitions
+- avcodec/dovi_rpuenc: validate the data mapping before generation
+- avfilter/af_arnndn: pad the DCT input buffers to the read length
+- doc/nut.texi: point at the latest spec in the git repository
+- avformat/mov: bound sgpd sync entry_count by the atom size
+- avcodec/rscc: do not leave uninitilized data when the input is too short
+- avcodec/dvbsub_parser: avoid signed overflow in the capacity check
+- avformat/tls_openssl: bind peer identity for numeric-IP verify
+- avformat/codec2: avoid integer overflow in packet size and duration
+- avfilter/vf_xpsnr: avoid a zero block size on small frames
+- avcodec/cbs_av1: pad the ITU-T T.35 payload buffer
+- avcodec/screenpresso: reject deflate output shorter than the frame
+- avformat/hls: Enforce protocol checks when opening child playlists
+- avformat/hlsenc: Fix heap buffer overflow in parse_playlist()
+- avformat/hlsenc: Handle extensionless URIs in extract_segment_number()
+- avfilter/vf_lut3d: do not compute size*size before the size is validated
+- avfilter/vf_hqdn3d: support dynamic frame sizes
+- avfilter/vf_hqdn3d: reject unsupported frame parameter changes
+- avcodec/bsf/truehd_core: clear profile value on init()
+- avcodec/bsf/eac3_core: clear profile value on init()
+- avformat/iamf_parse: fix inverted subblock duration validation
+- avcodec/get_buffer: use frame pixel format instead of context
+- avformat/lcevc: add a log context parameter to all functions
+-
+-
+ version 9.0:
+ - Extend AMF Color Converter (vf_vpp_amf) HDR capabilities
+ - LCEVC track muxing support in MP4 muxer
+diff --git a/RELEASE b/RELEASE
+index 37ad5c8b19d9..dd98ee6cb641 100644
+--- a/RELEASE
++++ b/RELEASE
+@@ -1 +1 @@
+-9.0.1
++9.0
 diff --git a/configure b/configure
-index 1759694274..7ec28a2e08 100755
+index 374bd5c15129..7cee7a0cc1cd 100755
 --- a/configure
 +++ b/configure
-@@ -203,6 +203,7 @@ External library support:
+@@ -204,6 +204,7 @@ External library support:
    --enable-cairo           enable cairo [no]
    --disable-coreimage      disable Apple CoreImage framework [autodetect]
    --enable-chromaprint     enable audio fingerprinting with chromaprint [no]
@@ -10,7 +117,7 @@ index 1759694274..7ec28a2e08 100755
    --enable-frei0r          enable frei0r video filtering [no]
    --enable-gcrypt          enable gcrypt, needed for rtmp(t)e support
                             if openssl, librtmp or gmp is not used [no]
-@@ -292,6 +293,7 @@ External library support:
+@@ -291,6 +292,7 @@ External library support:
    --enable-libtorch        enable Torch as one DNN backend [no]
    --enable-libtwolame      enable MP2 encoding via libtwolame [no]
    --enable-libuavs3d       enable AVS3 decoding via libuavs3d [no]
@@ -18,24 +125,22 @@ index 1759694274..7ec28a2e08 100755
    --enable-libv4l2         enable libv4l2/v4l-utils [no]
    --enable-libvidstab      enable video stabilization using vid.stab [no]
    --enable-libvmaf         enable vmaf filter via libvmaf [no]
-@@ -362,12 +364,16 @@ External library support:
+@@ -360,10 +362,14 @@ External library support:
+   --enable-libmfx          enable Intel MediaSDK (AKA Quick Sync Video) code via libmfx [no]
    --enable-libvpl          enable Intel oneVPL code via libvpl if libmfx is not used [no]
-   --enable-libnpp          enable Nvidia Performance Primitives-based code [no]
    --enable-mmal            enable Broadcom Multi-Media Abstraction Layer (Raspberry Pi) via MMAL [no]
 +  --enable-sand            enable sand video formats [rpi]
 +  --enable-vout-drm        enable the vout_drm module - for internal testing only [no]
 +  --enable-vout-egl        enable the vout_egl module - for internal testing only [no]
    --disable-nvdec          disable Nvidia video decoding acceleration (via hwaccel) [autodetect]
    --disable-nvenc          disable Nvidia video encoding code [autodetect]
-   --enable-omx             enable OpenMAX IL code [no]
-   --enable-omx-rpi         enable OpenMAX IL code for Raspberry Pi [no]
    --enable-rkmpp           enable Rockchip Media Process Platform code [no]
    --disable-v4l2-m2m       disable V4L2 mem2mem code [autodetect]
 +  --enable-v4l2-request    enable V4L2 request API code [no]
    --disable-vaapi          disable Video Acceleration API (mainly Unix/Intel) code [autodetect]
    --disable-vdpau          disable Nvidia Video Decode and Presentation API for Unix code [autodetect]
    --disable-videotoolbox   disable VideoToolbox code [autodetect]
-@@ -1969,7 +1975,9 @@ EXTERNAL_AUTODETECT_LIBRARY_LIST="
+@@ -2010,7 +2016,9 @@ EXTERNAL_AUTODETECT_LIBRARY_LIST="
      avfoundation
      bzlib
      coreimage
@@ -45,7 +150,7 @@ index 1759694274..7ec28a2e08 100755
      libxcb
      libxcb_shm
      libxcb_shape
-@@ -2044,6 +2052,7 @@ EXTERNAL_LIBRARY_LIST="
+@@ -2084,6 +2092,7 @@ EXTERNAL_LIBRARY_LIST="
      libcodec2
      libdav1d
      libdc1394
@@ -53,16 +158,16 @@ index 1759694274..7ec28a2e08 100755
      libflite
      libfontconfig
      libfreetype
-@@ -2162,6 +2171,7 @@ HWACCEL_LIBRARY_LIST="
+@@ -2200,6 +2209,7 @@ HWACCEL_LIBRARY_LIST="
+     libvpl
      mmal
-     omx
      opencl
 +    v4l2_request
  "
  
  DOCUMENT_LIST="
-@@ -2179,11 +2189,15 @@ FEATURE_LIST="
-     omx_rpi
+@@ -2217,11 +2227,15 @@ FEATURE_LIST="
+     hardcoded_tables
      runtime_cpudetect
      safe_bitstream_reader
 +    sand
@@ -77,7 +182,7 @@ index 1759694274..7ec28a2e08 100755
  "
  
  # this list should be kept in linking order
-@@ -2781,6 +2795,7 @@ CONFIG_EXTRA="
+@@ -2834,6 +2848,7 @@ CONFIG_EXTRA="
      rtpdec
      rtpenc_chain
      rv34dsp
@@ -85,7 +190,7 @@ index 1759694274..7ec28a2e08 100755
      scene_sad
      sinewin
      smpte_436m
-@@ -3341,6 +3356,7 @@ dxva2_deps="dxva2api_h DXVA2_ConfigPictureDecode ole32 user32"
+@@ -3398,6 +3413,7 @@ dxva2_deps="dxva2api_h DXVA2_ConfigPictureDecode ole32 user32"
  ffnvcodec_deps_any="libdl LoadLibrary"
  mediacodec_deps="android mediandk pthreads"
  nvdec_deps="ffnvcodec"
@@ -93,7 +198,7 @@ index 1759694274..7ec28a2e08 100755
  vaapi_x11_deps="xlib_x11"
  videotoolbox_hwaccel_deps="videotoolbox pthreads"
  videotoolbox_hwaccel_extralibs="-framework QuartzCore"
-@@ -3401,6 +3417,8 @@ hevc_dxva2_hwaccel_deps="dxva2 DXVA_PicParams_HEVC"
+@@ -3460,6 +3476,8 @@ hevc_dxva2_hwaccel_deps="dxva2 DXVA_PicParams_HEVC"
  hevc_dxva2_hwaccel_select="hevc_decoder"
  hevc_nvdec_hwaccel_deps="nvdec"
  hevc_nvdec_hwaccel_select="hevc_decoder"
@@ -102,7 +207,7 @@ index 1759694274..7ec28a2e08 100755
  hevc_vaapi_hwaccel_deps="vaapi VAPictureParameterBufferHEVC"
  hevc_vaapi_hwaccel_select="hevc_decoder"
  hevc_vdpau_hwaccel_deps="vdpau VdpPictureInfoHEVC"
-@@ -3563,6 +3581,7 @@ av1_nvenc_encoder_select="atsc_a53"
+@@ -3620,6 +3638,7 @@ av1_nvenc_encoder_select="atsc_a53"
  av1_qsv_decoder_select="qsvdec"
  av1_qsv_encoder_deps="libvpl"
  av1_qsv_encoder_select="qsvenc"
@@ -110,7 +215,7 @@ index 1759694274..7ec28a2e08 100755
  av1_vaapi_encoder_deps="VAEncPictureParameterBufferAV1"
  av1_vaapi_encoder_select="cbs_av1 vaapi_encode"
  av1_vulkan_encoder_deps="vulkan_1_4"
-@@ -4000,8 +4019,11 @@ sndio_indev_deps="sndio"
+@@ -4058,8 +4077,11 @@ sndio_indev_deps="sndio"
  sndio_outdev_deps="sndio"
  v4l2_indev_deps_any="linux_videodev2_h sys_videoio_h"
  v4l2_indev_suggest="libv4l2"
@@ -122,7 +227,7 @@ index 1759694274..7ec28a2e08 100755
  vfwcap_indev_deps="vfw32 vfwcap_defines"
  xcbgrab_indev_deps="libxcb"
  xcbgrab_indev_suggest="libxcb_shm libxcb_shape libxcb_xfixes"
-@@ -4112,6 +4134,7 @@ cropdetect_filter_deps="gpl"
+@@ -4171,6 +4193,7 @@ cropdetect_filter_deps="gpl"
  deinterlace_qsv_filter_deps="libmfx"
  deinterlace_qsv_filter_select="qsvvpp"
  deinterlace_vaapi_filter_deps="vaapi"
@@ -130,23 +235,23 @@ index 1759694274..7ec28a2e08 100755
  delogo_filter_deps="gpl"
  denoise_vaapi_filter_deps="vaapi"
  derain_filter_select="dnn"
-@@ -4227,6 +4250,7 @@ transpose_opencl_filter_deps="opencl"
+@@ -4287,6 +4310,7 @@ transpose_opencl_filter_deps="opencl"
  transpose_vaapi_filter_deps="vaapi VAProcPipelineCaps_rotation_flags"
  transpose_vt_filter_deps="videotoolbox VTPixelRotationSessionCreate"
- transpose_vulkan_filter_deps="vulkan spirv_library"
+ transpose_vulkan_filter_deps="vulkan spirv_compiler"
 +unsand_filter_select="sand"
  unsharp_opencl_filter_deps="opencl"
  uspp_filter_deps="gpl avcodec"
- vaguedenoiser_filter_deps="gpl"
-@@ -4238,6 +4262,7 @@ libvmaf_cuda_filter_deps="libvmaf libvmaf_cuda ffnvcodec"
+ v360_vulkan_filter_deps="vulkan spirv_compiler"
+@@ -4299,6 +4323,7 @@ libvmaf_cuda_filter_deps="libvmaf libvmaf_cuda ffnvcodec"
  zmq_filter_deps="libzmq"
  zoompan_filter_deps="swscale"
  zscale_filter_deps="libzimg const_nan"
 +scale_v4l2m2m_filter_deps="libdrm v4l2_m2m"
  scale_vaapi_filter_deps="vaapi"
  scale_vt_filter_deps="videotoolbox VTPixelTransferSessionCreate"
- scale_vulkan_filter_deps="vulkan spirv_compiler spirv_library"
-@@ -6966,6 +6991,12 @@ if enabled xlib; then
+ scale_vulkan_filter_deps="vulkan spirv_compiler swscale"
+@@ -7054,6 +7079,12 @@ if enabled xlib; then
          disable xlib
  fi
  
@@ -159,7 +264,7 @@ index 1759694274..7ec28a2e08 100755
  check_headers direct.h
  check_headers dirent.h
  check_headers dxgidebug.h
-@@ -7501,8 +7532,16 @@ enabled rkmpp             && { require_pkg_config rkmpp "rockchip_mpp >= 1.3.8"
+@@ -7560,8 +7591,16 @@ enabled rkmpp             && { require_pkg_config rkmpp "rockchip_mpp >= 1.3.8"
                                 { enabled libdrm ||
                                   die "ERROR: rkmpp requires --enable-libdrm"; }
                               }
@@ -176,7 +281,7 @@ index 1759694274..7ec28a2e08 100755
  if enabled gcrypt; then
      GCRYPT_CONFIG="${cross_prefix}libgcrypt-config"
      if "${GCRYPT_CONFIG}" --version > /dev/null 2>&1; then
-@@ -7586,8 +7625,13 @@ if enabled v4l2_m2m; then
+@@ -7649,8 +7688,13 @@ if enabled v4l2_m2m; then
      check_cc h264_v4l2_m2m linux/videodev2.h "int i = V4L2_PIX_FMT_H264;"
      check_cc vp8_v4l2_m2m linux/videodev2.h "int i = V4L2_PIX_FMT_VP8;"
      check_cc vp9_v4l2_m2m linux/videodev2.h "int i = V4L2_PIX_FMT_VP9;"
@@ -190,7 +295,7 @@ index 1759694274..7ec28a2e08 100755
  check_headers sys/videoio.h
  test_code cc sys/videoio.h "struct v4l2_frmsizeenum vfse; vfse.discrete.width = 0;" && enable_sanitized struct_v4l2_frmivalenum_discrete
  
-@@ -8196,6 +8240,9 @@ enabled threads || warn \
+@@ -8270,6 +8314,9 @@ enabled threads || warn \
      "that the libraries from this build MUST NOT be used in a multi-threaded"\
      "environment."
  
@@ -200,11 +305,37 @@ index 1759694274..7ec28a2e08 100755
  case $target_os in
  *-dos|freedos|opendos)
      if test_cpp_condition sys/version.h "defined(__DJGPP__) && __DJGPP__ == 2 && __DJGPP_MINOR__ == 5"; then
+diff --git a/doc/Doxyfile b/doc/Doxyfile
+index e9054876999d..baa4594e6ed9 100644
+--- a/doc/Doxyfile
++++ b/doc/Doxyfile
+@@ -38,7 +38,7 @@ PROJECT_NAME           = FFmpeg
+ # could be handy for archiving the generated documentation or if some version
+ # control system is used.
+ 
+-PROJECT_NUMBER         = 9.0.1
++PROJECT_NUMBER         = 9.0
+ 
+ # Using the PROJECT_BRIEF tag one can provide an optional one line description
+ # for a project that appears at the top of each page and should give viewer a
+diff --git a/doc/demuxers.texi b/doc/demuxers.texi
+index 8603069949f0..a1dd879b59ef 100644
+--- a/doc/demuxers.texi
++++ b/doc/demuxers.texi
+@@ -1008,7 +1008,7 @@ streams move to different PIDs. Default value is 0.
+ 
+ @item max_packet_size
+ Set maximum size, in bytes, of packet emitted by the demuxer. Payloads above this size
+-are split across multiple packets. Range is 184 to INT_MAX/2. Default is 204800 bytes.
++are split across multiple packets. Range is 1 to INT_MAX/2. Default is 204800 bytes.
+ @end table
+ 
+ @section mpjpeg
 diff --git a/fftools/ffmpeg.h b/fftools/ffmpeg.h
-index 3e33438171..f052e77dc6 100644
+index c44aaf6032f9..72ad5edc0e2c 100644
 --- a/fftools/ffmpeg.h
 +++ b/fftools/ffmpeg.h
-@@ -765,6 +765,8 @@ extern enum VideoSyncMethod video_sync_method;
+@@ -735,6 +735,8 @@ extern enum VideoSyncMethod video_sync_method;
  extern float frame_drop_threshold;
  extern int do_benchmark;
  extern int do_benchmark_all;
@@ -214,19 +345,19 @@ index 3e33438171..f052e77dc6 100644
  extern int do_pkt_dump;
  extern int copy_ts;
 diff --git a/fftools/ffmpeg_dec.c b/fftools/ffmpeg_dec.c
-index e424c0b17d..f0e934edec 100644
+index 1b37d39e6dcb..25bdca04b257 100644
 --- a/fftools/ffmpeg_dec.c
 +++ b/fftools/ffmpeg_dec.c
-@@ -394,7 +394,7 @@ static int video_frame_process(DecoderPriv *dp, AVFrame *frame,
-     }
- #endif
- 
+@@ -387,7 +387,7 @@ fail:
+ static int video_frame_process(DecoderPriv *dp, AVFrame *frame,
+                                unsigned *outputs_mask)
+ {
 -    if (frame->format == dp->hwaccel_pix_fmt) {
 +    if (!no_cvt_hw && frame->format == dp->hwaccel_pix_fmt) {
          int err = hwaccel_retrieve_data(dp->dec_ctx, frame);
          if (err < 0)
              return err;
-@@ -1338,12 +1338,15 @@ static enum AVPixelFormat get_format(AVCodecContext *s, const enum AVPixelFormat
+@@ -1331,12 +1331,15 @@ static enum AVPixelFormat get_format(AVCodecContext *s, const enum AVPixelFormat
              break;
  
          if (dp->hwaccel_id == HWACCEL_GENERIC ||
@@ -245,10 +376,10 @@ index e424c0b17d..f0e934edec 100644
                      continue;
                  if (config->pix_fmt == *p)
 diff --git a/fftools/ffmpeg_filter.c b/fftools/ffmpeg_filter.c
-index 765b65d0ec..7ee9b0f6ea 100644
+index 5b68d831d8cc..470930d07c13 100644
 --- a/fftools/ffmpeg_filter.c
 +++ b/fftools/ffmpeg_filter.c
-@@ -3094,8 +3094,8 @@ static int send_frame(FilterGraph *fg, FilterGraphThread *fgt,
+@@ -3080,8 +3080,8 @@ static int send_frame(FilterGraph *fg, FilterGraphThread *fgt,
          break;
      case AVMEDIA_TYPE_VIDEO:
          if (ifp->format != frame->format ||
@@ -259,7 +390,7 @@ index 765b65d0ec..7ee9b0f6ea 100644
              ifp->color_space != frame->colorspace ||
              ifp->color_range != frame->color_range ||
              ifp->alpha_mode != frame->alpha_mode)
-@@ -3131,6 +3131,9 @@ static int send_frame(FilterGraph *fg, FilterGraphThread *fgt,
+@@ -3117,6 +3117,9 @@ static int send_frame(FilterGraph *fg, FilterGraphThread *fgt,
          (ifp->hw_frames_ctx && ifp->hw_frames_ctx->data != frame->hw_frames_ctx->data))
          need_reinit |= HWACCEL_CHANGED;
  
@@ -270,7 +401,7 @@ index 765b65d0ec..7ee9b0f6ea 100644
          ret = ifilter_parameters_from_frame(ifilter, frame);
          if (ret < 0)
 diff --git a/fftools/ffmpeg_hw.c b/fftools/ffmpeg_hw.c
-index 5d4c06c28e..f39bd29b6e 100644
+index 5d4c06c28e85..f39bd29b6e4a 100644
 --- a/fftools/ffmpeg_hw.c
 +++ b/fftools/ffmpeg_hw.c
 @@ -73,6 +73,8 @@ static char *hw_device_default_name(enum AVHWDeviceType type)
@@ -283,10 +414,10 @@ index 5d4c06c28e..f39bd29b6e 100644
      name = av_malloc(index_pos + 4);
      if (!name)
 diff --git a/fftools/ffmpeg_opt.c b/fftools/ffmpeg_opt.c
-index a2566193b9..4707f1161f 100644
+index 2c362c64af8f..889cbb901333 100644
 --- a/fftools/ffmpeg_opt.c
 +++ b/fftools/ffmpeg_opt.c
-@@ -62,6 +62,7 @@ enum VideoSyncMethod video_sync_method = VSYNC_AUTO;
+@@ -59,6 +59,7 @@ float dts_error_threshold   = 3600*30;
  float frame_drop_threshold = 0;
  int do_benchmark      = 0;
  int do_benchmark_all  = 0;
@@ -294,7 +425,7 @@ index a2566193b9..4707f1161f 100644
  int do_hex_dump       = 0;
  int do_pkt_dump       = 0;
  int copy_ts           = 0;
-@@ -1719,8 +1720,11 @@ const OptionDef options[] = {
+@@ -1647,8 +1648,11 @@ const OptionDef options[] = {
      { "benchmark_all",          OPT_TYPE_BOOL, OPT_EXPERT,
          { &do_benchmark_all },
        "add timings for each task" },
@@ -309,7 +440,7 @@ index a2566193b9..4707f1161f 100644
      { "stdin",                  OPT_TYPE_BOOL, OPT_EXPERT,
          { &stdin_interaction },
 diff --git a/libavcodec/Makefile b/libavcodec/Makefile
-index 1410bd8142..e7e5e7b1a2 100644
+index 95ba308504d2..1974819dc1f4 100644
 --- a/libavcodec/Makefile
 +++ b/libavcodec/Makefile
 @@ -184,7 +184,10 @@ OBJS-$(CONFIG_VC1DSP)                  += vc1dsp.o
@@ -324,7 +455,7 @@ index 1410bd8142..e7e5e7b1a2 100644
  OBJS-$(CONFIG_WMA_FREQS)               += wma_freqs.o
  OBJS-$(CONFIG_WMV2DSP)                 += wmv2dsp.o
  
-@@ -1072,6 +1075,8 @@ OBJS-$(CONFIG_HEVC_DXVA2_HWACCEL)         += dxva2_hevc.o
+@@ -1070,6 +1073,8 @@ OBJS-$(CONFIG_HEVC_DXVA2_HWACCEL)         += dxva2_hevc.o
  OBJS-$(CONFIG_HEVC_D3D12VA_HWACCEL)       += dxva2_hevc.o d3d12va_hevc.o
  OBJS-$(CONFIG_HEVC_NVDEC_HWACCEL)         += nvdec_hevc.o
  OBJS-$(CONFIG_HEVC_QSV_HWACCEL)           += qsvdec.o
@@ -334,10 +465,10 @@ index 1410bd8142..e7e5e7b1a2 100644
  OBJS-$(CONFIG_HEVC_VDPAU_HWACCEL)         += vdpau_hevc.o h265_profile_level.o
  OBJS-$(CONFIG_HEVC_VULKAN_HWACCEL)        += vulkan_decode.o vulkan_hevc.o
 diff --git a/libavcodec/allcodecs.c b/libavcodec/allcodecs.c
-index 695214f192..08cccc2e81 100644
+index 47eded261f17..001839170f65 100644
 --- a/libavcodec/allcodecs.c
 +++ b/libavcodec/allcodecs.c
-@@ -871,6 +871,7 @@ extern const FFCodec ff_av1_qsv_encoder;
+@@ -857,6 +857,7 @@ extern const FFCodec ff_av1_qsv_encoder;
  extern const FFCodec ff_av1_amf_encoder;
  extern const FFCodec ff_av1_amf_decoder;
  extern const FFCodec ff_av1_mf_encoder;
@@ -345,9 +476,51 @@ index 695214f192..08cccc2e81 100644
  extern const FFCodec ff_av1_vaapi_encoder;
  extern const FFCodec ff_av1_vulkan_encoder;
  extern const FFCodec ff_libopenh264_encoder;
+diff --git a/libavcodec/cbs_lcevc_syntax_template.c b/libavcodec/cbs_lcevc_syntax_template.c
+index c497c5c2fbd8..b24c1bf365f1 100644
+--- a/libavcodec/cbs_lcevc_syntax_template.c
++++ b/libavcodec/cbs_lcevc_syntax_template.c
+@@ -515,10 +515,7 @@ static int FUNC(process_block)(CodedBitstreamContext *ctx, RWContext *rw,
+             if (trailing_bits == 0) {
+                 // The trailing bits must contain a payload_bit_equal_to_one, so
+                 // they can't all be zero.
+-                // Don't error out as encodings following a faulty specification
+-                // syntax trigger this.
+-                av_log(ctx->log_ctx, AV_LOG_DEBUG, "Missing alignment bits in Process Block\n");
+-                return 0;
++                return AVERROR_INVALIDDATA;
+             }
+             trailing_zero_bits = ff_ctz(trailing_bits);
+             current->extension_bit_length =
+diff --git a/libavcodec/dolby_e.c b/libavcodec/dolby_e.c
+index 6a2432ff1b86..2d32ac283282 100644
+--- a/libavcodec/dolby_e.c
++++ b/libavcodec/dolby_e.c
+@@ -845,7 +845,6 @@ static int parse_indices(DBEContext *s, DBEChannel *c)
+     return 0;
+ }
+ 
+-#define MIN_MANTISSAS 800
+ static int parse_mantissas(DBEContext *s, DBEChannel *c)
+ {
+     DBEGroup *g;
+@@ -886,13 +885,6 @@ static int parse_mantissas(DBEContext *s, DBEChannel *c)
+                     }
+                 }
+             } else {
+-                if (i == c->nb_groups - 1
+-                    && count * size1 > get_bits_left(&s->gb)
+-                    && get_bits_left(&s->gb) >= 0
+-                    && (int)(mnt - c->mantissas) >= MIN_MANTISSAS) {
+-                    av_log(s->avctx, AV_LOG_WARNING, "Truncated mantissas @%d, highest frequencies not recoverable\n", (int)(mnt - c->mantissas));
+-                    break;
+-                }
+                 for (k = 0; k < count; k++)
+                     mnt[k] = get_sbits(&s->gb, size1) * scale;
+             }
 diff --git a/libavcodec/hevc-ctrls-v1.h b/libavcodec/hevc-ctrls-v1.h
 new file mode 100644
-index 0000000000..72cbba0953
+index 000000000000..72cbba0953dc
 --- /dev/null
 +++ b/libavcodec/hevc-ctrls-v1.h
 @@ -0,0 +1,229 @@
@@ -582,7 +755,7 @@ index 0000000000..72cbba0953
 +#endif
 diff --git a/libavcodec/hevc-ctrls-v2.h b/libavcodec/hevc-ctrls-v2.h
 new file mode 100644
-index 0000000000..7cbbbf055f
+index 000000000000..7cbbbf055f47
 --- /dev/null
 +++ b/libavcodec/hevc-ctrls-v2.h
 @@ -0,0 +1,257 @@
@@ -845,7 +1018,7 @@ index 0000000000..7cbbbf055f
 +#endif
 diff --git a/libavcodec/hevc-ctrls-v3.h b/libavcodec/hevc-ctrls-v3.h
 new file mode 100644
-index 0000000000..4e35bd583d
+index 000000000000..4e35bd583d58
 --- /dev/null
 +++ b/libavcodec/hevc-ctrls-v3.h
 @@ -0,0 +1,255 @@
@@ -1106,7 +1279,7 @@ index 0000000000..4e35bd583d
 +#endif
 diff --git a/libavcodec/hevc-ctrls-v4.h b/libavcodec/hevc-ctrls-v4.h
 new file mode 100644
-index 0000000000..c02fdbe5a8
+index 000000000000..c02fdbe5a8e9
 --- /dev/null
 +++ b/libavcodec/hevc-ctrls-v4.h
 @@ -0,0 +1,524 @@
@@ -1635,10 +1808,10 @@ index 0000000000..c02fdbe5a8
 +
 +#endif
 diff --git a/libavcodec/hevc/hevcdec.c b/libavcodec/hevc/hevcdec.c
-index ae5f0fe69d..cb1051b003 100644
+index 18e22f697e64..1b1e41249a35 100644
 --- a/libavcodec/hevc/hevcdec.c
 +++ b/libavcodec/hevc/hevcdec.c
-@@ -352,6 +352,19 @@ static void export_stream_params(HEVCContext *s, const HEVCSPS *sps)
+@@ -353,6 +353,19 @@ static void export_stream_params(HEVCContext *s, const HEVCSPS *sps)
      else
          avctx->color_range = AVCOL_RANGE_MPEG;
  
@@ -1658,7 +1831,7 @@ index ae5f0fe69d..cb1051b003 100644
      if (sps->vui.common.colour_description_present_flag) {
          avctx->color_primaries = sps->vui.common.colour_primaries;
          avctx->color_trc       = sps->vui.common.transfer_characteristics;
-@@ -580,6 +593,7 @@ static enum AVPixelFormat get_format(HEVCContext *s, const HEVCSPS *sps)
+@@ -566,6 +579,7 @@ static enum AVPixelFormat get_format(HEVCContext *s, const HEVCSPS *sps)
                       CONFIG_HEVC_D3D11VA_HWACCEL * 2 + \
                       CONFIG_HEVC_D3D12VA_HWACCEL + \
                       CONFIG_HEVC_NVDEC_HWACCEL + \
@@ -1666,7 +1839,7 @@ index ae5f0fe69d..cb1051b003 100644
                       CONFIG_HEVC_VAAPI_HWACCEL + \
                       CONFIG_HEVC_VIDEOTOOLBOX_HWACCEL + \
                       CONFIG_HEVC_VDPAU_HWACCEL + \
-@@ -618,6 +632,9 @@ static enum AVPixelFormat get_format(HEVCContext *s, const HEVCSPS *sps)
+@@ -604,6 +618,9 @@ static enum AVPixelFormat get_format(HEVCContext *s, const HEVCSPS *sps)
  #endif
  #if CONFIG_HEVC_VULKAN_HWACCEL
          *fmt++ = AV_PIX_FMT_VULKAN;
@@ -1676,7 +1849,7 @@ index ae5f0fe69d..cb1051b003 100644
  #endif
          break;
      case AV_PIX_FMT_YUV420P10:
-@@ -645,6 +662,9 @@ static enum AVPixelFormat get_format(HEVCContext *s, const HEVCSPS *sps)
+@@ -631,6 +648,9 @@ static enum AVPixelFormat get_format(HEVCContext *s, const HEVCSPS *sps)
  #endif
  #if CONFIG_HEVC_NVDEC_HWACCEL
          *fmt++ = AV_PIX_FMT_CUDA;
@@ -1686,7 +1859,7 @@ index ae5f0fe69d..cb1051b003 100644
  #endif
          break;
      case AV_PIX_FMT_YUV444P:
-@@ -747,13 +767,16 @@ static int set_sps(HEVCContext *s, HEVCLayerContext *l, const HEVCSPS *sps)
+@@ -733,13 +753,16 @@ static int set_sps(HEVCContext *s, HEVCLayerContext *l, const HEVCSPS *sps)
      if (!sps)
          return 0;
  
@@ -1709,7 +1882,7 @@ index ae5f0fe69d..cb1051b003 100644
  
      l->sps    = av_refstruct_ref_c(sps);
      s->vps    = av_refstruct_ref_c(sps->vps);
-@@ -3280,11 +3303,13 @@ static int hevc_frame_start(HEVCContext *s, HEVCLayerContext *l,
+@@ -3267,11 +3290,13 @@ static int hevc_frame_start(HEVCContext *s, HEVCLayerContext *l,
          }
      }
  
@@ -1728,7 +1901,7 @@ index ae5f0fe69d..cb1051b003 100644
  
      if (IS_IDR(s))
          ff_hevc_clear_refs(l);
-@@ -3877,8 +3902,13 @@ static int hevc_receive_frame(AVCodecContext *avctx, AVFrame *frame)
+@@ -3870,8 +3895,13 @@ static int hevc_receive_frame(AVCodecContext *avctx, AVFrame *frame)
      }
  
      ret    = decode_nal_units(s, avpkt->data, avpkt->size);
@@ -1743,7 +1916,7 @@ index ae5f0fe69d..cb1051b003 100644
  
  do_output:
      if (av_container_fifo_read(s->output_fifo, frame, 0) >= 0) {
-@@ -3907,8 +3937,10 @@ static int hevc_ref_frame(HEVCFrame *dst, const HEVCFrame *src)
+@@ -3900,8 +3930,10 @@ static int hevc_ref_frame(HEVCFrame *dst, const HEVCFrame *src)
      }
  
      dst->pps     = av_refstruct_ref_c(src->pps);
@@ -1756,7 +1929,7 @@ index ae5f0fe69d..cb1051b003 100644
      dst->rpl = av_refstruct_ref(src->rpl);
      dst->nb_rpl_elems = src->nb_rpl_elems;
  
-@@ -4269,6 +4301,9 @@ const FFCodec ff_hevc_decoder = {
+@@ -4262,6 +4294,9 @@ const FFCodec ff_hevc_decoder = {
  #if CONFIG_HEVC_NVDEC_HWACCEL
                                 HWACCEL_NVDEC(hevc),
  #endif
@@ -1767,10 +1940,10 @@ index ae5f0fe69d..cb1051b003 100644
                                 HWACCEL_VAAPI(hevc),
  #endif
 diff --git a/libavcodec/hevc/parser.c b/libavcodec/hevc/parser.c
-index 62bcd91172..2ff063a502 100644
+index 47a1ac70d009..31c66482ed50 100644
 --- a/libavcodec/hevc/parser.c
 +++ b/libavcodec/hevc/parser.c
-@@ -94,6 +94,19 @@ static int hevc_parse_slice_header(AVCodecParserContext *s, H2645NAL *nal,
+@@ -95,6 +95,19 @@ static int hevc_parse_slice_header(AVCodecParserContext *s, H2645NAL *nal,
      avctx->profile  = sps->ptl.general_ptl.profile_idc;
      avctx->level    = sps->ptl.general_ptl.level_idc;
  
@@ -1791,10 +1964,10 @@ index 62bcd91172..2ff063a502 100644
          num = sps->vps->vps_num_units_in_tick;
          den = sps->vps->vps_time_scale;
 diff --git a/libavcodec/hevc/refs.c b/libavcodec/hevc/refs.c
-index f53768f816..8a3cb2d515 100644
+index 005f416bf3d0..fd2b5d5ff245 100644
 --- a/libavcodec/hevc/refs.c
 +++ b/libavcodec/hevc/refs.c
-@@ -170,16 +170,19 @@ static HEVCFrame *alloc_frame(HEVCContext *s, HEVCLayerContext *l)
+@@ -169,16 +169,19 @@ static HEVCFrame *alloc_frame(HEVCContext *s, HEVCLayerContext *l)
              goto fail;
          frame->nb_rpl_elems = s->pkt.nb_nals;
  
@@ -1824,7 +1997,7 @@ index f53768f816..8a3cb2d515 100644
  
          if (s->sei.picture_timing.picture_struct == AV_PICTURE_STRUCTURE_TOP_FIELD)
              frame->f->flags |= AV_FRAME_FLAG_TOP_FIELD_FIRST;
-@@ -331,14 +334,17 @@ static int init_slice_rpl(HEVCContext *s)
+@@ -330,14 +333,17 @@ static int init_slice_rpl(HEVCContext *s)
      int ctb_count    = frame->ctb_count;
      int ctb_addr_ts  = s->pps->ctb_addr_rs_to_ts[s->sh.slice_segment_addr];
      int i;
@@ -1846,7 +2019,7 @@ index f53768f816..8a3cb2d515 100644
      return 0;
  }
 diff --git a/libavcodec/hwaccel_internal.h b/libavcodec/hwaccel_internal.h
-index 7224406815..bc7a81eeb1 100644
+index 7224406815ab..bc7a81eeb1ef 100644
 --- a/libavcodec/hwaccel_internal.h
 +++ b/libavcodec/hwaccel_internal.h
 @@ -163,6 +163,17 @@ typedef struct FFHWAccel {
@@ -1868,10 +2041,10 @@ index 7224406815..bc7a81eeb1 100644
  
  static inline const FFHWAccel *ffhwaccel(const AVHWAccel *codec)
 diff --git a/libavcodec/hwaccels.h b/libavcodec/hwaccels.h
-index 3de191288a..ab4196ab33 100644
+index 4f8da46c1342..def207d8837f 100644
 --- a/libavcodec/hwaccels.h
 +++ b/libavcodec/hwaccels.h
-@@ -46,6 +46,7 @@ extern const struct FFHWAccel ff_hevc_d3d11va2_hwaccel;
+@@ -47,6 +47,7 @@ extern const struct FFHWAccel ff_hevc_d3d11va2_hwaccel;
  extern const struct FFHWAccel ff_hevc_d3d12va_hwaccel;
  extern const struct FFHWAccel ff_hevc_dxva2_hwaccel;
  extern const struct FFHWAccel ff_hevc_nvdec_hwaccel;
@@ -1880,7 +2053,7 @@ index 3de191288a..ab4196ab33 100644
  extern const struct FFHWAccel ff_hevc_vdpau_hwaccel;
  extern const struct FFHWAccel ff_hevc_videotoolbox_hwaccel;
 diff --git a/libavcodec/hwconfig.h b/libavcodec/hwconfig.h
-index ee29ca631d..a7cb81aa04 100644
+index ee29ca631df0..a7cb81aa044f 100644
 --- a/libavcodec/hwconfig.h
 +++ b/libavcodec/hwconfig.h
 @@ -67,6 +67,8 @@ void ff_hwaccel_uninit(AVCodecContext *avctx);
@@ -1892,8 +2065,21 @@ index ee29ca631d..a7cb81aa04 100644
  #define HWACCEL_VAAPI(codec) \
      HW_CONFIG_HWACCEL(1, 1, 1, VAAPI,        VAAPI,        ff_ ## codec ## _vaapi_hwaccel)
  #define HWACCEL_VDPAU(codec) \
+diff --git a/libavcodec/lcldec.c b/libavcodec/lcldec.c
+index ad40c585460f..502324301768 100644
+--- a/libavcodec/lcldec.c
++++ b/libavcodec/lcldec.c
+@@ -292,8 +292,6 @@ static int decode_frame(AVCodecContext *avctx, AVFrame *frame,
+             ret = zlib_decomp(avctx, buf + 8 + mthread_inlen, len - 8 - mthread_inlen,
+                               mthread_outlen, mthread_outlen);
+             if (ret < 0) return ret;
+-            memset(c->decomp_buf + mthread_outlen + ret, 0,
+-                   c->decomp_size - mthread_outlen - ret);
+             len = c->decomp_size;
+         } else {
+             int ret = zlib_decomp(avctx, buf, len, 0, c->decomp_size);
 diff --git a/libavcodec/mmaldec.c b/libavcodec/mmaldec.c
-index e42591110f..70cc0ecabc 100644
+index e42591110fec..70cc0ecabcb9 100644
 --- a/libavcodec/mmaldec.c
 +++ b/libavcodec/mmaldec.c
 @@ -24,6 +24,9 @@
@@ -1915,7 +2101,7 @@ index e42591110f..70cc0ecabc 100644
  
  #include "avcodec.h"
 diff --git a/libavcodec/raw_pix_fmt_tags.h b/libavcodec/raw_pix_fmt_tags.h
-index bdde060cf7..a1621b7319 100644
+index bdde060cf72c..a1621b7319a5 100644
 --- a/libavcodec/raw_pix_fmt_tags.h
 +++ b/libavcodec/raw_pix_fmt_tags.h
 @@ -310,6 +310,12 @@ static const PixelFormatTag raw_pix_fmt_tags[] = {
@@ -1932,7 +2118,7 @@ index bdde060cf7..a1621b7319 100644
  };
  
 diff --git a/libavcodec/rawenc.c b/libavcodec/rawenc.c
-index 8c577006d9..b215577b75 100644
+index 8c577006d922..b215577b7548 100644
 --- a/libavcodec/rawenc.c
 +++ b/libavcodec/rawenc.c
 @@ -24,6 +24,7 @@
@@ -2092,7 +2278,7 @@ index 8c577006d9..b215577b75 100644
  
  const FFCodec ff_rawvideo_encoder = {
 diff --git a/libavcodec/v4l2_buffers.c b/libavcodec/v4l2_buffers.c
-index 077c1ee944..81d7919f5b 100644
+index f96c26771b76..ff5ff8609077 100644
 --- a/libavcodec/v4l2_buffers.c
 +++ b/libavcodec/v4l2_buffers.c
 @@ -21,6 +21,7 @@
@@ -2103,10 +2289,10 @@ index 077c1ee944..81d7919f5b 100644
  #include <linux/videodev2.h>
  #include <sys/ioctl.h>
  #include <sys/mman.h>
-@@ -28,61 +29,98 @@
- #include <fcntl.h>
+@@ -29,61 +30,98 @@
  #include <poll.h>
  #include "libavcodec/avcodec.h"
+ #include "libavutil/attributes.h"
 +#include "libavcodec/internal.h"
 +#include "libavutil/avassert.h"
 +#include "libavutil/mem.h"
@@ -2227,7 +2413,7 @@ index 077c1ee944..81d7919f5b 100644
  }
  
  static enum AVColorPrimaries v4l2_get_color_primaries(V4L2Buffer *buf)
-@@ -119,6 +157,105 @@ static enum AVColorPrimaries v4l2_get_color_primaries(V4L2Buffer *buf)
+@@ -120,6 +158,105 @@ static enum AVColorPrimaries v4l2_get_color_primaries(V4L2Buffer *buf)
      return AVCOL_PRI_UNSPECIFIED;
  }
  
@@ -2333,7 +2519,7 @@ index 077c1ee944..81d7919f5b 100644
  static enum AVColorRange v4l2_get_color_range(V4L2Buffer *buf)
  {
      enum v4l2_quantization qt;
-@@ -137,6 +274,20 @@ static enum AVColorRange v4l2_get_color_range(V4L2Buffer *buf)
+@@ -138,6 +275,20 @@ static enum AVColorRange v4l2_get_color_range(V4L2Buffer *buf)
       return AVCOL_RANGE_UNSPECIFIED;
  }
  
@@ -2354,7 +2540,7 @@ index 077c1ee944..81d7919f5b 100644
  static enum AVColorSpace v4l2_get_color_space(V4L2Buffer *buf)
  {
      enum v4l2_ycbcr_encoding ycbcr;
-@@ -216,88 +367,259 @@ static enum AVColorTransferCharacteristic v4l2_get_color_trc(V4L2Buffer *buf)
+@@ -217,88 +368,259 @@ static enum AVColorTransferCharacteristic v4l2_get_color_trc(V4L2Buffer *buf)
      return AVCOL_TRC_UNSPECIFIED;
  }
  
@@ -2371,7 +2557,7 @@ index 077c1ee944..81d7919f5b 100644
 -    case V4L2_FIELD_INTERLACED:
 -    case V4L2_FIELD_INTERLACED_TB:
 -        frame->flags |=  AV_FRAME_FLAG_TOP_FIELD_FIRST;
--        /* fallthrough */
+-        av_fallthrough;
 -    case V4L2_FIELD_INTERLACED_BT:
 -        frame->flags |=  AV_FRAME_FLAG_INTERLACED;
 -        break;
@@ -2667,7 +2853,7 @@ index 077c1ee944..81d7919f5b 100644
  
      if (plane >= out->num_planes)
          return AVERROR(EINVAL);
-@@ -305,32 +627,65 @@ static int v4l2_bufref_to_buf(V4L2Buffer *out, int plane, const uint8_t* data, i
+@@ -306,32 +628,65 @@ static int v4l2_bufref_to_buf(V4L2Buffer *out, int plane, const uint8_t* data, i
      length = out->plane_info[plane].length;
      bytesused = FFMIN(size+offset, length);
  
@@ -2748,7 +2934,7 @@ index 077c1ee944..81d7919f5b 100644
      }
  
      /* fixup special cases */
-@@ -339,88 +694,152 @@ static int v4l2_buffer_buf_to_swframe(AVFrame *frame, V4L2Buffer *avbuf)
+@@ -340,88 +695,152 @@ static int v4l2_buffer_buf_to_swframe(AVFrame *frame, V4L2Buffer *avbuf)
      case AV_PIX_FMT_NV21:
          if (avbuf->num_planes > 1)
              break;
@@ -2961,7 +3147,7 @@ index 077c1ee944..81d7919f5b 100644
      return 0;
  }
  
-@@ -430,16 +849,31 @@ static int v4l2_buffer_swframe_to_buf(const AVFrame *frame, V4L2Buffer *out)
+@@ -431,16 +850,31 @@ static int v4l2_buffer_swframe_to_buf(const AVFrame *frame, V4L2Buffer *out)
   *
   ******************************************************************************/
  
@@ -2997,7 +3183,7 @@ index 077c1ee944..81d7919f5b 100644
  
      av_frame_unref(frame);
  
-@@ -449,20 +883,32 @@ int ff_v4l2_buffer_buf_to_avframe(AVFrame *frame, V4L2Buffer *avbuf)
+@@ -450,20 +884,32 @@ int ff_v4l2_buffer_buf_to_avframe(AVFrame *frame, V4L2Buffer *avbuf)
          return ret;
  
      /* 2. get frame information */
@@ -3036,7 +3222,7 @@ index 077c1ee944..81d7919f5b 100644
  
      /* 3. report errors upstream */
      if (avbuf->buf.flags & V4L2_BUF_FLAG_ERROR) {
-@@ -475,15 +921,15 @@ int ff_v4l2_buffer_buf_to_avframe(AVFrame *frame, V4L2Buffer *avbuf)
+@@ -476,15 +922,15 @@ int ff_v4l2_buffer_buf_to_avframe(AVFrame *frame, V4L2Buffer *avbuf)
  
  int ff_v4l2_buffer_buf_to_avpkt(AVPacket *pkt, V4L2Buffer *avbuf)
  {
@@ -3058,7 +3244,7 @@ index 077c1ee944..81d7919f5b 100644
  
      if (avbuf->buf.flags & V4L2_BUF_FLAG_KEYFRAME)
          pkt->flags |= AV_PKT_FLAG_KEY;
-@@ -498,39 +944,108 @@ int ff_v4l2_buffer_buf_to_avpkt(AVPacket *pkt, V4L2Buffer *avbuf)
+@@ -499,39 +945,108 @@ int ff_v4l2_buffer_buf_to_avpkt(AVPacket *pkt, V4L2Buffer *avbuf)
      return 0;
  }
  
@@ -3179,7 +3365,7 @@ index 077c1ee944..81d7919f5b 100644
  
      if (V4L2_TYPE_IS_MULTIPLANAR(ctx->type)) {
          avbuf->num_planes = 0;
-@@ -542,33 +1057,41 @@ int ff_v4l2_buffer_initialize(V4L2Buffer* avbuf, int index)
+@@ -543,33 +1058,41 @@ int ff_v4l2_buffer_initialize(V4L2Buffer* avbuf, int index)
      } else
          avbuf->num_planes = 1;
  
@@ -3233,7 +3419,7 @@ index 077c1ee944..81d7919f5b 100644
      if (V4L2_TYPE_IS_MULTIPLANAR(ctx->type)) {
          avbuf->buf.m.planes = avbuf->planes;
          avbuf->buf.length   = avbuf->num_planes;
-@@ -578,20 +1101,52 @@ int ff_v4l2_buffer_initialize(V4L2Buffer* avbuf, int index)
+@@ -579,20 +1102,52 @@ int ff_v4l2_buffer_initialize(V4L2Buffer* avbuf, int index)
          avbuf->buf.length    = avbuf->planes[0].length;
      }
  
@@ -3291,7 +3477,7 @@ index 077c1ee944..81d7919f5b 100644
      return 0;
  }
 diff --git a/libavcodec/v4l2_buffers.h b/libavcodec/v4l2_buffers.h
-index e35b161309..444ad94b14 100644
+index e35b16130944..444ad94b145e 100644
 --- a/libavcodec/v4l2_buffers.h
 +++ b/libavcodec/v4l2_buffers.h
 @@ -28,31 +28,47 @@
@@ -3403,7 +3589,7 @@ index e35b161309..444ad94b14 100644
  
  #endif // AVCODEC_V4L2_BUFFERS_H
 diff --git a/libavcodec/v4l2_context.c b/libavcodec/v4l2_context.c
-index be1df3785b..cf4b90155e 100644
+index be1df3785b28..cf4b90155e44 100644
 --- a/libavcodec/v4l2_context.c
 +++ b/libavcodec/v4l2_context.c
 @@ -28,11 +28,14 @@
@@ -4822,7 +5008,7 @@ index be1df3785b..cf4b90155e 100644
      return ret;
  }
 diff --git a/libavcodec/v4l2_context.h b/libavcodec/v4l2_context.h
-index fdd5cf5284..99201ca254 100644
+index fdd5cf5284d6..99201ca254a9 100644
 --- a/libavcodec/v4l2_context.h
 +++ b/libavcodec/v4l2_context.h
 @@ -32,6 +32,8 @@
@@ -4988,7 +5174,7 @@ index fdd5cf5284..99201ca254 100644
 +
  #endif // AVCODEC_V4L2_CONTEXT_H
 diff --git a/libavcodec/v4l2_fmt.c b/libavcodec/v4l2_fmt.c
-index 6df47e3f5a..bb0f30abca 100644
+index 6df47e3f5a3c..bb0f30abcac7 100644
 --- a/libavcodec/v4l2_fmt.c
 +++ b/libavcodec/v4l2_fmt.c
 @@ -42,6 +42,14 @@ static const struct fmt_conversion {
@@ -5025,7 +5211,7 @@ index 6df47e3f5a..bb0f30abca 100644
      { AV_FMT(NONE),        AV_CODEC(VC1),         V4L2_FMT(VC1_ANNEX_G) },
  #endif
 diff --git a/libavcodec/v4l2_m2m.c b/libavcodec/v4l2_m2m.c
-index 07c7500000..827f67efc3 100644
+index 07c75000003a..827f67efc353 100644
 --- a/libavcodec/v4l2_m2m.c
 +++ b/libavcodec/v4l2_m2m.c
 @@ -36,6 +36,15 @@
@@ -5193,7 +5379,7 @@ index 07c7500000..827f67efc3 100644
      priv->context->frame = av_frame_alloc();
      if (!priv->context->frame) {
 diff --git a/libavcodec/v4l2_m2m.h b/libavcodec/v4l2_m2m.h
-index 4ba33dc335..b958a0ac34 100644
+index 4ba33dc33593..b958a0ac3461 100644
 --- a/libavcodec/v4l2_m2m.h
 +++ b/libavcodec/v4l2_m2m.h
 @@ -30,6 +30,7 @@
@@ -5326,7 +5512,7 @@ index 4ba33dc335..b958a0ac34 100644
 +
  #endif /* AVCODEC_V4L2_M2M_H */
 diff --git a/libavcodec/v4l2_m2m_dec.c b/libavcodec/v4l2_m2m_dec.c
-index ba1fe769e0..540ebbc160 100644
+index ba1fe769e0fe..540ebbc160ae 100644
 --- a/libavcodec/v4l2_m2m_dec.c
 +++ b/libavcodec/v4l2_m2m_dec.c
 @@ -21,8 +21,15 @@
@@ -6795,7 +6981,7 @@ index ba1fe769e0..540ebbc160 100644
  M2MDEC(vp9,   "VP9",   AV_CODEC_ID_VP9,        NULL);
 +M2MDEC(av1,   "AV1",   AV_CODEC_ID_AV1,        NULL);
 diff --git a/libavcodec/v4l2_m2m_enc.c b/libavcodec/v4l2_m2m_enc.c
-index 93703ccc63..e902d37f2d 100644
+index 93703ccc63f4..e902d37f2d36 100644
 --- a/libavcodec/v4l2_m2m_enc.c
 +++ b/libavcodec/v4l2_m2m_enc.c
 @@ -21,13 +21,17 @@
@@ -7270,7 +7456,7 @@ index 93703ccc63..e902d37f2d 100644
      V4L_M2M_CAPTURE_OPTS,
 diff --git a/libavcodec/v4l2_req_decode_q.c b/libavcodec/v4l2_req_decode_q.c
 new file mode 100644
-index 0000000000..93c56ba13f
+index 000000000000..93c56ba13f85
 --- /dev/null
 +++ b/libavcodec/v4l2_req_decode_q.c
 @@ -0,0 +1,108 @@
@@ -7384,7 +7570,7 @@ index 0000000000..93c56ba13f
 +
 diff --git a/libavcodec/v4l2_req_decode_q.h b/libavcodec/v4l2_req_decode_q.h
 new file mode 100644
-index 0000000000..0ff8bbe882
+index 000000000000..0ff8bbe88207
 --- /dev/null
 +++ b/libavcodec/v4l2_req_decode_q.h
 @@ -0,0 +1,51 @@
@@ -7441,7 +7627,7 @@ index 0000000000..0ff8bbe882
 +
 diff --git a/libavcodec/v4l2_req_devscan.c b/libavcodec/v4l2_req_devscan.c
 new file mode 100644
-index 0000000000..0416f3d4d1
+index 000000000000..0416f3d4d104
 --- /dev/null
 +++ b/libavcodec/v4l2_req_devscan.c
 @@ -0,0 +1,474 @@
@@ -7921,7 +8107,7 @@ index 0000000000..0416f3d4d1
 +
 diff --git a/libavcodec/v4l2_req_devscan.h b/libavcodec/v4l2_req_devscan.h
 new file mode 100644
-index 0000000000..49b5bb44b2
+index 000000000000..49b5bb44b2d7
 --- /dev/null
 +++ b/libavcodec/v4l2_req_devscan.h
 @@ -0,0 +1,47 @@
@@ -7974,7 +8160,7 @@ index 0000000000..49b5bb44b2
 +#endif
 diff --git a/libavcodec/v4l2_req_dmabufs.c b/libavcodec/v4l2_req_dmabufs.c
 new file mode 100644
-index 0000000000..560ee7b173
+index 000000000000..560ee7b173b7
 --- /dev/null
 +++ b/libavcodec/v4l2_req_dmabufs.c
 @@ -0,0 +1,525 @@
@@ -8505,7 +8691,7 @@ index 0000000000..560ee7b173
 +}
 diff --git a/libavcodec/v4l2_req_dmabufs.h b/libavcodec/v4l2_req_dmabufs.h
 new file mode 100644
-index 0000000000..b69c03257e
+index 000000000000..b69c03257e97
 --- /dev/null
 +++ b/libavcodec/v4l2_req_dmabufs.h
 @@ -0,0 +1,71 @@
@@ -8582,7 +8768,7 @@ index 0000000000..b69c03257e
 +#endif
 diff --git a/libavcodec/v4l2_req_hevc_v1.c b/libavcodec/v4l2_req_hevc_v1.c
 new file mode 100644
-index 0000000000..4d908dac12
+index 000000000000..4d908dac126e
 --- /dev/null
 +++ b/libavcodec/v4l2_req_hevc_v1.c
 @@ -0,0 +1,27 @@
@@ -8615,7 +8801,7 @@ index 0000000000..4d908dac12
 +
 diff --git a/libavcodec/v4l2_req_hevc_v2.c b/libavcodec/v4l2_req_hevc_v2.c
 new file mode 100644
-index 0000000000..1874e20a5d
+index 000000000000..1874e20a5d8d
 --- /dev/null
 +++ b/libavcodec/v4l2_req_hevc_v2.c
 @@ -0,0 +1,27 @@
@@ -8648,7 +8834,7 @@ index 0000000000..1874e20a5d
 +
 diff --git a/libavcodec/v4l2_req_hevc_v3.c b/libavcodec/v4l2_req_hevc_v3.c
 new file mode 100644
-index 0000000000..1c5a84bea8
+index 000000000000..1c5a84bea8d1
 --- /dev/null
 +++ b/libavcodec/v4l2_req_hevc_v3.c
 @@ -0,0 +1,27 @@
@@ -8681,7 +8867,7 @@ index 0000000000..1c5a84bea8
 +
 diff --git a/libavcodec/v4l2_req_hevc_v4.c b/libavcodec/v4l2_req_hevc_v4.c
 new file mode 100644
-index 0000000000..472df7cb0e
+index 000000000000..472df7cb0e39
 --- /dev/null
 +++ b/libavcodec/v4l2_req_hevc_v4.c
 @@ -0,0 +1,27 @@
@@ -8714,7 +8900,7 @@ index 0000000000..472df7cb0e
 +
 diff --git a/libavcodec/v4l2_req_hevc_vx.c b/libavcodec/v4l2_req_hevc_vx.c
 new file mode 100644
-index 0000000000..fb82e2d47f
+index 000000000000..dd57d68806ad
 --- /dev/null
 +++ b/libavcodec/v4l2_req_hevc_vx.c
 @@ -0,0 +1,1522 @@
@@ -10217,7 +10403,7 @@ index 0000000000..fb82e2d47f
 +    frame->width = avctx->coded_width;
 +    frame->height = avctx->coded_height;
 +
-+    if ((rv = ff_attach_decode_data(frame)) != 0) {
++    if ((rv = ff_attach_decode_data(avctx, frame)) != 0) {
 +        av_log(avctx, AV_LOG_ERROR, "Failed to attach decode data to frame\n");
 +        av_frame_unref(frame);
 +        return rv;
@@ -10242,7 +10428,7 @@ index 0000000000..fb82e2d47f
 +
 diff --git a/libavcodec/v4l2_req_media.c b/libavcodec/v4l2_req_media.c
 new file mode 100644
-index 0000000000..a56aaddd94
+index 000000000000..a56aaddd949c
 --- /dev/null
 +++ b/libavcodec/v4l2_req_media.c
 @@ -0,0 +1,1863 @@
@@ -12111,7 +12297,7 @@ index 0000000000..a56aaddd94
 +
 diff --git a/libavcodec/v4l2_req_media.h b/libavcodec/v4l2_req_media.h
 new file mode 100644
-index 0000000000..76f3516790
+index 000000000000..76f35167905a
 --- /dev/null
 +++ b/libavcodec/v4l2_req_media.h
 @@ -0,0 +1,186 @@
@@ -12303,7 +12489,7 @@ index 0000000000..76f3516790
 +#endif
 diff --git a/libavcodec/v4l2_req_pollqueue.c b/libavcodec/v4l2_req_pollqueue.c
 new file mode 100644
-index 0000000000..4b4984e5b0
+index 000000000000..4b4984e5b064
 --- /dev/null
 +++ b/libavcodec/v4l2_req_pollqueue.c
 @@ -0,0 +1,385 @@
@@ -12694,7 +12880,7 @@ index 0000000000..4b4984e5b0
 +
 diff --git a/libavcodec/v4l2_req_pollqueue.h b/libavcodec/v4l2_req_pollqueue.h
 new file mode 100644
-index 0000000000..9634f33d48
+index 000000000000..9634f33d48fd
 --- /dev/null
 +++ b/libavcodec/v4l2_req_pollqueue.h
 @@ -0,0 +1,42 @@
@@ -12742,7 +12928,7 @@ index 0000000000..9634f33d48
 +#endif /* AVCODEC_V4L2_REQ_POLLQUEUE_H_ */
 diff --git a/libavcodec/v4l2_req_utils.h b/libavcodec/v4l2_req_utils.h
 new file mode 100644
-index 0000000000..a6160c5e1c
+index 000000000000..a6160c5e1c3b
 --- /dev/null
 +++ b/libavcodec/v4l2_req_utils.h
 @@ -0,0 +1,51 @@
@@ -12799,7 +12985,7 @@ index 0000000000..a6160c5e1c
 +#endif
 diff --git a/libavcodec/v4l2_request_hevc.c b/libavcodec/v4l2_request_hevc.c
 new file mode 100644
-index 0000000000..d0a3157be0
+index 000000000000..d0a3157be0a8
 --- /dev/null
 +++ b/libavcodec/v4l2_request_hevc.c
 @@ -0,0 +1,456 @@
@@ -13261,7 +13447,7 @@ index 0000000000..d0a3157be0
 +};
 diff --git a/libavcodec/v4l2_request_hevc.h b/libavcodec/v4l2_request_hevc.h
 new file mode 100644
-index 0000000000..39f4dcb331
+index 000000000000..39f4dcb33154
 --- /dev/null
 +++ b/libavcodec/v4l2_request_hevc.h
 @@ -0,0 +1,167 @@
@@ -13432,9 +13618,22 @@ index 0000000000..39f4dcb331
 +extern const v4l2_req_decode_fns V2(ff_v4l2_req_hevc, 4);
 +
 +#endif
+diff --git a/libavcodec/version.h b/libavcodec/version.h
+index b4616ccc27f1..595700945747 100644
+--- a/libavcodec/version.h
++++ b/libavcodec/version.h
+@@ -30,7 +30,7 @@
+ #include "version_major.h"
+ 
+ #define LIBAVCODEC_VERSION_MINOR   1
+-#define LIBAVCODEC_VERSION_MICRO 101
++#define LIBAVCODEC_VERSION_MICRO 100
+ 
+ #define LIBAVCODEC_VERSION_INT  AV_VERSION_INT(LIBAVCODEC_VERSION_MAJOR, \
+                                                LIBAVCODEC_VERSION_MINOR, \
 diff --git a/libavcodec/weak_link.c b/libavcodec/weak_link.c
 new file mode 100644
-index 0000000000..71f6cc3567
+index 000000000000..71f6cc356720
 --- /dev/null
 +++ b/libavcodec/weak_link.c
 @@ -0,0 +1,127 @@
@@ -13567,7 +13766,7 @@ index 0000000000..71f6cc3567
 +
 diff --git a/libavcodec/weak_link.h b/libavcodec/weak_link.h
 new file mode 100644
-index 0000000000..5c66b29f9b
+index 000000000000..5c66b29f9b61
 --- /dev/null
 +++ b/libavcodec/weak_link.h
 @@ -0,0 +1,46 @@
@@ -13618,7 +13817,7 @@ index 0000000000..5c66b29f9b
 +
 +#endif
 diff --git a/libavdevice/Makefile b/libavdevice/Makefile
-index a226368d16..c331a7099d 100644
+index 256c8e7bea2a..be4b03187828 100644
 --- a/libavdevice/Makefile
 +++ b/libavdevice/Makefile
 @@ -45,6 +45,8 @@ OBJS-$(CONFIG_SNDIO_OUTDEV)              += sndio_enc.o sndio.o
@@ -13631,7 +13830,7 @@ index a226368d16..c331a7099d 100644
  OBJS-$(CONFIG_XV_OUTDEV)                 += xv.o
  
 diff --git a/libavdevice/alldevices.c b/libavdevice/alldevices.c
-index 573595f416..d76aef3b08 100644
+index 573595f4160b..d76aef3b08d8 100644
 --- a/libavdevice/alldevices.c
 +++ b/libavdevice/alldevices.c
 @@ -53,6 +53,8 @@ extern const FFOutputFormat ff_sndio_muxer;
@@ -13645,7 +13844,7 @@ index 573595f416..d76aef3b08 100644
  
 diff --git a/libavdevice/drm_vout.c b/libavdevice/drm_vout.c
 new file mode 100644
-index 0000000000..6d11e98d75
+index 000000000000..6d11e98d7521
 --- /dev/null
 +++ b/libavdevice/drm_vout.c
 @@ -0,0 +1,684 @@
@@ -14335,7 +14534,7 @@ index 0000000000..6d11e98d75
 +
 diff --git a/libavdevice/egl_vout.c b/libavdevice/egl_vout.c
 new file mode 100644
-index 0000000000..0c8c629852
+index 000000000000..0c8c629852fb
 --- /dev/null
 +++ b/libavdevice/egl_vout.c
 @@ -0,0 +1,784 @@
@@ -15123,8 +15322,21 @@ index 0000000000..0c8c629852
 +    .deinit         = egl_vout_deinit,
 +};
 +
+diff --git a/libavdevice/version.h b/libavdevice/version.h
+index 92de9d3bd22a..ec6c33787436 100644
+--- a/libavdevice/version.h
++++ b/libavdevice/version.h
+@@ -30,7 +30,7 @@
+ #include "version_major.h"
+ 
+ #define LIBAVDEVICE_VERSION_MINOR   1
+-#define LIBAVDEVICE_VERSION_MICRO 101
++#define LIBAVDEVICE_VERSION_MICRO 100
+ 
+ #define LIBAVDEVICE_VERSION_INT AV_VERSION_INT(LIBAVDEVICE_VERSION_MAJOR, \
+                                                LIBAVDEVICE_VERSION_MINOR, \
 diff --git a/libavfilter/Makefile b/libavfilter/Makefile
-index a530cfae29..830becf8d4 100644
+index ce40cf3e65b6..b41d46f8d58e 100644
 --- a/libavfilter/Makefile
 +++ b/libavfilter/Makefile
 @@ -279,6 +279,7 @@ OBJS-$(CONFIG_DEFLICKER_FILTER)              += vf_deflicker.o
@@ -15135,7 +15347,7 @@ index a530cfae29..830becf8d4 100644
  OBJS-$(CONFIG_DEJUDDER_FILTER)               += vf_dejudder.o
  OBJS-$(CONFIG_DELOGO_FILTER)                 += vf_delogo.o
  OBJS-$(CONFIG_DENOISE_VAAPI_FILTER)          += vf_misc_vaapi.o vaapi_vpp.o
-@@ -553,6 +554,7 @@ OBJS-$(CONFIG_TRANSPOSE_VT_FILTER)           += vf_transpose_vt.o
+@@ -551,6 +552,7 @@ OBJS-$(CONFIG_TRANSPOSE_VT_FILTER)           += vf_transpose_vt.o
  OBJS-$(CONFIG_TRANSPOSE_VULKAN_FILTER)       += vf_transpose_vulkan.o vulkan.o vulkan_filter.o
  OBJS-$(CONFIG_TRIM_FILTER)                   += trim.o
  OBJS-$(CONFIG_UNPREMULTIPLY_FILTER)          += vf_premultiply.o framesync.o
@@ -15143,8 +15355,80 @@ index a530cfae29..830becf8d4 100644
  OBJS-$(CONFIG_UNSHARP_FILTER)                += vf_unsharp.o
  OBJS-$(CONFIG_UNSHARP_OPENCL_FILTER)         += vf_unsharp_opencl.o opencl.o \
                                                  opencl/unsharp.o
+diff --git a/libavfilter/af_pan.c b/libavfilter/af_pan.c
+index abb0e5804d64..32bd28fe0a55 100644
+--- a/libavfilter/af_pan.c
++++ b/libavfilter/af_pan.c
+@@ -211,12 +211,6 @@ static av_cold int init(AVFilterContext *ctx)
+                 ret = AVERROR(EINVAL);
+                 goto fail;
+             }
+-            if (in_ch_id < 0 || in_ch_id >= MAX_CHANNELS) {
+-                av_log(ctx, AV_LOG_ERROR,
+-                       "Input channel id %d is not supported\n", in_ch_id);
+-                ret = AVERROR_PATCHWELCOME;
+-                goto fail;
+-            }
+             if (used_in_ch[in_ch_id]) {
+                 av_log(ctx, AV_LOG_ERROR,
+                        "Can not reference in channel %d twice\n", in_ch_id);
+diff --git a/libavfilter/afir_template.c b/libavfilter/afir_template.c
+index 10dc677c20ea..c45b29902e88 100644
+--- a/libavfilter/afir_template.c
++++ b/libavfilter/afir_template.c
+@@ -140,7 +140,7 @@ static int fn(fir_quantum)(AVFilterContext *ctx, AVFrame *out, int ch, int ioffs
+     const ftype *in = (const ftype *)s->in->extended_data[ch] + ioffset;
+     ftype *blockout, *ptr = (ftype *)out->extended_data[ch] + offset;
+     const int min_part_size = s->min_part_size;
+-    const int nb_samples = FFMIN(min_part_size, s->in->nb_samples - ioffset);
++    const int nb_samples = FFMIN(min_part_size, out->nb_samples - offset);
+     const int nb_segments = s->nb_segments[selir];
+     const float dry_gain = s->dry_gain;
+     const float wet_gain = s->wet_gain;
+@@ -246,8 +246,6 @@ static void fn(fir_quantums)(AVFilterContext *ctx, AudioFIRContext *s, AVFrame *
+                              int min_part_size, int ch, int offset,
+                              int prev_selir, int selir)
+ {
+-    const int nb_samples = FFMIN(min_part_size, s->in->nb_samples - offset);
+-
+     if (ctx->is_disabled || s->prev_is_disabled) {
+         const ftype *in = (const ftype *)s->in->extended_data[ch] + offset;
+         const ftype *xfade0 = (const ftype *)s->xfade[0]->extended_data[ch];
+@@ -259,15 +257,15 @@ static void fn(fir_quantums)(AVFilterContext *ctx, AudioFIRContext *s, AVFrame *
+         if (ctx->is_disabled && !s->prev_is_disabled) {
+             memset(src0, 0, min_part_size * sizeof(ftype));
+             fn(fir_quantum)(ctx, s->fadein[0], ch, offset, 0, selir);
+-            for (int n = 0; n < nb_samples; n++)
++            for (int n = 0; n < min_part_size; n++)
+                 dst[n] = xfade1[n] * src0[n] + xfade0[n] * in[n];
+         } else if (!ctx->is_disabled && s->prev_is_disabled) {
+             memset(src1, 0, min_part_size * sizeof(ftype));
+             fn(fir_quantum)(ctx, s->fadein[1], ch, offset, 0, selir);
+-            for (int n = 0; n < nb_samples; n++)
++            for (int n = 0; n < min_part_size; n++)
+                 dst[n] = xfade1[n] * in[n] + xfade0[n] * src1[n];
+         } else {
+-            memcpy(dst, in, sizeof(ftype) * nb_samples);
++            memcpy(dst, in, sizeof(ftype) * min_part_size);
+         }
+     } else if (prev_selir != selir && s->loading[ch] != 0) {
+         const ftype *xfade0 = (const ftype *)s->xfade[0]->extended_data[ch];
+@@ -283,11 +281,11 @@ static void fn(fir_quantums)(AVFilterContext *ctx, AudioFIRContext *s, AVFrame *
+         fn(fir_quantum)(ctx, s->fadein[1], ch, offset, 0, selir);
+ 
+         if (s->loading[ch] > s->max_offset[selir]) {
+-            for (int n = 0; n < nb_samples; n++)
++            for (int n = 0; n < min_part_size; n++)
+                 dst[n] = xfade1[n] * src0[n] + xfade0[n] * src1[n];
+             s->loading[ch] = 0;
+         } else {
+-            memcpy(dst, src0, nb_samples * sizeof(ftype));
++            memcpy(dst, src0, min_part_size * sizeof(ftype));
+         }
+     } else {
+         fn(fir_quantum)(ctx, out, ch, offset, offset, selir);
 diff --git a/libavfilter/allfilters.c b/libavfilter/allfilters.c
-index e26859e159..53f8979db0 100644
+index 402b843649b4..b30acf2b9654 100644
 --- a/libavfilter/allfilters.c
 +++ b/libavfilter/allfilters.c
 @@ -253,6 +253,7 @@ extern const FFFilter ff_vf_deflate;
@@ -15155,15 +15439,15 @@ index e26859e159..53f8979db0 100644
  extern const FFFilter ff_vf_deinterlace_vaapi;
  extern const FFFilter ff_vf_dejudder;
  extern const FFFilter ff_vf_delogo;
-@@ -448,6 +449,7 @@ extern const FFFilter ff_vf_scale_d3d11;
+@@ -448,6 +449,7 @@ extern const FFFilter ff_vf_scale_cuda;
+ extern const FFFilter ff_vf_scale_d3d11;
  extern const FFFilter ff_vf_scale_d3d12;
- extern const FFFilter ff_vf_scale_npp;
  extern const FFFilter ff_vf_scale_qsv;
 +extern const FFFilter ff_vf_scale_v4l2m2m;
  extern const FFFilter ff_vf_scale_vaapi;
  extern const FFFilter ff_vf_scale_vt;
  extern const FFFilter ff_vf_scale_vulkan;
-@@ -520,6 +522,7 @@ extern const FFFilter ff_vf_transpose_vt;
+@@ -518,6 +520,7 @@ extern const FFFilter ff_vf_transpose_vt;
  extern const FFFilter ff_vf_transpose_vulkan;
  extern const FFFilter ff_vf_trim;
  extern const FFFilter ff_vf_unpremultiply;
@@ -15172,10 +15456,10 @@ index e26859e159..53f8979db0 100644
  extern const FFFilter ff_vf_unsharp_opencl;
  extern const FFFilter ff_vf_untile;
 diff --git a/libavfilter/buffersink.c b/libavfilter/buffersink.c
-index 75b93cee30..72ca351774 100644
+index e8290075578f..7c22944fa8ea 100644
 --- a/libavfilter/buffersink.c
 +++ b/libavfilter/buffersink.c
-@@ -89,6 +89,11 @@ typedef struct BufferSinkContext {
+@@ -69,6 +69,11 @@ typedef struct BufferSinkContext {
      unsigned          nb_channel_layouts;
  
      AVFrame *peeked_frame;
@@ -15187,7 +15471,7 @@ index 75b93cee30..72ca351774 100644
  } BufferSinkContext;
  
  int attribute_align_arg av_buffersink_get_frame(AVFilterContext *ctx, AVFrame *frame)
-@@ -164,6 +169,22 @@ int attribute_align_arg av_buffersink_get_samples(AVFilterContext *ctx,
+@@ -144,6 +149,22 @@ int attribute_align_arg av_buffersink_get_samples(AVFilterContext *ctx,
      return get_frame_internal(ctx, frame, 0, nb_samples);
  }
  
@@ -15210,7 +15494,7 @@ index 75b93cee30..72ca351774 100644
  static av_cold int common_init(AVFilterContext *ctx)
  {
      BufferSinkContext *buf = ctx->priv;
-@@ -565,6 +586,14 @@ static const AVOption abuffersink_options[] = {
+@@ -379,6 +400,14 @@ static const AVOption abuffersink_options[] = {
  AVFILTER_DEFINE_CLASS(buffersink);
  AVFILTER_DEFINE_CLASS(abuffersink);
  
@@ -15225,7 +15509,7 @@ index 75b93cee30..72ca351774 100644
  const FFFilter ff_vsink_buffer = {
      .p.name        = "buffersink",
      .p.description = NULL_IF_CONFIG_SMALL("Buffer video frames, and make them available to the end of the filter graph."),
-@@ -574,7 +603,7 @@ const FFFilter ff_vsink_buffer = {
+@@ -388,7 +417,7 @@ const FFFilter ff_vsink_buffer = {
      .init          = init_video,
      .uninit        = uninit,
      .activate      = activate,
@@ -15235,7 +15519,7 @@ index 75b93cee30..72ca351774 100644
  };
  
 diff --git a/libavfilter/buffersink.h b/libavfilter/buffersink.h
-index 4e658a9795..027abc7483 100644
+index 4e658a979512..027abc74830a 100644
 --- a/libavfilter/buffersink.h
 +++ b/libavfilter/buffersink.h
 @@ -165,6 +165,9 @@ int av_buffersink_get_frame(AVFilterContext *ctx, AVFrame *frame);
@@ -15249,10 +15533,10 @@ index 4e658a9795..027abc7483 100644
   * @}
   */
 diff --git a/libavfilter/buffersrc.c b/libavfilter/buffersrc.c
-index b18d3f24dd..a13279cc7d 100644
+index 16efa6e6c879..080c94093271 100644
 --- a/libavfilter/buffersrc.c
 +++ b/libavfilter/buffersrc.c
-@@ -227,7 +227,7 @@ int attribute_align_arg av_buffersrc_add_frame_flags(AVFilterContext *ctx, AVFra
+@@ -228,7 +228,7 @@ int attribute_align_arg av_buffersrc_add_frame_flags(AVFilterContext *ctx, AVFra
  
          switch (ctx->outputs[0]->type) {
          case AVMEDIA_TYPE_VIDEO:
@@ -15261,11 +15545,76 @@ index b18d3f24dd..a13279cc7d 100644
                                       frame->format, frame->colorspace,
                                       frame->color_range, frame->alpha_mode, frame->pts);
              break;
+diff --git a/libavfilter/vaf_spectrumsynth.c b/libavfilter/vaf_spectrumsynth.c
+index 0a750fbda037..8873062e23e9 100644
+--- a/libavfilter/vaf_spectrumsynth.c
++++ b/libavfilter/vaf_spectrumsynth.c
+@@ -127,8 +127,13 @@ static int query_formats(const AVFilterContext *ctx,
+     formats = ff_make_pixel_format_list(pix_fmts);
+     if (!formats)
+         return AVERROR(ENOMEM);
+-    if ((ret = ff_formats_ref(formats, &cfg_in[MAGNITUDE]->formats)) < 0 ||
+-        (ret = ff_formats_ref(formats, &cfg_in[PHASE]->formats)) < 0)
++    if ((ret = ff_formats_ref(formats, &cfg_in[MAGNITUDE]->formats)) < 0)
++        return ret;
++
++    formats = ff_make_pixel_format_list(pix_fmts);
++    if (!formats)
++        return AVERROR(ENOMEM);
++    if ((ret = ff_formats_ref(formats, &cfg_in[PHASE]->formats)) < 0)
+         return ret;
+ 
+     return 0;
+diff --git a/libavfilter/version.h b/libavfilter/version.h
+index 3c1762dd93c8..1e884d9b44ca 100644
+--- a/libavfilter/version.h
++++ b/libavfilter/version.h
+@@ -32,7 +32,7 @@
+ #include "version_major.h"
+ 
+ #define LIBAVFILTER_VERSION_MINOR   1
+-#define LIBAVFILTER_VERSION_MICRO 101
++#define LIBAVFILTER_VERSION_MICRO 100
+ 
+ 
+ #define LIBAVFILTER_VERSION_INT AV_VERSION_INT(LIBAVFILTER_VERSION_MAJOR, \
 diff --git a/libavfilter/vf_bwdif.c b/libavfilter/vf_bwdif.c
-index dbe35a029b..1d32a7a8eb 100644
+index 5fba0e7a141e..1d32a7a8eba5 100644
 --- a/libavfilter/vf_bwdif.c
 +++ b/libavfilter/vf_bwdif.c
-@@ -124,19 +124,28 @@ static void filter(AVFilterContext *ctx, AVFrame *dstpic,
+@@ -77,15 +77,24 @@ static int filter_slice(AVFilterContext *ctx, void *arg, int jobnr, int nb_jobs)
+             uint8_t *next = &yadif->next->data[td->plane][y * linesize];
+             uint8_t *dst  = &td->frame->data[td->plane][y * td->frame->linesize[td->plane]];
+             if (yadif->current_field == YADIF_FIELD_END) {
+-                s->dsp.filter_intra(dst, cur, td->w, (y + 1) < td->h ? refs : -refs,
+-                                y > 0 ? -refs : refs,
+-                                (y + 3) < td->h ? 3 * refs : -refs,
+-                                y > 2 ? -3 * refs : refs,
+-                                td->parity ^ td->tff, clip_max);
++                if ((y < 3) || ((y + 3) >= td->h)) {
++                    s->dsp.filter_edge(dst, prev, cur, next, td->w,
++                                   (y + df) < td->h ? refs : -refs,
++                                   y > (df - 1) ? -refs : refs,
++                                   refs << 1, -(refs << 1),
++                                   td->parity ^ td->tff, clip_max,
++                                   (y < 2) || ((y + 3) > td->h) ? 0 : 1);
++                } else {
++                    s->dsp.filter_intra(dst, cur, td->w, (y + df) < td->h ? refs : -refs,
++                                    y > (df - 1) ? -refs : refs,
++                                    (y + 3*df) < td->h ? 3 * refs : -refs,
++                                    y > (3*df - 1) ? -3 * refs : refs,
++                                    td->parity ^ td->tff, clip_max);
++                }
+             } else if ((y < 4) || ((y + 5) > td->h)) {
+                 s->dsp.filter_edge(dst, prev, cur, next, td->w,
+-                               (y + 1) < td->h ? refs : -refs,
+-                               y > 0 ? -refs : refs,
++                               (y + df) < td->h ? refs : -refs,
++                               y > (df - 1) ? -refs : refs,
+                                refs << 1, -(refs << 1),
+                                td->parity ^ td->tff, clip_max,
+                                (y < 2) || ((y + 3) > td->h) ? 0 : 1);
+@@ -115,19 +124,28 @@ static void filter(AVFilterContext *ctx, AVFrame *dstpic,
      YADIFContext *yadif = &bwdif->yadif;
      ThreadData td = { .frame = dstpic, .parity = parity, .tff = tff };
      int i;
@@ -15297,7 +15646,7 @@ index dbe35a029b..1d32a7a8eb 100644
  
          ff_filter_execute(ctx, filter_slice, &td, NULL,
                            FFMIN((h+3)/4, ff_filter_get_nb_threads(ctx)));
-@@ -160,6 +169,7 @@ static const enum AVPixelFormat pix_fmts[] = {
+@@ -151,6 +169,7 @@ static const enum AVPixelFormat pix_fmts[] = {
      AV_PIX_FMT_YUVA420P9, AV_PIX_FMT_YUVA422P9, AV_PIX_FMT_YUVA444P9,
      AV_PIX_FMT_YUVA420P10, AV_PIX_FMT_YUVA422P10, AV_PIX_FMT_YUVA444P10,
      AV_PIX_FMT_YUVA420P16, AV_PIX_FMT_YUVA422P16, AV_PIX_FMT_YUVA444P16,
@@ -15307,7 +15656,7 @@ index dbe35a029b..1d32a7a8eb 100644
      AV_PIX_FMT_GBRAP, AV_PIX_FMT_GBRAP16,
 diff --git a/libavfilter/vf_deinterlace_v4l2m2m.c b/libavfilter/vf_deinterlace_v4l2m2m.c
 new file mode 100644
-index 0000000000..38ead43f49
+index 000000000000..38ead43f49ea
 --- /dev/null
 +++ b/libavfilter/vf_deinterlace_v4l2m2m.c
 @@ -0,0 +1,2102 @@
@@ -17415,7 +17764,7 @@ index 0000000000..38ead43f49
 +
 diff --git a/libavfilter/vf_unsand.c b/libavfilter/vf_unsand.c
 new file mode 100644
-index 0000000000..9f0aca5358
+index 000000000000..9f0aca535871
 --- /dev/null
 +++ b/libavfilter/vf_unsand.c
 @@ -0,0 +1,227 @@
@@ -17647,10 +17996,10 @@ index 0000000000..9f0aca5358
 +};
 +
 diff --git a/libavformat/Makefile b/libavformat/Makefile
-index 4786a9345a..04e8736dfc 100644
+index 0d2e757b27e5..47a4fb370fa9 100644
 --- a/libavformat/Makefile
 +++ b/libavformat/Makefile
-@@ -180,6 +180,7 @@ OBJS-$(CONFIG_CODEC2_MUXER)              += codec2.o rawenc.o
+@@ -184,6 +184,7 @@ OBJS-$(CONFIG_CODEC2_MUXER)              += codec2.o rawenc.o
  OBJS-$(CONFIG_CODEC2RAW_DEMUXER)         += codec2.o pcm.o
  OBJS-$(CONFIG_CODEC2RAW_MUXER)           += rawenc.o
  OBJS-$(CONFIG_CONCAT_DEMUXER)            += concatdec.o
@@ -17659,7 +18008,7 @@ index 4786a9345a..04e8736dfc 100644
  OBJS-$(CONFIG_DATA_DEMUXER)              += rawdec.o
  OBJS-$(CONFIG_DATA_MUXER)                += rawenc.o
 diff --git a/libavformat/allformats.c b/libavformat/allformats.c
-index 6ec361fb7b..0b30685fe9 100644
+index af7eea5e5c65..a1a98c93ea25 100644
 --- a/libavformat/allformats.c
 +++ b/libavformat/allformats.c
 @@ -127,6 +127,7 @@ extern const FFOutputFormat ff_codec2_muxer;
@@ -17672,7 +18021,7 @@ index 6ec361fb7b..0b30685fe9 100644
  extern const FFOutputFormat ff_dash_muxer;
 diff --git a/libavformat/conformenc.c b/libavformat/conformenc.c
 new file mode 100644
-index 0000000000..99243f4622
+index 000000000000..99243f4622f5
 --- /dev/null
 +++ b/libavformat/conformenc.c
 @@ -0,0 +1,491 @@
@@ -18167,8 +18516,77 @@ index 0000000000..99243f4622
 +    .deinit         = conform_vout_deinit,
 +};
 +
+diff --git a/libavformat/dashdec.c b/libavformat/dashdec.c
+index 3d5519b70687..3dad770d54d3 100644
+--- a/libavformat/dashdec.c
++++ b/libavformat/dashdec.c
+@@ -1537,11 +1537,8 @@ static void move_segments(struct representation *rep_src, struct representation
+         free_fragment_list(rep_dest);
+         if (rep_src->start_number > (rep_dest->start_number + rep_dest->n_fragments))
+             rep_dest->cur_seq_no = 0;
+-        else {
++        else
+             rep_dest->cur_seq_no += rep_src->start_number - rep_dest->start_number;
+-            if (rep_dest->cur_seq_no < 0)
+-                rep_dest->cur_seq_no = 0;
+-        }
+         rep_dest->fragments    = rep_src->fragments;
+         rep_dest->n_fragments  = rep_src->n_fragments;
+         rep_dest->parent  = rep_src->parent;
+@@ -1661,7 +1658,7 @@ static struct fragment *get_current_fragment(struct representation *pls)
+     int reload_count = 0;
+ 
+     while (( !ff_check_interrupt(c->interrupt_callback)&& pls->n_fragments > 0)) {
+-        if (pls->cur_seq_no >= 0 && pls->cur_seq_no < pls->n_fragments) {
++        if (pls->cur_seq_no < pls->n_fragments) {
+             seg_ptr = pls->fragments[pls->cur_seq_no];
+             seg = av_mallocz(sizeof(struct fragment));
+             if (!seg) {
+diff --git a/libavformat/gopher.c b/libavformat/gopher.c
+index c70a58b82a08..b022494981a9 100644
+--- a/libavformat/gopher.c
++++ b/libavformat/gopher.c
+@@ -63,11 +63,6 @@ static int gopher_connect(URLContext *h, const char *path)
+             return AVERROR(EINVAL);
+     }
+ 
+-    if (strpbrk(path, "\r\n")) {
+-        av_log(h, AV_LOG_ERROR, "Gopher path contains CRLF characters\n");
+-        return AVERROR(EINVAL);
+-    }
+-
+     /* send gopher sector */
+     snprintf(buffer, sizeof(buffer), "%s\r\n", path);
+ 
+diff --git a/libavformat/hevc.c b/libavformat/hevc.c
+index 2cd7b1cd8936..5924f39503ee 100644
+--- a/libavformat/hevc.c
++++ b/libavformat/hevc.c
+@@ -844,9 +844,6 @@ static int hvcc_array_add_nal_unit(const uint8_t *nal_buf, uint32_t nal_size,
+     int ret;
+     uint16_t numNalus = array->numNalus;
+ 
+-    if (numNalus >= UINT16_MAX)
+-        return AVERROR_INVALIDDATA;
+-
+     ret = av_reallocp_array(&array->nal, numNalus + 1, sizeof(*array->nal));
+     if (ret < 0)
+         return ret;
+diff --git a/libavformat/librist.c b/libavformat/librist.c
+index 3c4b5e3e5b96..9669d5b5df5a 100644
+--- a/libavformat/librist.c
++++ b/libavformat/librist.c
+@@ -226,7 +226,7 @@ static int librist_read(URLContext *h, uint8_t *buf, int size)
+         }
+     }
+ 
+-    size = FFMIN(data_block->payload_len, size);
++    size = data_block->payload_len;
+     memcpy(buf, data_block->payload, size);
+ out_free:
+     rist_receiver_data_block_free2(&data_block);
 diff --git a/libavformat/matroskaenc.c b/libavformat/matroskaenc.c
-index 2c85672389..cb78ee92fe 100644
+index 97d66558f81d..ea8ee0aed7fe 100644
 --- a/libavformat/matroskaenc.c
 +++ b/libavformat/matroskaenc.c
 @@ -87,6 +87,10 @@
@@ -18197,7 +18615,7 @@ index 2c85672389..cb78ee92fe 100644
      case AV_CODEC_ID_HEVC:
          return ff_isom_write_hvcc(dyn_cp, extradata,
                                    extradata_size, 0, s);
-@@ -3027,8 +3035,8 @@ static int mkv_check_new_extra_data(AVFormatContext *s, const AVPacket *pkt)
+@@ -3099,8 +3107,8 @@ static int mkv_check_new_extra_data(AVFormatContext *s, const AVPacket *pkt)
          }
          break;
  #endif
@@ -18208,7 +18626,7 @@ index 2c85672389..cb78ee92fe 100644
      case AV_CODEC_ID_AV1:
          if (side_data_size && mkv->track.bc && !par->extradata_size) {
              // If the reserved space doesn't suffice, only write
-@@ -3040,6 +3048,16 @@ static int mkv_check_new_extra_data(AVFormatContext *s, const AVPacket *pkt)
+@@ -3112,6 +3120,16 @@ static int mkv_check_new_extra_data(AVFormatContext *s, const AVPacket *pkt)
          } else if (!par->extradata_size)
              return AVERROR_INVALIDDATA;
          break;
@@ -18225,7 +18643,7 @@ index 2c85672389..cb78ee92fe 100644
      default:
          if (side_data_size)
              av_log(s, AV_LOG_DEBUG, "Ignoring new extradata in a packet for stream %d.\n", pkt->stream_index);
-@@ -3502,6 +3520,13 @@ static int mkv_init(struct AVFormatContext *s)
+@@ -3572,6 +3590,13 @@ static int mkv_init(struct AVFormatContext *s)
              track->reformat = mkv_reformat_wavpack;
              break;
          case AV_CODEC_ID_H264:
@@ -18239,11 +18657,23 @@ index 2c85672389..cb78ee92fe 100644
          case AV_CODEC_ID_HEVC:
          case AV_CODEC_ID_VVC:
              if (((par->codec_id == AV_CODEC_ID_H264 && par->extradata_size > 0) ||
+diff --git a/libavformat/mlvdec.c b/libavformat/mlvdec.c
+index 93e29f231cfd..2c1fe001c7d9 100644
+--- a/libavformat/mlvdec.c
++++ b/libavformat/mlvdec.c
+@@ -528,7 +528,6 @@ static int get_packet_lj92(AVFormatContext *avctx, AVStream *st, AVIOContext *pb
+     ret = avio_read(pbio, pkt->data + header_size, size);
+     if (ret < 0)
+         return ret;
+-    av_shrink_packet(pkt, header_size + ret);
+ 
+     return 0;
+ }
 diff --git a/libavformat/movenc.c b/libavformat/movenc.c
-index fe6b259561..4a04318cca 100644
+index aacde4ebe732..d7fdad83272e 100644
 --- a/libavformat/movenc.c
 +++ b/libavformat/movenc.c
-@@ -7199,6 +7199,7 @@ static int mov_write_single_packet(AVFormatContext *s, AVPacket *pkt)
+@@ -7412,6 +7412,7 @@ static int mov_write_single_packet(AVFormatContext *s, AVPacket *pkt)
      if (trk->par->codec_id == AV_CODEC_ID_MP4ALS ||
              trk->par->codec_id == AV_CODEC_ID_AAC ||
              trk->par->codec_id == AV_CODEC_ID_AV1 ||
@@ -18251,8 +18681,121 @@ index fe6b259561..4a04318cca 100644
              trk->par->codec_id == AV_CODEC_ID_FLAC) {
          size_t side_size;
          uint8_t *side = av_packet_get_side_data(pkt, AV_PKT_DATA_NEW_EXTRADATA, &side_size);
+diff --git a/libavformat/mpegenc.c b/libavformat/mpegenc.c
+index cea91d80da79..c41aa1095ce5 100644
+--- a/libavformat/mpegenc.c
++++ b/libavformat/mpegenc.c
+@@ -128,14 +128,14 @@ static int put_pack_header(AVFormatContext *ctx, uint8_t *buf,
+     return put_bytes_output(&pb);
+ }
+ 
+-static int put_system_header(AVFormatContext *ctx, uint8_t *buf, int buf_size,
++static int put_system_header(AVFormatContext *ctx, uint8_t *buf,
+                              int only_for_stream_id)
+ {
+     MpegMuxContext *s = ctx->priv_data;
+     int size, i, private_stream_coded, id;
+     PutBitContext pb;
+ 
+-    init_put_bits(&pb, buf, buf_size);
++    init_put_bits(&pb, buf, 128);
+ 
+     put_bits32(&pb, SYSTEM_HEADER_START_CODE);
+     put_bits(&pb, 16, 0);
+@@ -473,16 +473,6 @@ static av_cold int mpeg_mux_init(AVFormatContext *ctx)
+         if (!stream->fifo)
+             return AVERROR(ENOMEM);
+     }
+-
+-    /* The system header is emitted, right after the pack header (which is at
+-     * most 14 bytes), into the fixed 128-byte buffer used by flush_packet().
+-     * Reject configurations whose system header would not fit. */
+-    if (get_system_header_size(ctx) > 128 - 14) {
+-        av_log(ctx, AV_LOG_ERROR,
+-               "Too many streams to fit the MPEG program stream system header\n");
+-        return AVERROR(EINVAL);
+-    }
+-
+     bitrate       = 0;
+     audio_bitrate = 0;
+     video_bitrate = 0;
+@@ -667,7 +657,6 @@ static int flush_packet(AVFormatContext *ctx, int stream_index,
+     int size, payload_size, startcode, id, stuffing_size, header_len;
+     int packet_size;
+     uint8_t buffer[128];
+-    uint8_t *buf_end = buffer + sizeof(buffer);
+     int zero_trail_bytes = 0;
+     int pad_packet_bytes = 0;
+     int pes_flags;
+@@ -693,7 +682,7 @@ static int flush_packet(AVFormatContext *ctx, int stream_index,
+              * audio packet (see VCD standard p. IV-7 and IV-8). */
+ 
+             if (stream->packet_number == 0) {
+-                size     = put_system_header(ctx, buf_ptr, buf_end - buf_ptr, id);
++                size     = put_system_header(ctx, buf_ptr, id);
+                 buf_ptr += size;
+             }
+         } else if (s->is_dvd) {
+@@ -708,7 +697,7 @@ static int flush_packet(AVFormatContext *ctx, int stream_index,
+                 }
+ 
+                 if (stream->bytes_to_iframe == 0 || s->packet_number == 0) {
+-                    size     = put_system_header(ctx, buf_ptr, buf_end - buf_ptr, 0);
++                    size     = put_system_header(ctx, buf_ptr, 0);
+                     buf_ptr += size;
+                     size     = buf_ptr - buffer;
+                     avio_write(ctx->pb, buffer, size);
+@@ -741,7 +730,7 @@ static int flush_packet(AVFormatContext *ctx, int stream_index,
+             }
+         } else {
+             if ((s->packet_number % s->system_header_freq) == 0) {
+-                size     = put_system_header(ctx, buf_ptr, buf_end - buf_ptr, 0);
++                size     = put_system_header(ctx, buf_ptr, 0);
+                 buf_ptr += size;
+             }
+         }
+diff --git a/libavformat/mpegts.c b/libavformat/mpegts.c
+index cde8f46c5b7d..076020509d98 100644
+--- a/libavformat/mpegts.c
++++ b/libavformat/mpegts.c
+@@ -52,9 +52,6 @@
+  * synchronization is lost */
+ #define MAX_RESYNC_SIZE 65536
+ 
+-/* payload of a TS packet which carries no adaptation field */
+-#define TS_PAYLOAD_SIZE (TS_PACKET_SIZE - 4)
+-
+ #define MAX_MP4_DESCR_COUNT 16
+ 
+ #define MOD_UNLIKELY(modulus, dividend, divisor, prev_dividend)                \
+@@ -226,7 +223,7 @@ static const AVOption options[] = {
+     {"skip_clear", "skip clearing programs", offsetof(MpegTSContext, skip_clear), AV_OPT_TYPE_BOOL,
+      {.i64 = 0}, 0, 1, 0 },
+     {"max_packet_size", "maximum size of emitted packet", offsetof(MpegTSContext, max_packet_size), AV_OPT_TYPE_INT,
+-     {.i64 = 204800}, TS_PAYLOAD_SIZE, INT_MAX/2, AV_OPT_FLAG_DECODING_PARAM },
++     {.i64 = 204800}, 1, INT_MAX/2, AV_OPT_FLAG_DECODING_PARAM },
+     { NULL },
+ };
+ 
+@@ -1463,14 +1460,8 @@ skip:
+         case MPEGTS_PAYLOAD:
+             do {
+                 int max_packet_size = ts->max_packet_size;
+-                if (pes->PES_packet_length && pes->PES_packet_length + PES_START_SIZE > pes->pes_header_size) {
+-                    const int pes_payload_size = pes->PES_packet_length + PES_START_SIZE - pes->pes_header_size;
+-
+-                    if (pes_payload_size > ts->max_packet_size)
+-                        pes->PES_packet_length = 0;
+-                    else
+-                        max_packet_size = pes_payload_size;
+-                }
++                if (pes->PES_packet_length && pes->PES_packet_length + PES_START_SIZE > pes->pes_header_size)
++                    max_packet_size = pes->PES_packet_length + PES_START_SIZE - pes->pes_header_size;
+ 
+                 if (pes->data_index > 0 &&
+                     pes->data_index + buf_size > max_packet_size) {
 diff --git a/libavformat/rtpenc.c b/libavformat/rtpenc.c
-index 1d4b00a0f4..0dda6ab0e7 100644
+index 25b1f8640dbf..c0175700c2d1 100644
 --- a/libavformat/rtpenc.c
 +++ b/libavformat/rtpenc.c
 @@ -19,6 +19,7 @@
@@ -18261,9 +18804,9 @@ index 1d4b00a0f4..0dda6ab0e7 100644
  
 +#include "avc.h"
  #include "avformat.h"
+ #include "libavutil/attributes.h"
  #include "mpegts.h"
- #include "internal.h"
-@@ -616,8 +617,25 @@ static int rtp_write_packet(AVFormatContext *s1, AVPacket *pkt)
+@@ -617,8 +618,25 @@ static int rtp_write_packet(AVFormatContext *s1, AVPacket *pkt)
          ff_rtp_send_vc2hq(s1, pkt->data, size, st->codecpar->field_order != AV_FIELD_PROGRESSIVE ? 1 : 0);
          break;
      case AV_CODEC_ID_H264:
@@ -18289,11 +18832,172 @@ index 1d4b00a0f4..0dda6ab0e7 100644
      case AV_CODEC_ID_H261:
          ff_rtp_send_h261(s1, pkt->data, size);
          break;
+diff --git a/libavformat/rtpenc_av1.c b/libavformat/rtpenc_av1.c
+index f7c6aad47abe..fbf921221643 100644
+--- a/libavformat/rtpenc_av1.c
++++ b/libavformat/rtpenc_av1.c
+@@ -116,15 +116,8 @@ void ff_rtp_send_av1(AVFormatContext *ctx, const uint8_t *frame_buf, int frame_s
+             if (!num_lebs) {
+                 break;
+             }
+-            buf_ptr += num_lebs;
+-            rem_size -= num_lebs;
+-            // bound OBU payload against remaining data to avoid pointer/size
+-            // wraparound (mirrors the check in the packetization loop below)
+-            if (obu_size > (uint32_t) rem_size) {
+-                break;
+-            }
+-            buf_ptr += obu_size;
+-            rem_size -= obu_size;
++            buf_ptr += num_lebs + obu_size;
++            rem_size -= num_lebs + obu_size;
+         }
+ #else // RTPENC_AV1_SEARCH_SEQ_HEADER
+         av_log(ctx, AV_LOG_DEBUG, "Marking FIRST packet\n");
+@@ -167,7 +160,7 @@ void ff_rtp_send_av1(AVFormatContext *ctx, const uint8_t *frame_buf, int frame_s
+             obu_hdr &= ~AV1F_OBU_HAS_SIZE_FIELD; // remove size field
+             // read out explicit OBU size
+             num_lebs = parse_leb(ctx, obu_ptr, frame_size, &obu_size);
+-            if (num_lebs <= 0) {
++            if (!num_lebs) {
+                 return;
+             }
+             obu_ptr += num_lebs;
+@@ -177,7 +170,7 @@ void ff_rtp_send_av1(AVFormatContext *ctx, const uint8_t *frame_buf, int frame_s
+             return;
+         }
+ 
+-        if (obu_size > (unsigned) frame_size) {
++        if ((long) obu_size > frame_size) {
+             av_log(ctx, AV_LOG_ERROR, "AV1 OBU size %d larger than remaining frame size %d\n", obu_size, frame_size);
+             return;
+         }
+diff --git a/libavformat/rtpenc_vc2hq.c b/libavformat/rtpenc_vc2hq.c
+index 3b7147dfe2dd..cf548191d2ee 100644
+--- a/libavformat/rtpenc_vc2hq.c
++++ b/libavformat/rtpenc_vc2hq.c
+@@ -33,23 +33,16 @@
+ #define DIRAC_PIC_NR_SIZE                    4
+ #define DIRAC_RTP_PCODE_HQ_PIC_FRAGMENT      0xEC
+ 
+-static int send_packet(AVFormatContext *ctx, uint8_t parse_code, int info_hdr_size, const uint8_t *buf, int size, int i, int f, int rtp_m)
++static void send_packet(AVFormatContext *ctx, uint8_t parse_code, int info_hdr_size, const uint8_t *buf, int size, int i, int f, int rtp_m)
+ {
+     RTPMuxContext *rtp_ctx = ctx->priv_data;
+ 
+-    if (size < 0 ||
+-        size > rtp_ctx->max_payload_size - RTP_VC2HQ_PL_HEADER_SIZE - info_hdr_size) {
+-        av_log(ctx, AV_LOG_ERROR, "VC-2 data unit too large for RTP payload buffer\n");
+-        return AVERROR_INVALIDDATA;
+-    }
+-
+     AV_WB16(&rtp_ctx->buf[0], 0); /* extended sequence number */
+     AV_WB8 (&rtp_ctx->buf[2], i ? (f ? (0x03) : (0x02)) : 0x00); /* flags: interlaced, second field */
+     AV_WB8 (&rtp_ctx->buf[3], parse_code);
+     if (size > 0)
+         memcpy(&rtp_ctx->buf[4 + info_hdr_size], buf, size);
+     ff_rtp_send_data(ctx, rtp_ctx->buf, RTP_VC2HQ_PL_HEADER_SIZE + info_hdr_size + size, rtp_m);
+-    return 0;
+ }
+ 
+ static int send_picture(AVFormatContext *ctx, const uint8_t *buf, int size, int interlaced)
+@@ -92,8 +85,7 @@ static int send_picture(AVFormatContext *ctx, const uint8_t *buf, int size, int
+     AV_WB16(&info_hdr[ 6], size_scaler);
+     AV_WB16(&info_hdr[ 8], frag_len);
+     AV_WB16(&info_hdr[10], 0 /* nr. of slices */);
+-    if (send_packet(ctx, DIRAC_RTP_PCODE_HQ_PIC_FRAGMENT, 12, buf, frag_len, interlaced, second_field, 0) < 0)
+-        return AVERROR_INVALIDDATA;
++    send_packet(ctx, DIRAC_RTP_PCODE_HQ_PIC_FRAGMENT, 12, buf, frag_len, interlaced, second_field, 0);
+     buf += frag_len;
+     size -= frag_len;
+ 
+@@ -105,8 +97,7 @@ static int send_picture(AVFormatContext *ctx, const uint8_t *buf, int size, int
+         AV_WB16(&info_hdr[14], 0 /* slice y */);
+ 
+         size -= frag_len;
+-        if (send_packet(ctx, DIRAC_RTP_PCODE_HQ_PIC_FRAGMENT, 16, buf, frag_len, interlaced, second_field, size > 0 ? 0 : 1) < 0)
+-            return AVERROR_INVALIDDATA;
++        send_packet(ctx, DIRAC_RTP_PCODE_HQ_PIC_FRAGMENT, 16, buf, frag_len, interlaced, second_field, size > 0 ? 0 : 1);
+         buf += frag_len;
+     }
+     return 0;
+diff --git a/libavformat/scd.c b/libavformat/scd.c
+index 6c0c41486df2..091d20824ca2 100644
+--- a/libavformat/scd.c
++++ b/libavformat/scd.c
+@@ -182,8 +182,7 @@ static int scd_read_track(AVFormatContext *s, SCDTrackHeader *track, int index)
+     track->aux_count    = AV_RB32(buf + 28);
+ 
+     /* Sanity checks */
+-    if (!track->num_channels || track->num_channels > 8 ||
+-        track->sample_rate >= 192000 ||
++    if (track->num_channels > 8 || track->sample_rate >= 192000 ||
+         track->loop_start > track->loop_end)
+         return AVERROR_INVALIDDATA;
+ 
+diff --git a/libavformat/shared.c b/libavformat/shared.c
+index 9d8474588e3f..7c8b17350c21 100644
+--- a/libavformat/shared.c
++++ b/libavformat/shared.c
+@@ -466,7 +466,7 @@ static int spacemap_grow(URLContext *h, int64_t block)
+     if (s->map_size > old_size) {
+         num_blocks = (s->map_size - sizeof(Spacemap)) / sizeof(Block);
+         av_log(h, AV_LOG_DEBUG,
+-               "%s %zu bytes, capacity: %"PRId64" blocks = %"PRId64" MB\n",
++               "%s %zu bytes, capacity: %"PRId64" blocks = %zu MB\n",
+                ret ? "Resized spacemap to" : "Mapped spacemap with",
+                (size_t) s->map_size, num_blocks,
+                (num_blocks * (int64_t) s->block_size) >> 20);
+diff --git a/libavformat/version.h b/libavformat/version.h
+index b32ddb36171e..a7c80dc5647d 100644
+--- a/libavformat/version.h
++++ b/libavformat/version.h
+@@ -32,7 +32,7 @@
+ #include "version_major.h"
+ 
+ #define LIBAVFORMAT_VERSION_MINOR   1
+-#define LIBAVFORMAT_VERSION_MICRO 101
++#define LIBAVFORMAT_VERSION_MICRO 100
+ 
+ #define LIBAVFORMAT_VERSION_INT AV_VERSION_INT(LIBAVFORMAT_VERSION_MAJOR, \
+                                                LIBAVFORMAT_VERSION_MINOR, \
+diff --git a/libavformat/webp_anim_dec.c b/libavformat/webp_anim_dec.c
+index 14abb61db450..badc36f93616 100644
+--- a/libavformat/webp_anim_dec.c
++++ b/libavformat/webp_anim_dec.c
+@@ -170,11 +170,9 @@ static int webp_anim_read_header(AVFormatContext *s)
+                                                                AV_PKT_DATA_ICC_PROFILE, size, 0);
+                 if (!sd)
+                     return AVERROR(ENOMEM);
+-                ret = ffio_read_size(pb, sd->data, size);
+-                if (ret < 0) {
+-                    av_packet_side_data_remove(st->codecpar->coded_side_data, &st->codecpar->nb_coded_side_data, AV_PKT_DATA_ICC_PROFILE);
++                ret = avio_read(pb, sd->data, size);
++                if (ret < 0)
+                     return ret;
+-                }
+                 ctx->has_iccp = 1;
+             }
+             break;
+@@ -301,11 +299,9 @@ static int webp_anim_read_packet(AVFormatContext *s, AVPacket *pkt)
+                                                                AV_PKT_DATA_EXIF, size, 0);
+                 if (!sd)
+                     return AVERROR(ENOMEM);
+-                ret = ffio_read_size(pb, sd->data, size);
+-                if (ret < 0) {
+-                    av_packet_side_data_remove(st->codecpar->coded_side_data, &st->codecpar->nb_coded_side_data, AV_PKT_DATA_EXIF);
++                ret = avio_read(pb, sd->data, size);
++                if (ret < 0)
+                     return ret;
+-                }
+                 ctx->has_exif = 1;
+             }
+             break;
 diff --git a/libavutil/Makefile b/libavutil/Makefile
-index c5241895ff..7f1c5f1354 100644
+index 394812260e4a..64ec93bbbbc9 100644
 --- a/libavutil/Makefile
 +++ b/libavutil/Makefile
-@@ -81,6 +81,7 @@ HEADERS = adler32.h                                                     \
+@@ -82,6 +82,7 @@ HEADERS = adler32.h                                                     \
            refstruct.h                                                   \
            replaygain.h                                                  \
            ripemd.h                                                      \
@@ -18301,7 +19005,7 @@ index c5241895ff..7f1c5f1354 100644
            samplefmt.h                                                   \
            sha.h                                                         \
            sha512.h                                                      \
-@@ -214,6 +215,7 @@ OBJS-$(CONFIG_MEDIACODEC)               += hwcontext_mediacodec.o
+@@ -216,6 +217,7 @@ OBJS-$(CONFIG_MEDIACODEC)               += hwcontext_mediacodec.o
  OBJS-$(CONFIG_OHCODEC)                  += hwcontext_oh.o
  OBJS-$(CONFIG_OPENCL)                   += hwcontext_opencl.o
  OBJS-$(CONFIG_QSV)                      += hwcontext_qsv.o
@@ -18309,7 +19013,7 @@ index c5241895ff..7f1c5f1354 100644
  OBJS-$(CONFIG_VAAPI)                    += hwcontext_vaapi.o
  OBJS-$(CONFIG_VIDEOTOOLBOX)             += hwcontext_videotoolbox.o
  OBJS-$(CONFIG_VDPAU)                    += hwcontext_vdpau.o
-@@ -245,6 +247,7 @@ SKIPHEADERS-$(CONFIG_AMF)              += hwcontext_amf.h               \
+@@ -247,6 +249,7 @@ SKIPHEADERS-$(CONFIG_AMF)              += hwcontext_amf.h               \
                                            hwcontext_amf_internal.h
  SKIPHEADERS-$(CONFIG_QSV)              += hwcontext_qsv.h
  SKIPHEADERS-$(CONFIG_OPENCL)           += hwcontext_opencl.h
@@ -18318,14 +19022,16 @@ index c5241895ff..7f1c5f1354 100644
  SKIPHEADERS-$(CONFIG_VIDEOTOOLBOX)     += hwcontext_videotoolbox.h
  SKIPHEADERS-$(CONFIG_VDPAU)            += hwcontext_vdpau.h
 diff --git a/libavutil/aarch64/Makefile b/libavutil/aarch64/Makefile
-index b70702902f..5396abcd9b 100644
+index 8a7e7ca05778..62f6f268318e 100644
 --- a/libavutil/aarch64/Makefile
 +++ b/libavutil/aarch64/Makefile
-@@ -6,7 +6,9 @@ ARMV8-OBJS += aarch64/crc.o
+@@ -6,9 +6,11 @@ ARMV8-OBJS += aarch64/crc.o
  
  NEON-OBJS += aarch64/float_dsp_neon.o                                 \
               aarch64/tx_float_neon.o                                  \
 +             aarch64/rpi_sand_neon.o                                  \
+ 
+ NEON-OBJS-$(CONFIG_PIXELUTILS) += aarch64/pixelutils_neon.o
  
  SVE-OBJS += aarch64/cpu_sve.o                                         \
  
@@ -18333,7 +19039,7 @@ index b70702902f..5396abcd9b 100644
 +
 diff --git a/libavutil/aarch64/rpi_sand_neon.S b/libavutil/aarch64/rpi_sand_neon.S
 new file mode 100644
-index 0000000000..3a6bc3de74
+index 000000000000..3a6bc3de74e5
 --- /dev/null
 +++ b/libavutil/aarch64/rpi_sand_neon.S
 @@ -0,0 +1,672 @@
@@ -19011,7 +19717,7 @@ index 0000000000..3a6bc3de74
 +
 diff --git a/libavutil/aarch64/rpi_sand_neon.h b/libavutil/aarch64/rpi_sand_neon.h
 new file mode 100644
-index 0000000000..e0e94f6aa1
+index 000000000000..e0e94f6aa1a2
 --- /dev/null
 +++ b/libavutil/aarch64/rpi_sand_neon.h
 @@ -0,0 +1,61 @@
@@ -19077,17 +19783,17 @@ index 0000000000..e0e94f6aa1
 +
 +#endif /* AVCODEC_SAND_NEON_H */
 diff --git a/libavutil/arm/Makefile b/libavutil/arm/Makefile
-index 5da44b0542..b74b7c4e2f 100644
+index 2988df08cacf..1d6ac889e5b3 100644
 --- a/libavutil/arm/Makefile
 +++ b/libavutil/arm/Makefile
-@@ -6,3 +6,4 @@ VFP-OBJS += arm/float_dsp_init_vfp.o                                    \
+@@ -8,3 +8,4 @@ VFP-OBJS += arm/float_dsp_init_vfp.o                                    \
  
  NEON-OBJS += arm/float_dsp_init_neon.o                                  \
               arm/float_dsp_neon.o                                       \
 +             arm/rpi_sand_neon.o                                        \
 diff --git a/libavutil/arm/rpi_sand_neon.S b/libavutil/arm/rpi_sand_neon.S
 new file mode 100644
-index 0000000000..60e697f681
+index 000000000000..60e697f6819b
 --- /dev/null
 +++ b/libavutil/arm/rpi_sand_neon.S
 @@ -0,0 +1,925 @@
@@ -20018,7 +20724,7 @@ index 0000000000..60e697f681
 +
 diff --git a/libavutil/arm/rpi_sand_neon.h b/libavutil/arm/rpi_sand_neon.h
 new file mode 100644
-index 0000000000..d8126676ee
+index 000000000000..d8126676ee0c
 --- /dev/null
 +++ b/libavutil/arm/rpi_sand_neon.h
 @@ -0,0 +1,110 @@
@@ -20133,7 +20839,7 @@ index 0000000000..d8126676ee
 +#endif // AVUTIL_ARM_SAND_NEON_H
 +
 diff --git a/libavutil/frame.c b/libavutil/frame.c
-index be30eb09d2..1756d67918 100644
+index be30eb09d2a8..1756d679181a 100644
 --- a/libavutil/frame.c
 +++ b/libavutil/frame.c
 @@ -16,6 +16,8 @@
@@ -20169,10 +20875,10 @@ index be30eb09d2..1756d67918 100644
      if (!desc)
          return AVERROR_BUG;
 diff --git a/libavutil/frame.h b/libavutil/frame.h
-index 771c9ce453..7965015b8f 100644
+index 52adbc628894..d33cb292e15c 100644
 --- a/libavutil/frame.h
 +++ b/libavutil/frame.h
-@@ -1025,6 +1025,16 @@ int av_frame_apply_cropping(AVFrame *frame, int flags);
+@@ -1064,6 +1064,16 @@ int av_frame_apply_cropping(AVFrame *frame, int flags);
   */
  const char *av_frame_side_data_name(enum AVFrameSideDataType type);
  
@@ -20190,7 +20896,7 @@ index 771c9ce453..7965015b8f 100644
   * @return side data descriptor corresponding to a given side data type, NULL
   *         when not available.
 diff --git a/libavutil/hwcontext_drm.c b/libavutil/hwcontext_drm.c
-index 565c02dead..1cbec5577e 100644
+index 565c02dead81..1cbec5577e34 100644
 --- a/libavutil/hwcontext_drm.c
 +++ b/libavutil/hwcontext_drm.c
 @@ -21,6 +21,7 @@
@@ -20518,7 +21224,7 @@ index 565c02dead..1cbec5577e 100644
      .device_create          = &drm_device_create,
  
 diff --git a/libavutil/hwcontext_drm.h b/libavutil/hwcontext_drm.h
-index 42709f215e..daa0190bcb 100644
+index 42709f215ef9..daa0190bcb71 100644
 --- a/libavutil/hwcontext_drm.h
 +++ b/libavutil/hwcontext_drm.h
 @@ -22,6 +22,8 @@
@@ -20546,7 +21252,7 @@ index 42709f215e..daa0190bcb 100644
 +
  #endif /* AVUTIL_HWCONTEXT_DRM_H */
 diff --git a/libavutil/hwcontext_vulkan.c b/libavutil/hwcontext_vulkan.c
-index 65e2256e2d..85dc312389 100644
+index 90d3d14dbb6c..56d97e8562ba 100644
 --- a/libavutil/hwcontext_vulkan.c
 +++ b/libavutil/hwcontext_vulkan.c
 @@ -72,6 +72,14 @@
@@ -20565,7 +21271,7 @@ index 65e2256e2d..85dc312389 100644
      VkPhysicalDeviceFeatures2 device;
  
 diff --git a/libavutil/pixdesc.c b/libavutil/pixdesc.c
-index 90f9596def..3b4256c885 100644
+index ba25a2561730..e9d473069fcc 100644
 --- a/libavutil/pixdesc.c
 +++ b/libavutil/pixdesc.c
 @@ -3267,6 +3267,50 @@ static const AVPixFmtDescriptor av_pix_fmt_descriptors[AV_PIX_FMT_NB] = {
@@ -20620,7 +21326,7 @@ index 90f9596def..3b4256c885 100644
  
  static const char * const color_range_names[] = {
 diff --git a/libavutil/pixfmt.h b/libavutil/pixfmt.h
-index 2e7b6457e0..eaa2b1dcb1 100644
+index 2e7b6457e02b..eaa2b1dcb1bf 100644
 --- a/libavutil/pixfmt.h
 +++ b/libavutil/pixfmt.h
 @@ -498,6 +498,14 @@ enum AVPixelFormat {
@@ -20640,7 +21346,7 @@ index 2e7b6457e0..eaa2b1dcb1 100644
  };
 diff --git a/libavutil/rpi_sand_fn_pw.c b/libavutil/rpi_sand_fn_pw.c
 new file mode 100644
-index 0000000000..0d5d203dc3
+index 000000000000..0d5d203dc3cd
 --- /dev/null
 +++ b/libavutil/rpi_sand_fn_pw.c
 @@ -0,0 +1,227 @@
@@ -20873,7 +21579,7 @@ index 0000000000..0d5d203dc3
 +
 diff --git a/libavutil/rpi_sand_fns.c b/libavutil/rpi_sand_fns.c
 new file mode 100644
-index 0000000000..5d3ea4db1e
+index 000000000000..5d3ea4db1e33
 --- /dev/null
 +++ b/libavutil/rpi_sand_fns.c
 @@ -0,0 +1,449 @@
@@ -21328,7 +22034,7 @@ index 0000000000..5d3ea4db1e
 +}
 diff --git a/libavutil/rpi_sand_fns.h b/libavutil/rpi_sand_fns.h
 new file mode 100644
-index 0000000000..c4031fcb69
+index 000000000000..c4031fcb690d
 --- /dev/null
 +++ b/libavutil/rpi_sand_fns.h
 @@ -0,0 +1,157 @@
@@ -21489,8 +22195,34 @@ index 0000000000..c4031fcb69
 +
 +#endif
 +
+diff --git a/libavutil/version.h b/libavutil/version.h
+index 610e0508595f..c815a722e0f5 100644
+--- a/libavutil/version.h
++++ b/libavutil/version.h
+@@ -80,7 +80,7 @@
+ 
+ #define LIBAVUTIL_VERSION_MAJOR  61
+ #define LIBAVUTIL_VERSION_MINOR   1
+-#define LIBAVUTIL_VERSION_MICRO 101
++#define LIBAVUTIL_VERSION_MICRO 100
+ 
+ #define LIBAVUTIL_VERSION_INT   AV_VERSION_INT(LIBAVUTIL_VERSION_MAJOR, \
+                                                LIBAVUTIL_VERSION_MINOR, \
+diff --git a/libswresample/version.h b/libswresample/version.h
+index 04b864460c6e..9c223e1426f9 100644
+--- a/libswresample/version.h
++++ b/libswresample/version.h
+@@ -31,7 +31,7 @@
+ #include "version_major.h"
+ 
+ #define LIBSWRESAMPLE_VERSION_MINOR   1
+-#define LIBSWRESAMPLE_VERSION_MICRO 101
++#define LIBSWRESAMPLE_VERSION_MICRO 100
+ 
+ #define LIBSWRESAMPLE_VERSION_INT  AV_VERSION_INT(LIBSWRESAMPLE_VERSION_MAJOR, \
+                                                   LIBSWRESAMPLE_VERSION_MINOR, \
 diff --git a/libswscale/aarch64/rgb2rgb.c b/libswscale/aarch64/rgb2rgb.c
-index b9d8aa4dc2..9c48c22e39 100644
+index b9d8aa4dc2d4..9c48c22e39b9 100644
 --- a/libswscale/aarch64/rgb2rgb.c
 +++ b/libswscale/aarch64/rgb2rgb.c
 @@ -70,6 +70,12 @@ void ff_shuffle_bytes_3102_neon(const uint8_t *src, uint8_t *dst, int src_size);
@@ -21515,7 +22247,7 @@ index b9d8aa4dc2..9c48c22e39 100644
      }
  }
 diff --git a/libswscale/aarch64/rgb2rgb_neon.S b/libswscale/aarch64/rgb2rgb_neon.S
-index ba2f904879..e223df1243 100644
+index ba2f90487914..e223df12439d 100644
 --- a/libswscale/aarch64/rgb2rgb_neon.S
 +++ b/libswscale/aarch64/rgb2rgb_neon.S
 @@ -950,3 +950,359 @@ interleaved_yuv_to_planar uyvy, yuv422
@@ -21878,8 +22610,52 @@ index ba2f904879..e223df1243 100644
 +90:
 +        ret
 +endfunc
+diff --git a/libswscale/hscale_fast_bilinear.c b/libswscale/hscale_fast_bilinear.c
+index 331a3c95e08b..abcfb95e2ccd 100644
+--- a/libswscale/hscale_fast_bilinear.c
++++ b/libswscale/hscale_fast_bilinear.c
+@@ -31,7 +31,7 @@ void ff_hyscale_fast_c(SwsInternal *c, int16_t *dst, int dstWidth,
+         dst[i] = (src[xx] << 7) + (src[xx + 1] - src[xx]) * xalpha;
+         xpos  += xInc;
+     }
+-    for (i=dstWidth-1; (i*(int64_t)xInc)>>16 >=srcW-1; i--)
++    for (i=dstWidth-1; (i*xInc)>>16 >=srcW-1; i--)
+         dst[i] = src[srcW-1]*128;
+ }
+ 
+@@ -48,7 +48,7 @@ void ff_hcscale_fast_c(SwsInternal *c, int16_t *dst1, int16_t *dst2,
+         dst2[i] = (src2[xx] * (xalpha ^ 127) + src2[xx + 1] * xalpha);
+         xpos   += xInc;
+     }
+-    for (i=dstWidth-1; (i*(int64_t)xInc)>>16 >=srcW-1; i--) {
++    for (i=dstWidth-1; (i*xInc)>>16 >=srcW-1; i--) {
+         dst1[i] = src1[srcW-1]*128;
+         dst2[i] = src2[srcW-1]*128;
+     }
+diff --git a/libswscale/ppc/swscale_vsx.c b/libswscale/ppc/swscale_vsx.c
+index 8bbe6cde65bf..21fb43092dd9 100644
+--- a/libswscale/ppc/swscale_vsx.c
++++ b/libswscale/ppc/swscale_vsx.c
+@@ -1754,7 +1754,7 @@ static void hyscale_fast_vsx(SwsInternal *c, int16_t *dst, int dstWidth,
+ 
+         xpos += xInc * 16;
+     }
+-    for (i=dstWidth-1; (i*(int64_t)xInc)>>16 >=srcW-1; i--)
++    for (i=dstWidth-1; (i*xInc)>>16 >=srcW-1; i--)
+         dst[i] = src[srcW-1]*128;
+ }
+ 
+@@ -1850,7 +1850,7 @@ static void hcscale_fast_vsx(SwsInternal *c, int16_t *dst1, int16_t *dst2,
+ 
+         xpos += xInc * 16;
+     }
+-    for (i=dstWidth-1; (i*(int64_t)xInc)>>16 >=srcW-1; i--) {
++    for (i=dstWidth-1; (i*xInc)>>16 >=srcW-1; i--) {
+         dst1[i] = src1[srcW-1]*128;
+         dst2[i] = src2[srcW-1]*128;
+     }
 diff --git a/libswscale/rgb2rgb.c b/libswscale/rgb2rgb.c
-index 4bba657bd1..b7edcb9ae0 100644
+index 4bba657bd142..b7edcb9ae059 100644
 --- a/libswscale/rgb2rgb.c
 +++ b/libswscale/rgb2rgb.c
 @@ -83,6 +83,31 @@ void (*ff_rgb24toyv12)(const uint8_t *src, uint8_t *ydst,
@@ -21915,7 +22691,7 @@ index 4bba657bd1..b7edcb9ae0 100644
                   int srcStride, int dstStride);
  void (*interleaveBytes)(const uint8_t *src1, const uint8_t *src2, uint8_t *dst,
 diff --git a/libswscale/rgb2rgb.h b/libswscale/rgb2rgb.h
-index ed6e08a565..27442db484 100644
+index ed6e08a565cb..27442db484df 100644
 --- a/libswscale/rgb2rgb.h
 +++ b/libswscale/rgb2rgb.h
 @@ -92,6 +92,9 @@ void   x2rgb10tobgr64_bswap(const uint8_t *src, uint8_t *dst, int src_size);
@@ -21956,7 +22732,7 @@ index ed6e08a565..27442db484 100644
                          int srcStride, int dstStride);
  
 diff --git a/libswscale/rgb2rgb_template.c b/libswscale/rgb2rgb_template.c
-index 1f0aef1fb9..eb555226ec 100644
+index 1f0aef1fb9cb..eb555226ecb1 100644
 --- a/libswscale/rgb2rgb_template.c
 +++ b/libswscale/rgb2rgb_template.c
 @@ -573,13 +573,20 @@ static inline void planar2x_c(const uint8_t *src, uint8_t *dst, int srcWidth,
@@ -22232,10 +23008,10 @@ index 1f0aef1fb9..eb555226ec 100644
      deinterleaveBytes  = deinterleaveBytes_c;
  
 diff --git a/libswscale/swscale_unscaled.c b/libswscale/swscale_unscaled.c
-index cd5e76cfc7..8faf44696d 100644
+index 18fc8fe7d7a5..14e57c77786e 100644
 --- a/libswscale/swscale_unscaled.c
 +++ b/libswscale/swscale_unscaled.c
-@@ -2067,9 +2067,94 @@ static int bgr24ToYv12Wrapper(SwsInternal *c, const uint8_t *const src[],
+@@ -2076,9 +2076,94 @@ static int bgr24ToYv12Wrapper(SwsInternal *c, const uint8_t *const src[],
      return srcSliceH;
  }
  
@@ -22331,7 +23107,7 @@ index cd5e76cfc7..8faf44696d 100644
  {
      ff_copyPlane(src[0], srcStride[0], srcSliceY, srcSliceH, c->opts.src_w,
                   dst[0], dstStride[0]);
-@@ -2384,7 +2469,6 @@ void ff_get_unscaled_swscale(SwsInternal *c)
+@@ -2395,7 +2480,6 @@ void ff_get_unscaled_swscale(SwsInternal *c)
      const enum AVPixelFormat dstFormat = c->opts.dst_format;
      const int flags = c->opts.flags;
      const int dstH = c->opts.dst_h;
@@ -22339,7 +23115,7 @@ index cd5e76cfc7..8faf44696d 100644
      int needsDither;
  
      needsDither = isAnyRGB(dstFormat) &&
-@@ -2442,8 +2526,34 @@ void ff_get_unscaled_swscale(SwsInternal *c)
+@@ -2453,8 +2537,34 @@ void ff_get_unscaled_swscale(SwsInternal *c)
      /* bgr24toYV12 */
      if (srcFormat == AV_PIX_FMT_BGR24 &&
          (dstFormat == AV_PIX_FMT_YUV420P || dstFormat == AV_PIX_FMT_YUVA420P) &&
@@ -22375,9 +23151,44 @@ index cd5e76cfc7..8faf44696d 100644
  
      /* AYUV/VUYA/UYVA -> AYUV/VUYA/UYVA */
      if (isAYUV(srcFormat) && isAYUV(dstFormat) && findRgbConvFn(c))
+diff --git a/libswscale/version.h b/libswscale/version.h
+index 2eba64915679..4e54701aba88 100644
+--- a/libswscale/version.h
++++ b/libswscale/version.h
+@@ -29,7 +29,7 @@
+ #include "version_major.h"
+ 
+ #define LIBSWSCALE_VERSION_MINOR   1
+-#define LIBSWSCALE_VERSION_MICRO 101
++#define LIBSWSCALE_VERSION_MICRO 100
+ 
+ #define LIBSWSCALE_VERSION_INT  AV_VERSION_INT(LIBSWSCALE_VERSION_MAJOR, \
+                                                LIBSWSCALE_VERSION_MINOR, \
+diff --git a/libswscale/x86/hscale_fast_bilinear_simd.c b/libswscale/x86/hscale_fast_bilinear_simd.c
+index 3f3c799a33e8..d8a4e444b4e9 100644
+--- a/libswscale/x86/hscale_fast_bilinear_simd.c
++++ b/libswscale/x86/hscale_fast_bilinear_simd.c
+@@ -275,7 +275,7 @@ void ff_hyscale_fast_mmxext(SwsInternal *c, int16_t *dst,
+ #endif
+     );
+ 
+-    for (i=dstWidth-1; (i*(int64_t)xInc)>>16 >=srcW-1; i--)
++    for (i=dstWidth-1; (i*xInc)>>16 >=srcW-1; i--)
+         dst[i] = src[srcW-1]*128;
+ }
+ 
+@@ -352,7 +352,7 @@ void ff_hcscale_fast_mmxext(SwsInternal *c, int16_t *dst1, int16_t *dst2,
+ #endif
+     );
+ 
+-    for (i=dstWidth-1; (i*(int64_t)xInc)>>16 >=srcW-1; i--) {
++    for (i=dstWidth-1; (i*xInc)>>16 >=srcW-1; i--) {
+         dst1[i] = src1[srcW-1]*128;
+         dst2[i] = src2[srcW-1]*128;
+     }
 diff --git a/pi-util/BUILD.txt b/pi-util/BUILD.txt
 new file mode 100644
-index 0000000000..2b62d660c0
+index 000000000000..2b62d660c0d1
 --- /dev/null
 +++ b/pi-util/BUILD.txt
 @@ -0,0 +1,67 @@
@@ -22450,7 +23261,7 @@ index 0000000000..2b62d660c0
 +
 diff --git a/pi-util/NOTES.txt b/pi-util/NOTES.txt
 new file mode 100644
-index 0000000000..fcce72226a
+index 000000000000..fcce72226a32
 --- /dev/null
 +++ b/pi-util/NOTES.txt
 @@ -0,0 +1,69 @@
@@ -22525,7 +23336,7 @@ index 0000000000..fcce72226a
 +
 diff --git a/pi-util/TESTMESA.txt b/pi-util/TESTMESA.txt
 new file mode 100644
-index 0000000000..92bc13a3df
+index 000000000000..92bc13a3dfa1
 --- /dev/null
 +++ b/pi-util/TESTMESA.txt
 @@ -0,0 +1,82 @@
@@ -22613,7 +23424,7 @@ index 0000000000..92bc13a3df
 +
 diff --git a/pi-util/clean_usr_libs.sh b/pi-util/clean_usr_libs.sh
 new file mode 100755
-index 0000000000..01bd6a6a22
+index 000000000000..01bd6a6a2254
 --- /dev/null
 +++ b/pi-util/clean_usr_libs.sh
 @@ -0,0 +1,42 @@
@@ -22661,7 +23472,7 @@ index 0000000000..01bd6a6a22
 +
 diff --git a/pi-util/conf_arm64_native.sh b/pi-util/conf_arm64_native.sh
 new file mode 100644
-index 0000000000..9e3bbfa190
+index 000000000000..9e3bbfa1908a
 --- /dev/null
 +++ b/pi-util/conf_arm64_native.sh
 @@ -0,0 +1,45 @@
@@ -22712,7 +23523,7 @@ index 0000000000..9e3bbfa190
 +# -Wa,-ahls
 diff --git a/pi-util/conf_h265.2016.csv b/pi-util/conf_h265.2016.csv
 new file mode 100644
-index 0000000000..1e97afe246
+index 000000000000..1e97afe246fb
 --- /dev/null
 +++ b/pi-util/conf_h265.2016.csv
 @@ -0,0 +1,195 @@
@@ -22913,7 +23724,7 @@ index 0000000000..1e97afe246
 +1,local/intra_pred_21_laps,intra_pred_21_laps.265,intra_pred_21_laps.md5,8,0
 diff --git a/pi-util/conf_h265.2016_HEVC_v1.csv b/pi-util/conf_h265.2016_HEVC_v1.csv
 new file mode 100644
-index 0000000000..6082641271
+index 000000000000..60826412715c
 --- /dev/null
 +++ b/pi-util/conf_h265.2016_HEVC_v1.csv
 @@ -0,0 +1,147 @@
@@ -23066,7 +23877,7 @@ index 0000000000..6082641271
 +1,WPP_F_ericsson_MAIN_2,WPP_F_ericsson_MAIN_2.bit,WPP_F_ericsson_MAIN_2_yuv.md5
 diff --git a/pi-util/conf_h265.csv b/pi-util/conf_h265.csv
 new file mode 100644
-index 0000000000..fc14f2a3c2
+index 000000000000..fc14f2a3c2bb
 --- /dev/null
 +++ b/pi-util/conf_h265.csv
 @@ -0,0 +1,144 @@
@@ -23216,7 +24027,7 @@ index 0000000000..fc14f2a3c2
 +1,WPP_F_ericsson_MAIN_2,WPP_F_ericsson_MAIN_2.bit,WPP_F_ericsson_MAIN_2_yuv.md5
 diff --git a/pi-util/conf_native.sh b/pi-util/conf_native.sh
 new file mode 100755
-index 0000000000..0dbaa53e97
+index 000000000000..0dbaa53e97e0
 --- /dev/null
 +++ b/pi-util/conf_native.sh
 @@ -0,0 +1,135 @@
@@ -23357,7 +24168,7 @@ index 0000000000..0dbaa53e97
 +# -Wa,-ahls
 diff --git a/pi-util/ffconf.py b/pi-util/ffconf.py
 new file mode 100755
-index 0000000000..202f2a9b6b
+index 000000000000..f6081dfe52e8
 --- /dev/null
 +++ b/pi-util/ffconf.py
 @@ -0,0 +1,359 @@
@@ -23539,7 +24350,7 @@ index 0000000000..202f2a9b6b
 +        exp_test = int(a[0])
 +        if (exp_test and runtest(a[1], tests)):
 +            name = a[1]
-+            print ("==== ", name, end="")
++            print (f'==== {name}: ', end="", flush=True)
 +            sys.stdout.flush()
 +
 +            (rv, frametype, v4l2fmt) = testone(os.path.join(test_root, name), name, a[2], a[3], a[4], dectype=dectype, vcodec=vcodec, args=args)
@@ -23577,31 +24388,31 @@ index 0000000000..202f2a9b6b
 +                unx_nomatch.append(name)
 +
 +            if comments:
-+                print(f" ({",".join(comments)})", end="")
++                print(f"({",".join(comments)}) ", end="")
 +
 +            if (rv == 0):
 +                if exp_test == 2:
-+                    print(": * OK *")
++                    print("* OK *")
 +                    unx_success.append(name)
 +                else:
-+                    print(": ok")
++                    print("ok")
 +            elif exp_test == 2 and rv == 1:
-+                print(": fail")
++                print("fail")
 +            elif exp_test == 3 and rv == 2:
 +                # Call an expected "crash" an abort
-+                print(": abort")
++                print("abort")
 +            else:
 +                unx_failures.append(name)
 +                if rv == 1:
-+                    print(": * FAIL *")
++                    print("* FAIL *")
 +                elif (rv == 2) :
-+                    print(": * CRASH *")
++                    print("* CRASH *")
 +                elif (rv == 3) :
-+                    print(": * MD5 MISSING *")
++                    print("* MD5 MISSING *")
 +                elif (rv == 4) :
-+                    print(": * VALGRIND *")
++                    print("* VALGRIND *")
 +                else :
-+                    print(": * BANG *")
++                    print("* BANG *")
 +
 +    print()
 +    print(f"Tested using decode: {dectype.textname}, Frame type: {args.hwfmt}")
@@ -23722,7 +24533,7 @@ index 0000000000..202f2a9b6b
 +
 diff --git a/pi-util/ffperf.py b/pi-util/ffperf.py
 new file mode 100755
-index 0000000000..767efe2de2
+index 000000000000..767efe2de2fa
 --- /dev/null
 +++ b/pi-util/ffperf.py
 @@ -0,0 +1,140 @@
@@ -23868,7 +24679,7 @@ index 0000000000..767efe2de2
 +
 diff --git a/pi-util/genpatch.sh b/pi-util/genpatch.sh
 new file mode 100755
-index 0000000000..0948a68a7a
+index 000000000000..0948a68a7ad7
 --- /dev/null
 +++ b/pi-util/genpatch.sh
 @@ -0,0 +1,35 @@
@@ -23909,7 +24720,7 @@ index 0000000000..0948a68a7a
 +git diff n$VERSION -- > $PATCHFILE
 diff --git a/pi-util/make_array.py b/pi-util/make_array.py
 new file mode 100755
-index 0000000000..67b22d2d51
+index 000000000000..67b22d2d517f
 --- /dev/null
 +++ b/pi-util/make_array.py
 @@ -0,0 +1,23 @@
@@ -23938,7 +24749,7 @@ index 0000000000..67b22d2d51
 +
 diff --git a/pi-util/mkinst.sh b/pi-util/mkinst.sh
 new file mode 100755
-index 0000000000..271a39e846
+index 000000000000..271a39e8460a
 --- /dev/null
 +++ b/pi-util/mkinst.sh
 @@ -0,0 +1,5 @@
@@ -23949,7 +24760,7 @@ index 0000000000..271a39e846
 +cp -r install/* ../vlc/sysroot/raspian_stretch_pi1-sysroot/usr
 diff --git a/pi-util/patkodi.sh b/pi-util/patkodi.sh
 new file mode 100644
-index 0000000000..dcd05a606e
+index 000000000000..dcd05a606e85
 --- /dev/null
 +++ b/pi-util/patkodi.sh
 @@ -0,0 +1,9 @@
@@ -23964,7 +24775,7 @@ index 0000000000..dcd05a606e
 +
 diff --git a/pi-util/perfcmp.py b/pi-util/perfcmp.py
 new file mode 100755
-index 0000000000..e44cfa0c3c
+index 000000000000..e44cfa0c3c4d
 --- /dev/null
 +++ b/pi-util/perfcmp.py
 @@ -0,0 +1,101 @@
@@ -24071,7 +24882,7 @@ index 0000000000..e44cfa0c3c
 +
 diff --git a/pi-util/qem.sh b/pi-util/qem.sh
 new file mode 100755
-index 0000000000..a4dbb6eacd
+index 000000000000..a4dbb6eacd18
 --- /dev/null
 +++ b/pi-util/qem.sh
 @@ -0,0 +1,9 @@
@@ -24086,10 +24897,10 @@ index 0000000000..a4dbb6eacd
 +
 diff --git a/pi-util/testfilt.py b/pi-util/testfilt.py
 new file mode 100755
-index 0000000000..b322dac0c2
+index 000000000000..efa3fd560ca4
 --- /dev/null
 +++ b/pi-util/testfilt.py
-@@ -0,0 +1,83 @@
+@@ -0,0 +1,123 @@
 +#!/usr/bin/env python3
 +
 +import string
@@ -24102,14 +24913,24 @@ index 0000000000..b322dac0c2
 +from stat import *
 +
 +class validator:
-+    def __init__(self):
-+        self.ok = False
++    def __init__(self, ok=False):
++        self.ok = ok
++        self.fail_msg = "Failed"
 +
 +    def isok(self):
 +        return self.ok
 +
 +    def setok(self):
 +        self.ok = True
++
++    def setfail(self):
++        self.ok = False
++
++    def setmsg(self, msg):
++        self.fail_msg = msg[:]
++
++    def failmsg(self):
++        return self.fail_msg
 +
 +class valid_regex(validator):
 +    def __init__(self, regex):
@@ -24120,6 +24941,17 @@ index 0000000000..b322dac0c2
 +        if self.isok() or self.regex.search(line):
 +            self.setok()
 +
++class invalid_regex(validator):
++    def __init__(self, regex, fail_msg):
++        super().__init__(True)
++        self.setmsg(fail_msg)
++        self.regex = re.compile(regex)
++
++    def scanline(self, line):
++        if not self.isok():
++            return
++        if self.regex.search(line):
++            self.setfail()
 +
 +def validate(validators, flog):
 +    for line in flog:
@@ -24131,13 +24963,17 @@ index 0000000000..b322dac0c2
 +        if not v.isok():
 +            ok = False
 +            # complain
-+            print("Test failed")
++            print(v.failmsg())
++            break
 +
 +    if ok:
 +        print("OK")
 +    return ok
 +
 +def runtest(name, ffmpeg, args, suffix, validators):
++
++    print(f'==== {name}: ', end="", flush=True)
++
 +    log_root = os.path.join("/tmp", "testfilt", name)
 +    ofilename = os.path.join(log_root, name + suffix)
 +
@@ -24158,24 +24994,39 @@ index 0000000000..b322dac0c2
 +    flog = open(os.path.join(log_root, name + ".log"), "rt")
 +    return validate(validators, flog)
 +
-+def sayok(log_root, flog):
-+    print("Woohoo")
-+    return True
-+
-+if __name__ == '__main__':
-+
++def main():
 +    argp = argparse.ArgumentParser(description="FFmpeg filter tester")
 +    argp.add_argument("--ffmpeg", default="./ffmpeg", help="ffmpeg exec name")
++    argp.add_argument("--test_root", default="../streams", help="Root dir for test")
 +    args = argp.parse_args()
 +
++    if not os.path.isdir(args.test_root):
++        print("Test root dir '%s' not found" % args.test_root)
++        return 2
++
++    if os.path.isdir(args.ffmpeg):
++        args.ffmpeg = os.path.join(args.ffmpeg, "ffmpeg")
++    if not os.path.isfile(args.ffmpeg):
++        print("FFmpeg file '%s' not found" % args.ffmpeg)
++        return 2
++
++    src_file = os.path.join(args.test_root, "jellyfish-3-mbps-hd-h264.mkv")
++    if not os.path.isfile(src_file):
++        print("Test source file '%s' not found" % src_file)
++        return 2
++
 +    runtest("ATest", args.ffmpeg, ["-v", "verbose", "-no_cvt_hw", "-an", "-c:v", "h264_v4l2m2m", "-i",
-+                                   "/home/johncox/server/TestMedia/Sony/jellyfish-10-mbps-hd-h264.mkv",
-+#                                    "/home/jc/rpi/streams/jellyfish-3-mbps-hd-h264.mkv",
-+                                   "-c:v", "h264_v4l2m2m", "-b:v", "2M"], ".mkv",
-+            [valid_regex(r'Output stream #0:0 \(video\): 900 frames encoded; 900 packets muxed')])
++                                   src_file, "-c:v", "h264_v4l2m2m", "-b:v", "2M"], ".mkv",
++            [invalid_regex(r'Could not find a valid device', "Device not found (not Pi4?)"),
++             valid_regex(r'Output stream #0:0 \(video\): 900 frames encoded; 900 packets muxed')])
++    return 0
++
++if __name__ == '__main__':
++    exit(main())
++
 diff --git a/pi-util/v3dusage.py b/pi-util/v3dusage.py
 new file mode 100755
-index 0000000000..5935a11ca5
+index 000000000000..5935a11ca553
 --- /dev/null
 +++ b/pi-util/v3dusage.py
 @@ -0,0 +1,128 @@
@@ -24308,27 +25159,24 @@ index 0000000000..5935a11ca5
 +    do_logparse(args.logfile)
 +
 diff --git a/tests/checkasm/Makefile b/tests/checkasm/Makefile
-index a9b58f5d1d..d10cef13af 100644
+index c154d19ed4be..05fae865dc6f 100644
 --- a/tests/checkasm/Makefile
 +++ b/tests/checkasm/Makefile
-@@ -97,8 +97,9 @@ AVUTILOBJS                              += crc.o
- AVUTILOBJS                              += fixed_dsp.o
+@@ -105,6 +105,7 @@ AVUTILOBJS                              += fixed_dsp.o
  AVUTILOBJS                              += float_dsp.o
  AVUTILOBJS                              += lls.o
+ AVUTILOBJS-$(CONFIG_PIXELUTILS)         += pixelutils.o
 +AVUTILOBJS-$(CONFIG_SAND)               += rpi_sand.o
  
--CHECKASMOBJS-$(CONFIG_AVUTIL)  += $(AVUTILOBJS)
-+CHECKASMOBJS-$(CONFIG_AVUTIL)  += $(AVUTILOBJS) $(AVUTILOBJS-yes)
+ CHECKASMOBJS-$(CONFIG_AVUTIL)  += $(AVUTILOBJS) $(AVUTILOBJS-yes)
  
- CHECKASMOBJS-$(ARCH_AARCH64)            += aarch64/checkasm.o
- CHECKASMOBJS-$(HAVE_ARMV5TE_EXTERNAL)   += arm/checkasm.o
 diff --git a/tests/checkasm/checkasm.c b/tests/checkasm/checkasm.c
-index a4ac8f1483..8477614c26 100644
+index 4f54db8e1d46..3dd61966a45e 100644
 --- a/tests/checkasm/checkasm.c
 +++ b/tests/checkasm/checkasm.c
-@@ -356,6 +356,9 @@ static const struct {
-         { "float_dsp", checkasm_check_float_dsp },
-         { "lls",       checkasm_check_lls },
+@@ -312,6 +312,9 @@ static const CheckasmTest tests[] = {
+         { "pixelutils",checkasm_check_pixelutils },
+ #endif
          { "av_tx",     checkasm_check_av_tx },
 +    #if CONFIG_SAND
 +        { "rpi_sand",  checkasm_check_rpi_sand },
@@ -24337,20 +25185,20 @@ index a4ac8f1483..8477614c26 100644
      { NULL }
      /* NOTE: When adding a new test to this list here, it also needs to be
 diff --git a/tests/checkasm/checkasm.h b/tests/checkasm/checkasm.h
-index 568b40530c..225bf4d3b3 100644
+index 612ad0f9b960..d2dbc6e7d0e8 100644
 --- a/tests/checkasm/checkasm.h
 +++ b/tests/checkasm/checkasm.h
-@@ -133,6 +133,7 @@ void checkasm_check_opusdsp(void);
- void checkasm_check_pixblockdsp(void);
+@@ -94,6 +94,7 @@ void checkasm_check_pixblockdsp(void);
+ void checkasm_check_pixelutils(void);
  void checkasm_check_png(void);
  void checkasm_check_qpeldsp(void);
 +void checkasm_check_rpi_sand(void);
+ void checkasm_check_sbcdsp(void);
  void checkasm_check_sbrdsp(void);
  void checkasm_check_rv34dsp(void);
- void checkasm_check_rv40dsp(void);
 diff --git a/tests/checkasm/rpi_sand.c b/tests/checkasm/rpi_sand.c
 new file mode 100644
-index 0000000000..dd9c1350bc
+index 000000000000..dd9c1350bc2a
 --- /dev/null
 +++ b/tests/checkasm/rpi_sand.c
 @@ -0,0 +1,122 @@
@@ -24477,11 +25325,11 @@ index 0000000000..dd9c1350bc
 +}
 +
 diff --git a/tests/fate/checkasm.mak b/tests/fate/checkasm.mak
-index b05dc61f67..203b10413e 100644
+index 249fb91d4f96..7cbf59b71729 100644
 --- a/tests/fate/checkasm.mak
 +++ b/tests/fate/checkasm.mak
-@@ -48,6 +48,7 @@ FATE_CHECKASM = fate-checkasm-aacencdsp                                 \
-                 fate-checkasm-pixblockdsp                               \
+@@ -52,6 +52,7 @@ FATE_CHECKASM = fate-checkasm-aacencdsp                                 \
+                 fate-checkasm-pixelutils                                \
                  fate-checkasm-png                                       \
                  fate-checkasm-qpeldsp                                   \
 +                fate-checkasm-rpi_sand                                  \
@@ -24489,10 +25337,20 @@ index b05dc61f67..203b10413e 100644
                  fate-checkasm-rv34dsp                                   \
                  fate-checkasm-rv40dsp                                   \
 diff --git a/tests/fate/filter-video.mak b/tests/fate/filter-video.mak
-index 2ec4c5f49f..ae266d7fd2 100644
+index 1b04816f2f80..dca0e5136120 100644
 --- a/tests/fate/filter-video.mak
 +++ b/tests/fate/filter-video.mak
-@@ -473,9 +473,9 @@ fate-filter-drawvg-interpreter: $(DRAWVG_SCRIPT_ALL)
+@@ -181,9 +181,6 @@ FATE_FILTER-$(call FILTERFRAMECRC, TESTSRC FORMAT CONCAT SCALE, LAVFI_INDEV FILE
+ fate-filter-lavd-scalenorm: tests/data/filtergraphs/scalenorm
+ fate-filter-lavd-scalenorm: CMD = framecrc -f lavfi -graph_file $(TARGET_PATH)/tests/data/filtergraphs/scalenorm -i dummy
+ 
+-FATE_FILTER-$(call FILTERFRAMECRC, COLOR FORMAT SCALE CROP) += fate-filter-scale-fast-bilinear-wide-edge
+-fate-filter-scale-fast-bilinear-wide-edge: CMD = framecrc -flags bitexact -lavfi color=c=red:s=40000x1:r=1:d=1,format=yuv444p,scale=40032:1:flags=fast_bilinear,crop=1:1:40031:0 -frames:v 1
+-
+ FATE_FILTER-$(call FILTERFRAMECRC, TESTSRC2 FEEDBACK HFLIP, LAVFI_INDEV) += fate-filter-feedback-hflip
+ fate-filter-feedback-hflip: CMD = framecrc -f lavfi -i testsrc2=d=1 -vf "[in][hflipin]feedback=x=0:y=0:w=100:h=100[out][hflipout];[hflipout]hflip[hflipin]"
+ 
+@@ -488,9 +485,9 @@ fate-filter-drawvg-interpreter: $(DRAWVG_SCRIPT_ALL)
  fate-filter-drawvg-interpreter: libavfilter/tests/drawvg$(EXESUF)
  fate-filter-drawvg-interpreter: CMD = run libavfilter/tests/drawvg$(EXESUF) $(DRAWVG_SCRIPT_ALL)
  
@@ -24505,8 +25363,114 @@ index 2ec4c5f49f..ae266d7fd2 100644
  
  FATE_FILTER_SAMPLES-$(call FILTERFRAMECRC, TESTSRC2 FSYNC) += fate-filter-fsync-up fate-filter-fsync-down
  fate-filter-fsync-up: tests/data/maps/fsync-up
+diff --git a/tests/ref/fate/filter-bwdif-mode0 b/tests/ref/fate/filter-bwdif-mode0
+index 23dcaee9009d..91b47dbe70d3 100644
+--- a/tests/ref/fate/filter-bwdif-mode0
++++ b/tests/ref/fate/filter-bwdif-mode0
+@@ -3,7 +3,7 @@
+ #codec_id 0: rawvideo
+ #dimensions 0: 720x576
+ #sar 0: 16/15
+-0,          9,          9,        1,   622080, 0xd435648a
++0,          9,          9,        1,   622080, 0x3f25bfc2
+ 0,         10,         10,        1,   622080, 0x62085455
+ 0,         11,         11,        1,   622080, 0x60f943a0
+ 0,         12,         12,        1,   622080, 0x5396f14a
+diff --git a/tests/ref/fate/filter-bwdif-mode1 b/tests/ref/fate/filter-bwdif-mode1
+index e8db88c932bf..1e604646e7cd 100644
+--- a/tests/ref/fate/filter-bwdif-mode1
++++ b/tests/ref/fate/filter-bwdif-mode1
+@@ -3,7 +3,7 @@
+ #codec_id 0: rawvideo
+ #dimensions 0: 720x576
+ #sar 0: 16/15
+-0,         18,         18,        1,   622080, 0xd435648a
++0,         18,         18,        1,   622080, 0x3f25bfc2
+ 0,         19,         19,        1,   622080, 0xef4617cc
+ 0,         20,         20,        1,   622080, 0x62085455
+ 0,         21,         21,        1,   622080, 0x5b5ae735
+diff --git a/tests/ref/fate/filter-bwdif10 b/tests/ref/fate/filter-bwdif10
+index 76fcb8882edd..d97acea9919f 100644
+--- a/tests/ref/fate/filter-bwdif10
++++ b/tests/ref/fate/filter-bwdif10
+@@ -3,33 +3,33 @@
+ #codec_id 0: rawvideo
+ #dimensions 0: 720x576
+ #sar 0: 16/15
+-0,          9,          9,        1,  1244160, 0x71ca561b
+-0,         10,         10,        1,  1244160, 0x6c25ebe8
+-0,         11,         11,        1,  1244160, 0xae8e297d
+-0,         12,         12,        1,  1244160, 0x20284ad0
+-0,         13,         13,        1,  1244160, 0x95c57238
+-0,         14,         14,        1,  1244160, 0x5ae32569
+-0,         15,         15,        1,  1244160, 0x92401342
+-0,         16,         16,        1,  1244160, 0x95ed0c85
+-0,         17,         17,        1,  1244160, 0xb79398df
+-0,         18,         18,        1,  1244160, 0x66a0dda3
+-0,         19,         19,        1,  1244160, 0x906596c3
+-0,         20,         20,        1,  1244160, 0x26f1da33
+-0,         21,         21,        1,  1244160, 0xe317ad64
+-0,         22,         22,        1,  1244160, 0x2f5fe488
+-0,         23,         23,        1,  1244160, 0x7bd64c7b
+-0,         24,         24,        1,  1244160, 0x7470479e
+-0,         25,         25,        1,  1244160, 0x61653bee
+-0,         26,         26,        1,  1244160, 0xb249a6cc
+-0,         27,         27,        1,  1244160, 0x2cce6f74
+-0,         28,         28,        1,  1244160, 0x711d7631
+-0,         29,         29,        1,  1244160, 0xa304c119
+-0,         30,         30,        1,  1244160, 0x3fb66044
+-0,         31,         31,        1,  1244160, 0x97c11ba5
+-0,         32,         32,        1,  1244160, 0xd8f37fed
+-0,         33,         33,        1,  1244160, 0x33d541e7
+-0,         34,         34,        1,  1244160, 0x2e2e2535
+-0,         35,         35,        1,  1244160, 0xe26132bd
+-0,         36,         36,        1,  1244160, 0x13b9b37b
+-0,         37,         37,        1,  1244160, 0x05825e47
+-0,         38,         38,        1,  1244160, 0x44f6f505
++0,          9,          9,        1,  1244160, 0x4f0e6e1c
++0,         10,         10,        1,  1244160, 0x57152296
++0,         11,         11,        1,  1244160, 0x0074598b
++0,         12,         12,        1,  1244160, 0x44537bb8
++0,         13,         13,        1,  1244160, 0x6f27ab9c
++0,         14,         14,        1,  1244160, 0x1f195e10
++0,         15,         15,        1,  1244160, 0xc5644298
++0,         16,         16,        1,  1244160, 0x24c1230e
++0,         17,         17,        1,  1244160, 0x2651b213
++0,         18,         18,        1,  1244160, 0x88efe863
++0,         19,         19,        1,  1244160, 0x8bf0ada1
++0,         20,         20,        1,  1244160, 0x8b6c013a
++0,         21,         21,        1,  1244160, 0x69ebc579
++0,         22,         22,        1,  1244160, 0xa45d0f0c
++0,         23,         23,        1,  1244160, 0x272162e4
++0,         24,         24,        1,  1244160, 0x8c456817
++0,         25,         25,        1,  1244160, 0x872c58ee
++0,         26,         26,        1,  1244160, 0x9318cb95
++0,         27,         27,        1,  1244160, 0xcaec95f1
++0,         28,         28,        1,  1244160, 0x8b01a105
++0,         29,         29,        1,  1244160, 0x956de85e
++0,         30,         30,        1,  1244160, 0xa2998ab9
++0,         31,         31,        1,  1244160, 0xa56b5621
++0,         32,         32,        1,  1244160, 0x7bd6b161
++0,         33,         33,        1,  1244160, 0xbcb75d7a
++0,         34,         34,        1,  1244160, 0xe5e94727
++0,         35,         35,        1,  1244160, 0xf3145c67
++0,         36,         36,        1,  1244160, 0xcf63df5a
++0,         37,         37,        1,  1244160, 0x77d08ec8
++0,         38,         38,        1,  1244160, 0xc99d2eb2
+diff --git a/tests/ref/fate/filter-scale-fast-bilinear-wide-edge b/tests/ref/fate/filter-scale-fast-bilinear-wide-edge
+deleted file mode 100644
+index 8b38823e979c..000000000000
+--- a/tests/ref/fate/filter-scale-fast-bilinear-wide-edge
++++ /dev/null
+@@ -1,6 +0,0 @@
+-#tb 0: 1/1
+-#media_type 0: video
+-#codec_id 0: rawvideo
+-#dimensions 0: 1x1
+-#sar 0: 0/1
+-0,          0,          0,        1,        3, 0x0297019b
 diff --git a/tests/ref/fate/imgutils b/tests/ref/fate/imgutils
-index ccd1522ef2..024d90b7d1 100644
+index ccd1522ef2a5..024d90b7d187 100644
 --- a/tests/ref/fate/imgutils
 +++ b/tests/ref/fate/imgutils
 @@ -306,6 +306,9 @@ gbrp10msbbe     planes: 3, linesizes: 128 128 128   0, plane_sizes:  6144  6144
@@ -24527,7 +25491,7 @@ index ccd1522ef2..024d90b7d1 100644
 +sand64_10       total_size:   9216,  black_unknown_crc: 0xee47624d,  black_tv_crc: 0xee47624d,  black_pc_crc: 0x7c6afe45
 +sand64_16       total_size:   9216,  black_unknown_crc: 0xfff85b60,  black_tv_crc: 0xfff85b60,  black_pc_crc: 0xc03cff93
 diff --git a/tests/ref/fate/source b/tests/ref/fate/source
-index 78d3a2e0fa..a0ab585585 100644
+index d5eb31d887e6..61de8f16ce95 100644
 --- a/tests/ref/fate/source
 +++ b/tests/ref/fate/source
 @@ -1,5 +1,8 @@
@@ -24539,18 +25503,18 @@ index 78d3a2e0fa..a0ab585585 100644
  libavcodec/interplayacm.c
  libavcodec/log2_tab.c
  libavcodec/reverse.c
-@@ -26,6 +29,9 @@ compat/float/float.h
+@@ -28,6 +31,9 @@ compat/float/float.h
  compat/float/limits.h
  compat/stdbit/stdbit.h
  libavcodec/bitstream_template.h
 +libavcodec/hevc-ctrls-v1.h
 +libavcodec/hevc-ctrls-v2.h
 +libavcodec/hevc-ctrls-v3.h
+ libswscale/x86/uops_macros.asm.h
  tools/decode_simple.h
  Use of av_clip() where av_clip_uintp2() could be used:
- Use of av_clip() where av_clip_intp2() could be used:
 diff --git a/tests/ref/fate/sws-pixdesc-query b/tests/ref/fate/sws-pixdesc-query
-index a062088d54..cc86427bbb 100644
+index a062088d54cd..cc86427bbb2a 100644
 --- a/tests/ref/fate/sws-pixdesc-query
 +++ b/tests/ref/fate/sws-pixdesc-query
 @@ -31,6 +31,7 @@ is16BPS:
