@@ -171,7 +171,7 @@ include(ExternalProject)
 externalproject_add(ffmpeg
                     SOURCE_DIR ${CMAKE_SOURCE_DIR}
                     ${sourceplugin_patch}
-                    PATCH_COMMAND /bin/sh -c "patch -p1 -i <SOURCE_DIR>/0001-rpi-Add-hevc-acceleration.patch"
+                    COMMAND patch -p1 -i <SOURCE_DIR>/0001-rpi-Add-hevc-acceleration.patch
                     CONFIGURE_COMMAND ${env_vars} <SOURCE_DIR>/configure
                       --prefix=${CMAKE_INSTALL_PREFIX}
                       --extra-version="kodi-${FFMPEG_VER}"
