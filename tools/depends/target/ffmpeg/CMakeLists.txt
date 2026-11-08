@@ -174,7 +174,7 @@ string(APPEND sourceplugin_patch " && patch -p1 -i <SOURCE_DIR>/008-ffmpeg-all-p
 include(ExternalProject)
 externalproject_add(ffmpeg
                     SOURCE_DIR ${CMAKE_SOURCE_DIR}
-                    PATCH_COMMAND /bin/sh -c "${sourceplugin_patch} && patch -p1 -i <SOURCE_DIR>/0001-rpi-Add-hevc-acceleration.patch"
+                    PATCH_COMMAND /bin/sh -c "test -f .kodi-patched || { ${sourceplugin_patch} && patch -p1 -i <SOURCE_DIR>/0001-rpi-Add-hevc-acceleration.patch && touch .kodi-patched; }"
                     CONFIGURE_COMMAND ${env_vars} <SOURCE_DIR>/configure
                       --prefix=${CMAKE_INSTALL_PREFIX}
                       --extra-version="kodi-${FFMPEG_VER}"
